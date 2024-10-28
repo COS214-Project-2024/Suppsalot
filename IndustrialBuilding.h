@@ -21,4 +21,32 @@ class Factories:public IndustrialBuilding{
         ~Factories();
 };
 
+// Same concept will be applied over here.
+class WareHouses:public IndustrialBuilding{
+    private: 
+        double woodPerc;
+        double concretePerc;
+    public:
+        WareHouses();
+        ~WareHouses();
+};
+
+// in resources (or stats) have number of plants and dams as a static int which increase 
+// everytime one of these is createed 
+class Plants: public IndustrialBuilding{
+    private: 
+        double elecCap;
+    public:
+        Plants();
+        ~Plants();
+};
+
+class Dams:public IndustrialBuilding{
+    private:
+        double waterCap;
+    public:
+        Dams();
+        ~Dams();
+};
+
 #endif

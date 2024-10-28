@@ -1,6 +1,7 @@
 #ifndef BUILDINGFACTORY_H
 #define BUILDINGFACTORY_H
 
+#include "IndustrialBuilding.h";
 class BuildingFactory{
     BuildingFactory();
     ~BuildingFactory();
