@@ -9,7 +9,7 @@ class CommercialBuilding{
         // BuildingStatics* stats;
     public:
         CommercialBuilding();
-        ~CommercialBuilding();
+        virtual ~CommercialBuilding();
 };
 
 class Shop:public CommercialBuilding{

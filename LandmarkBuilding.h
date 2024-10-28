@@ -9,7 +9,7 @@ class LandmarkBuilding{
         // BuildingStatistics* satisfaction; // will use this object to call a function that is stored in building stats.
     public:
         LandmarkBuilding();
-        ~LandmarkBuilding();
+        virtual ~LandmarkBuilding();
 };
 
 class Park:public LandmarkBuilding{

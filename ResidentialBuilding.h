@@ -8,7 +8,7 @@ class ResidentialBuilding{
         // ResourceManager* rm;
     public:
         ResidentialBuilding();
-        ~ResidentialBuilding();
+        virtual ~ResidentialBuilding();
 };
 
 class House:public ResidentialBuilding{

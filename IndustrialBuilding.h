@@ -8,7 +8,7 @@ class IndustrialBuilding{
         // ResourceManager* rm;
     public:
         IndustrialBuilding();
-        ~IndustrialBuilding();
+        virtual ~IndustrialBuilding();
 };
 
 // for every factory built, it will increase the metalperc capacity in resources by 0.15%  
@@ -36,17 +36,22 @@ class WareHouses:public IndustrialBuilding{
 class Plants: public IndustrialBuilding{
     private: 
         double elecCap;
+        static int numPlants; // Static counter for Plants
     public:
         Plants();
         ~Plants();
+        static int getNumPlants(); // Getter for numPlants
+
 };
 
 class Dams:public IndustrialBuilding{
     private:
         double waterCap;
+        static int numDams;
     public:
         Dams();
         ~Dams();
+        static int getNumDams();
 };
 
 #endif

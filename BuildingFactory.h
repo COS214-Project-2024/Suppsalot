@@ -9,48 +9,53 @@
 
 
 class BuildingFactory{
-    BuildingFactory();
-    ~BuildingFactory();
-    ResidentialBuilding* BuildResidential();
-    CommercialBuilding* BuildCommercial();
-    IndustrialBuilding* BuildIndustrial();
-    LandmarkBuilding* BuildLandmark();
+    public:
+        BuildingFactory();
+        virtual ~BuildingFactory();
+        virtual ResidentialBuilding* BuildResidential() = 0;
+        virtual CommercialBuilding* BuildCommercial() = 0;
+        virtual IndustrialBuilding* BuildIndustrial() = 0;
+        virtual LandmarkBuilding* BuildLandmark() = 0;
 };
 
 class LandmarkFactory:public BuildingFactory{
-    LandmarkFactory();
-    ~LandmarkFactory();
-    ResidentialBuilding* BuildResidential();
-    CommercialBuilding* BuildCommercial();
-    IndustrialBuilding* BuildIndustrial();
-    LandmarkBuilding* BuildLandmark();
+    public:
+        LandmarkFactory();
+        ~LandmarkFactory();
+        ResidentialBuilding* BuildResidential();
+        CommercialBuilding* BuildCommercial();
+        IndustrialBuilding* BuildIndustrial();
+        LandmarkBuilding* BuildLandmark();
 };
 
 class ResidentialFactory:public BuildingFactory{
-    ResidentialFactory();
-    ~ResidentialFactory();
-    ResidentialBuilding* BuildResidential();
-    CommercialBuilding* BuildCommercial();
-    IndustrialBuilding* BuildIndustrial();
-    LandmarkBuilding* BuildLandmark();
+    public:
+        ResidentialFactory();
+        ~ResidentialFactory();
+        ResidentialBuilding* BuildResidential();
+        CommercialBuilding* BuildCommercial();
+        IndustrialBuilding* BuildIndustrial();
+        LandmarkBuilding* BuildLandmark();
 };
 
 class CommercialFactory:public BuildingFactory{
-    CommercialFactory();
-    ~CommercialFactory();
-    ResidentialBuilding* BuildResidential();
-    CommercialBuilding* BuildCommercial();
-    IndustrialBuilding* BuildIndustrial();
-    LandmarkBuilding* BuildLandmark();
+    public:
+        CommercialFactory();
+        ~CommercialFactory();
+        ResidentialBuilding* BuildResidential();
+        CommercialBuilding* BuildCommercial();
+        IndustrialBuilding* BuildIndustrial();
+        LandmarkBuilding* BuildLandmark();
 };
 
 class IndustrialFactory:public BuildingFactory{
-    IndustrialFactory();
-    ~IndustrialFactory();
-    ResidentialBuilding* BuildResidential();
-    CommercialBuilding* BuildCommercial();
-    IndustrialBuilding* BuildIndustrial();
-    LandmarkBuilding* BuildLandmark();
+    public:
+        IndustrialFactory();
+        ~IndustrialFactory();
+        ResidentialBuilding* BuildResidential();
+        CommercialBuilding* BuildCommercial();
+        IndustrialBuilding* BuildIndustrial();
+        LandmarkBuilding* BuildLandmark();
 };
 
 #endif
