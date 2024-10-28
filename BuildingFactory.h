@@ -2,6 +2,12 @@
 #define BUILDINGFACTORY_H
 
 #include "IndustrialBuilding.h";
+#include "ResidentialBuilding.h";
+#include "CommercialBuilding.h";
+#include "LandmarkBuilding.h";
+
+
+
 class BuildingFactory{
     BuildingFactory();
     ~BuildingFactory();
@@ -39,8 +45,8 @@ class CommercialFactory:public BuildingFactory{
 };
 
 class IndustrialFactory:public BuildingFactory{
-    CommercialFactory();
-    ~CommercialFactory();
+    IndustrialFactory();
+    ~IndustrialFactory();
     ResidentialBuilding* BuildResidential();
     CommercialBuilding* BuildCommercial();
     IndustrialBuilding* BuildIndustrial();

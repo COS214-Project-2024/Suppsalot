@@ -1,0 +1,34 @@
+#ifndef RESIDENTIALBUILDING_H
+#define RESIDENTIALBUILDING_H
+class ResidentialBuilding{
+    protected:
+        double steel;
+        double wood;
+        double concrete;
+        // ResourceManager* rm;
+    public:
+        ResidentialBuilding();
+        ~ResidentialBuilding();
+};
+
+class House:public ResidentialBuilding{
+    House();
+    ~House();
+};
+
+class Flat:public ResidentialBuilding{
+    Flat();
+    ~Flat();
+};
+
+class TownHouse:public ResidentialBuilding{
+    TownHouse();
+    ~TownHouse();
+};
+
+class Estate:public ResidentialBuilding{
+    Estate();
+    ~Estate();
+};
+
+#endif

@@ -1,5 +1,5 @@
-#ifndef INDUSTRIALBUILDING
-#define INDUSTRIALBUILDING
+#ifndef INDUSTRIALBUILDING_H
+#define INDUSTRIALBUILDING_H
 class IndustrialBuilding{
     protected:
         double steel;
