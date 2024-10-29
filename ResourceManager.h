@@ -71,7 +71,9 @@ class ConcreteManager:public ResourceManager{
 class WaterManager:public ResourceManager{
     private:
         double waterCap;
-        double initialWaterCap; // again is this necessary
+        double initialWaterCap;
+        CommandInvoker* invoker; // check if this actuallyt works
+        bool reserve = true; // means we still have reserve
     public:
         WaterManager();
         ~WaterManager();   
@@ -87,7 +89,9 @@ class WaterManager:public ResourceManager{
 class PowerManager:public ResourceManager{
     private:
         double powerCap;
-        double initialPowerCap; // again is this necessary
+        double initialPowerCap; 
+        CommandInvoker* invoker; // check if this actuallyt works
+        bool reserve = true; // means we still have reserve
     public:
         PowerManager();
         ~PowerManager();   

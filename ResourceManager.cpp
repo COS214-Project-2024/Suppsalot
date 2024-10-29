@@ -143,9 +143,17 @@ WaterManager
 **************************************/
 WaterManager::WaterManager() : initialWaterCap(20000), waterCap(initialWaterCap) {
     std::cout << "Setting initial Water Capacity to: " << initialWaterCap << std::endl;
+    invoker = new CommandInvoker();
+
+    // adding the command that could be used
+    invoker->addCommand("emergencyRefill", new EmergencyRefillCommand(this));
+    invoker->addCommand("enterDrought", new EnterDroughtCommand(this));
+
 }
 
-WaterManager::~WaterManager() = default;
+WaterManager::~WaterManager(){
+    delete invoker;
+};
 
 double WaterManager::getResource() const {
     return waterCap;
@@ -164,6 +172,15 @@ void WaterManager::useResource(double amount) {
     if (waterCap < 5000) {
         std::cout << "WARNING! Running low on Water! A draught may be approuching!\n";
     }
+
+    //trigger command over here
+    if (waterCap == 0) {
+        if (reserve) {
+            invoker->update("emergencyRefill");
+        } else {
+            invoker->update("enterDrought");
+        }
+    }
 }
 
 void WaterManager::incCapacityPerc(double perc) {
@@ -171,14 +188,41 @@ void WaterManager::incCapacityPerc(double perc) {
     std::cout << "Water capacity has increased by " << perc << "% to " << waterCap << std::endl;
 }
 
+void WaterManager::EmergencyRefill(){
+    std::cout << "************************************************\n";
+    std::cout << "                  CRITICAL NOTICE\n";
+    std::cout << "************************************************\n";    
+    std::cout << "Water reservoirs have been depleted.\n";
+    std::cout << "Opening up damn walls with accumulated rain water over the year.\n";
+    std::cout<< "This is a final warning!!! Without water your city cannot be maintained.\n";
+    waterCap+=15000;
+    std::cout << "Water capacity after refill: " << waterCap << std::endl;
+}
+
+void WaterManager::enterDraught(){
+    std::cout << "************************************************\n";
+    std::cout << "                  CRITICAL NOTICE\n";
+    std::cout << "************************************************\n";
+    std::cout << "      A WORLDWIDE WATER CRISIS HAS ERUPTED!\n";
+    std::cout << "       DRAUGHT IS UPON US! Satisfaction Rates are PLUMMETING!\n";
+    std::cout << "       CROPS WITHERING, BARREN FIELDS EVERYWHERE!\n";
+    std::cout << "       PEOPLE SLOWLY FADING AWAY IN DESPAIR.\n";
+    std::cout << "     ABSOLUTELY NOTHING CAN BE DONE. FAREWELL.\n";
+    std::cout << "************************************************\n";
+    exit(0); // program must end here
+}
+
 /*************************************
 PowerManager
 **************************************/
 PowerManager::PowerManager() : initialPowerCap(25000), powerCap(initialPowerCap) {
     std::cout << "Setting initial Power Capacity to: " << initialPowerCap << std::endl;
+    invoker = new CommandInvoker();
 }
 
-PowerManager::~PowerManager() = default;
+PowerManager::~PowerManager(){
+    delete invoker;
+};
 
 double PowerManager::getResource() const {
     return powerCap;
@@ -197,9 +241,16 @@ void PowerManager::useResource(double amount) {
     if (powerCap < 6000) {
         std::cout << "WARNING! Running low on Power!Switching to Nuclear power soon!\n";
     }
-    if (powerCap == 0){
-        std::cout << "Switch to Nuclear power!\n";
+
+    // trigger the command
+    if (powerCap == 0) {
+        if (reserve) {
+            invoker->update("switchToNuclear");
+        } else {
+            invoker->update("endWorld");
+        }
     }
+
 }
 
 void PowerManager::incCapacityPerc(double perc) {
@@ -208,16 +259,28 @@ void PowerManager::incCapacityPerc(double perc) {
 }
 
 void PowerManager::switchToNuclear(){
-    std::cout << "************************\nCRITICAL NOTICE\n***********************\n";
+    std::cout << "************************************************\n";
+    std::cout << "                  CRITICAL NOTICE\n";
+    std::cout << "************************************************\n";    
     std::cout << "Your city has run out of electricty!\n";
     std::cout << "Switching to nuclear power.\n";
     std::cout << "Note: Not being careful will be the downfall of your city.\n";
-    powerCap += 15000;
+    powerCap += 17000;
+    std::cout << "Nuclear power capacity: " << powerCap << std::endl;
 }
 
 void PowerManager::endWorld(){
-    std::cout << "************************\nCRITICAL NOTICE\n***********************\n";
-    std::cout << "NUCLEAR FAILURE OCCURED!\n";
-    std::cout << "3...\n2...\n1...\n\n\n\n\n\n\n\n...\nBOOOOMMMMMM!!!\n\n\n\n\n\n\n\n\n\n\n\n\n.";
-    exit(0); // the program must end once the game gets to this point.
+    std::cout << "************************************************\n";
+    std::cout << "                  CRITICAL NOTICE\n";
+    std::cout << "************************************************\n";
+    std::cout << "      NUCLEAR CATASTROPHE IMMINENT!\n";
+    std::cout << "                  3...\n";
+    std::cout << "                     2...\n";
+    std::cout << "                        1...\n";
+    std::cout << "\n\n\n\n\n\n\n\n...\n";
+    std::cout << "                BOOOOOMMMMMM!!!\n";
+    std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n";
+    std::cout << "THE END OF EVERYTHING AS WE KNOW IT.\n";
+    std::cout << "************************************************\n";
+    exit(0); // program must lend here.
 }
