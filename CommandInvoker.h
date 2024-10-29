@@ -15,10 +15,10 @@ class CommandInvoker{
     public:
         CommandInvoker();
         ~CommandInvoker();
-        void update(std::string& resourceType);
-        void setCommand(std::string& recourceType , Command* c);
-        void update();
-        void executeCommand(std::string shortageType);
-};
+        void update(const std::string& resourceType);
+        void setCommand(const std::string& recourceType , Command* c);
+        void executeCommand(const std::string& shortageType);
+        void checkShortages();
+    };
 
 #endif

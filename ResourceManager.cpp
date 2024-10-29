@@ -2,6 +2,33 @@
 /*************************************
 RecourseManager
 **************************************/
+void ResourceManager::attach(CommandInvoker* observer) {
+    observers.push_back(observer);
+}
+
+void ResourceManager::detach(CommandInvoker* observer) {
+    for (auto it = observers.begin(); it != observers.end(); ++it) {
+        if (*it == observer) {
+            observers.erase(it);
+            break; 
+        }
+    }
+}
+
+void ResourceManager::notify(const std::string& resourceType) {
+    for (auto it = observers.begin(); it != observers.end(); ++it) {
+        (*it)->update(resourceType); 
+    }
+}
+
+ResourceManager::~ResourceManager() {
+    for (auto it = observers.begin(); it != observers.end(); ++it) {
+        delete *it; 
+    }
+    observers.clear();
+}
+
+
 
 
 // all the warning of resources should be done through command, 
@@ -178,4 +205,19 @@ void PowerManager::useResource(double amount) {
 void PowerManager::incCapacityPerc(double perc) {
     powerCap += std::ceil(initialPowerCap * (perc / 100));
     std::cout << "Power capacity has increased by " << perc << "% to " << powerCap << std::endl;
+}
+
+void PowerManager::switchToNuclear(){
+    std::cout << "************************\nCRITICAL NOTICE\n***********************\n";
+    std::cout << "Your city has run out of electricty!\n";
+    std::cout << "Switching to nuclear power.\n";
+    std::cout << "Note: Not being careful will be the downfall of your city.\n";
+    powerCap += 15000;
+}
+
+void PowerManager::endWorld(){
+    std::cout << "************************\nCRITICAL NOTICE\n***********************\n";
+    std::cout << "NUCLEAR FAILURE OCCURED!\n";
+    std::cout << "3...\n2...\n1...\n\n\n\n\n\n\n\n...\nBOOOOMMMMMM!!!\n\n\n\n\n\n\n\n\n\n\n\n\n.";
+    exit(0); // the program must end once the game gets to this point.
 }

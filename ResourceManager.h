@@ -5,15 +5,17 @@
 #include <string>
 #include <iostream>
 #include <cmath>
+
+#include "CommandInvoker.h"
 // the following class refers to the subject along with 
 // its concrete subjects for the observer pattern
 class ResourceManager{
     private:
-        // std::vector<CommandInvoker*> observe;
+        std::vector<CommandInvoker*> observers; 
     public:
-        // void attach(CommandInvoker* observe);
-        // void detach (CommandInvoker* observe);
-        void notify(std::string& recourceType);
+        void attach(CommandInvoker* observers);
+        void detach (CommandInvoker* observers);
+        void notify(const std::string& recourceType);
         virtual ~ResourceManager();
         
         // Concrete resources should implement their own capacity management
@@ -76,6 +78,10 @@ class WaterManager:public ResourceManager{
         double getResource() const override;
         void useResource(double amount) override;
         void incCapacityPerc(double perc) override;
+
+        // added another 2 functions
+        void EmergencyRefill();
+        void enterDraught();
 };
 
 class PowerManager:public ResourceManager{
@@ -88,6 +94,10 @@ class PowerManager:public ResourceManager{
         double getResource() const override;
         void useResource(double amount) override;
         void incCapacityPerc(double perc) override;
+
+        // added another 2 functions
+        void switchToNuclear();
+        void endWorld();
 };
 
 #endif
