@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
+#include <cmath>
 // the following class refers to the subject along with 
 // its concrete subjects for the observer pattern
 class ResourceManager{
@@ -13,7 +15,7 @@ class ResourceManager{
         // void detach (CommandInvoker* observe);
         void notify(std::string& recourceType);
         virtual ~ResourceManager();
-
+        
         // Concrete resources should implement their own capacity management
         virtual double getResource() const = 0;
         virtual void useResource(double amount) = 0;
