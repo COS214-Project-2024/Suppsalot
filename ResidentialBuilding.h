@@ -1,5 +1,8 @@
 #ifndef RESIDENTIALBUILDING_H
 #define RESIDENTIALBUILDING_H
+
+#include "ResourceManager.h"
+
 class ResidentialBuilding{
     protected:
         double steel;
