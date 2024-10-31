@@ -19,6 +19,8 @@ protected:
 	void adjustForServices() override;
 
 	void adjustForPolicies() override;
+	
+	void toggleEmployment() override;
 };
 
 #endif

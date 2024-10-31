@@ -57,3 +57,7 @@ double PrototypeCitizen::getDeathRate(){
 float PrototypeCitizen::getSatisfaction() const{
     return satisfaction;
 }
+
+void PrototypeCitizen::toggleEmployment() {
+    isEmployed = !isEmployed;
+}

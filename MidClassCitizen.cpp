@@ -1,8 +1,15 @@
 #include "MidClassCitizen.h"
 
 MidClassCitizen::MidClassCitizen(){
+	std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> satisfactionDist(40, 60);
+    std::uniform_int_distribution<> ageDist(20, 50);
+
+    satisfaction = satisfactionDist(gen);
+    age = ageDist(gen);
+    isEmployed = true;
 	name = "Mid Class Citizen";
-    satisfaction = 50;
 }
 
 PrototypeCitizen* MidClassCitizen::clone() const{
@@ -10,7 +17,7 @@ PrototypeCitizen* MidClassCitizen::clone() const{
 }
 
 void MidClassCitizen::displayInfo() {
-	std::cout << "MidClassCitizen - Age: " << age << ", Satisfaction: " << satisfaction << "\n";
+	std::cout << "MidClassCitizen - Age: " << age << ", Satisfaction: " << satisfaction << ", Employed: " << (isEmployed ? "Yes" : "No") << "\n";
 }
 
 void MidClassCitizen::baseSatisfaction() {
@@ -27,4 +34,8 @@ void MidClassCitizen::adjustForServices() {
 
 void MidClassCitizen::adjustForPolicies() {
 	satisfaction -= 2;
+}
+
+void MidClassCitizen::toggleEmployment() {
+    isEmployed = !isEmployed;
 }

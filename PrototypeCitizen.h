@@ -1,6 +1,8 @@
 #ifndef PROTOTYPECITIZEN_H
 #define PROTOTYPECITIZEN_H
 #include <string>
+#include <cstdlib>
+#include <random>
 #include <iostream>
 class PrototypeCitizen {
 
@@ -37,6 +39,7 @@ public:
     double getDeathRate();
 
     float getSatisfaction() const;
+    virtual void toggleEmployment();
 
 protected:
 	virtual void baseSatisfaction() = 0;
