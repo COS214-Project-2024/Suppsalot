@@ -1,12 +1,12 @@
-#include "LandmarkBuilding.h"
+#include "CommercialBuilding.h"
 #include "ResourceManager.h"
 #include <memory>
 #include <iostream>
 #include <string>
 
-LandmarkBuilding::LandmarkBuilding() : resources{0, 0, 0} {}
+CommercialBuilding::CommercialBuilding() : resources{0,0,0}{}
 
-void LandmarkBuilding::allocateResources() {
+void CommercialBuilding::allocateResources() {
     std::unique_ptr<ResourceManager> woodManager(new WoodManager());
     woodManager->useResource(resources.wood);
     
@@ -17,9 +17,21 @@ void LandmarkBuilding::allocateResources() {
     concreteManager->useResource(resources.concrete);
 }
 
-//Remember: first steel, wood, concrete
-Park::Park() {
-    resources = {50, 600, 250};  
+Shop::Shop(){
+    resources = {500, 700, 750};  
+    std::cout << "\nResources used to build a park:\n-------------------------------------\n";
+    std::cout << resources.wood << " Wood\n";
+    std::cout << resources.steel << " Steel.\n";
+    std::cout << resources.concrete << " Concrete.\n";
+    std::cout << "-------------------------------------\n\n";
+
+    allocateResources();
+
+}
+
+
+Mall::Mall(){
+    resources = {2000 , 2400 , 3000};
     std::cout << "\nResources used to build a park:\n-------------------------------------\n";
     std::cout << resources.wood << " Wood\n";
     std::cout << resources.steel << " Steel.\n";
@@ -29,23 +41,16 @@ Park::Park() {
     allocateResources();
 }
 
-Monument::Monument() {
-    resources = {400, 550, 200};  
-    std::cout << "\nResources used to build a Monument:\n-------------------------------------\n";
+Office::Office(){
+    resources = {2100,800,1400};
+    std::cout << "\nResources used to build a park:\n-------------------------------------\n";
     std::cout << resources.wood << " Wood\n";
     std::cout << resources.steel << " Steel.\n";
     std::cout << resources.concrete << " Concrete.\n";
     std::cout << "-------------------------------------\n\n";
+
     allocateResources();
 }
 
-Cultural::Cultural() {
-    resources = {600,160 , 800};  
-    std::cout << "\nResources used to build a Cultural structure:\n-------------------------------------\n";
-    std::cout << resources.wood << " Wood\n";
-    std::cout << resources.steel << " Steel.\n";
-    std::cout << resources.concrete << " Concrete.\n";
-    std::cout << "-------------------------------------\n\n";
-    allocateResources();
-}
+
 

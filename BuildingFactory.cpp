@@ -104,3 +104,37 @@ IndustrialBuilding* LandmarkFactory::BuildIndustrial(std::string i){
     (void)i;
     return nullptr;
 }
+
+
+// ************************************
+//          CommercialFactory
+// ************************************
+// ************************************
+CommercialFactory::CommercialFactory(){}
+
+CommercialBuilding* CommercialFactory::BuildCommercial(std::string l){
+    if (l == "mall" || l == "Mall") {
+        return new Mall();
+    } else if (l == "shop" || l == "Shop") {
+        return new Shop();
+    } else if (l == "office" || l == "Office") {
+        return new Office();
+    }
+    else {
+        std::cout << "Please enter a valid industrial building to build\n";
+        return nullptr; 
+    }
+}
+
+LandmarkBuilding* CommercialFactory::BuildLandmark(std::string l) {
+    (void)l; 
+    return nullptr;
+}
+ResidentialBuilding* CommercialFactory::BuildResidential(std::string r) {
+    (void)r; 
+    return nullptr;
+}
+IndustrialBuilding* CommercialFactory::BuildIndustrial(std::string i){
+    (void)i;
+    return nullptr;
+}

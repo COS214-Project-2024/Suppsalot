@@ -1,30 +1,37 @@
 #ifndef COMMERCIALBUILDING_H
 #define COMMERCIALBUILDING_H
+
 class CommercialBuilding{
     protected:
-        double steel;
-        double wood;
-        double concrete;
-        // ResourceManager* rm;
-        // BuildingStatics* stats;
+        struct Resources {
+                double steel;
+                double wood;
+                double concrete;
+            };
+            
+        Resources resources;
+        void allocateResources();
     public:
         CommercialBuilding();
-        virtual ~CommercialBuilding();
+        virtual ~CommercialBuilding() = default;
 };
 
 class Shop:public CommercialBuilding{
-    Shop();
-    ~Shop();
+    public:
+        Shop();
+        ~Shop() override = default;
 };
 
 class Mall:public CommercialBuilding{
-    Mall();
-    ~Mall();
+    public:
+        Mall();
+        ~Mall() override = default;
 };
 
 class Office:public CommercialBuilding{
-    Office();
-    ~Office();
+    public:
+        Office();
+        ~Office() override = default;
 };
 
 #endif

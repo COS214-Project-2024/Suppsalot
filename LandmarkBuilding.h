@@ -1,6 +1,7 @@
 #ifndef LANDMARKBUILDING_H
 #define LANDMARKBUILDING_H
 
+
 class LandmarkBuilding{
     protected:
         struct Resources {

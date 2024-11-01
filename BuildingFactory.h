@@ -56,8 +56,8 @@ class IndustrialFactory:public BuildingFactory{
         IndustrialFactory();
         ~IndustrialFactory() override = default;
         ResidentialBuilding* BuildResidential(std::string r);
-        CommercialBuilding* BuildCommercial(std::string c);
-        IndustrialBuilding* BuildIndustrial(std::string r);
+        CommercialBuilding* BuildCommercial(std::string l);
+        IndustrialBuilding* BuildIndustrial(std::string i);
         LandmarkBuilding* BuildLandmark(std::string l);
 };
 

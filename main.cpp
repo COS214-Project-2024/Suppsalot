@@ -192,6 +192,7 @@
 #include "BuildingFactory.h"
 #include "ResourceManager.h"
 #include "IndustrialBuilding.h"
+#include "CommercialBuilding.h"
 
 int main(){
     // Do not ever use these in the main implementation OFFLIMIT
@@ -208,6 +209,7 @@ int main(){
     ResidentialFactory factory;
     IndustrialFactory factory2;
     LandmarkFactory factory3;
+    CommercialFactory factory4;
     // Create a House
     ResidentialBuilding* house = factory.BuildResidential("house");
     ResidentialBuilding* flat = factory.BuildResidential("flat");
@@ -215,6 +217,7 @@ int main(){
     IndustrialBuilding* dam = factory2.BuildIndustrial("dam");
     IndustrialBuilding* dam2 = factory2.BuildIndustrial("dam");
     LandmarkBuilding* park = factory3.BuildLandmark("Park");
+    CommercialBuilding* shop = factory4.BuildCommercial("Shop");
 
     // Do not touch these deletes:
     delete rm;
@@ -228,5 +231,6 @@ int main(){
     delete powerPlant;
     delete dam;
     delete dam2;
+    delete park;
     return 0;
 }

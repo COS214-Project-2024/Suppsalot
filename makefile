@@ -71,6 +71,7 @@ SOURCES = $(SRC_DIR)/main.cpp \
           $(SRC_DIR)/BuildingFactory.cpp \
           $(SRC_DIR)/ResidentialBuilding.cpp \
           $(SRC_DIR)/IndustrialBuilding.cpp \
+          $(SRC_DIR)/CommercialBuilding.cpp \
           $(SRC_DIR)/LandmarkBuilding.cpp \
           $(SRC_DIR)/ResourceManager.cpp
 
@@ -79,6 +80,7 @@ HEADERS = $(SRC_DIR)/BuildingFactory.h \
           $(SRC_DIR)/ResidentialBuilding.h \
           $(SRC_DIR)/IndustrialBuilding.h \
           $(SRC_DIR)/LandmarkBuilding.h \
+          $(SRC_DIR)/CommercialBuilding.h \
           $(SRC_DIR)/ResourceManager.h \
           $(SRC_DIR)/ResourceObserver.h
 
