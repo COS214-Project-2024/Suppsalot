@@ -18,7 +18,7 @@ void CommercialBuilding::allocateResources() {
 }
 
 Shop::Shop(){
-    resources = {500, 700, 750};  
+    resources = {500, 800, 750};  
     std::cout << "\nResources used to build a park:\n-------------------------------------\n";
     std::cout << resources.wood << " Wood\n";
     std::cout << resources.steel << " Steel.\n";

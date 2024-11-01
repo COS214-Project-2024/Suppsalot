@@ -396,7 +396,7 @@ void SteelManager::useResource(double amount) {
         steelCap = 0;
     }
 
-    std::cout << "Remaining resources: " << steelCap << std::endl;
+    std::cout << "Remaining Steel: " << steelCap << std::endl;
 
     if (steelCap < 2000) {
         std::cout << "WARNING! Running low on Steel!\n";
@@ -438,7 +438,7 @@ void ConcreteManager::useResource(double amount) {
         concreteCap = 0;
     }
 
-    std::cout << "Remaining resources: " << concreteCap << std::endl;
+    std::cout << "Remaining Concrete: " << concreteCap << std::endl;
 
     if (concreteCap < 4000) {
         std::cout << "WARNING! Running low on Concrete!\n";
@@ -457,6 +457,8 @@ WaterManager
 double WaterManager::waterCap = 20000;
 double WaterManager::initialWaterCap = 20000;
 bool WaterManager::isInitialized = false;
+bool WaterManager::reserve = true; 
+
 
 WaterManager::WaterManager() {
     if (!isInitialized) {
@@ -491,7 +493,7 @@ void WaterManager::useResource(double amount) {
         waterCap = 0;
     }
 
-    std::cout << "Remaining resources: " << waterCap << std::endl;
+    std::cout << "Remaining Water: " << waterCap << std::endl;
 
     if (waterCap < 5000) {
         std::cout << "WARNING! Running low on Water! A draught may be approuching!\n";
@@ -546,6 +548,8 @@ PowerManager
 double PowerManager::powerCap = 25000;
 double PowerManager::initialPowerCap = 25000;
 bool PowerManager::isInitialized = false;
+bool PowerManager::reserve = true; // initialize static variable
+
 
 PowerManager::PowerManager() {
     if (!isInitialized) {
@@ -571,7 +575,7 @@ void PowerManager::useResource(double amount) {
         powerCap = 0;
     }
 
-    std::cout << "Remaining resources: " << powerCap << std::endl;
+    std::cout << "Remaining Power: " << powerCap << std::endl;
 
     if (powerCap < 6000) {
         std::cout << "WARNING! Running low on Power!Switching to Nuclear power soon!\n";

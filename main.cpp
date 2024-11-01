@@ -218,6 +218,9 @@ int main(){
     IndustrialBuilding* dam2 = factory2.BuildIndustrial("dam");
     LandmarkBuilding* park = factory3.BuildLandmark("Park");
     CommercialBuilding* shop = factory4.BuildCommercial("Shop");
+    CommercialBuilding* shop2 = factory4.BuildCommercial("Shop");
+
+    CommercialBuilding* mall = factory4.BuildCommercial("mall");
 
     // Do not touch these deletes:
     delete rm;
@@ -232,5 +235,6 @@ int main(){
     delete dam;
     delete dam2;
     delete park;
+    delete shop;
     return 0;
 }

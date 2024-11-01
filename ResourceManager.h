@@ -190,7 +190,7 @@ class WaterManager:public ResourceManager{
         static double waterCap;
         static bool isInitialized;
         // CommandInvoker* invoker; // check if this actuallyt works
-        bool reserve = true; // means we still have reserve
+        static bool reserve;
     public:
         WaterManager();
         ~WaterManager();   
@@ -209,7 +209,7 @@ class PowerManager:public ResourceManager{
         static double powerCap;
         static bool isInitialized;
         // CommandInvoker* invoker; // check if this actuallyt works
-        bool reserve = true; // means we still have reserve
+        static bool reserve; // means we still have reserve
     public:
         PowerManager();
         ~PowerManager();   
