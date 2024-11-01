@@ -193,6 +193,7 @@
 #include "ResourceManager.h"
 #include "IndustrialBuilding.h"
 #include "CommercialBuilding.h"
+#include "BuildingStatistics.h"
 
 int main(){
     // Do not ever use these in the main implementation OFFLIMIT
@@ -212,15 +213,17 @@ int main(){
     CommercialFactory factory4;
     // Create a House
     ResidentialBuilding* house = factory.BuildResidential("house");
-    ResidentialBuilding* flat = factory.BuildResidential("flat");
+    ResidentialBuilding* flat = factory.BuildResidential("house");
     IndustrialBuilding* powerPlant = factory2.BuildIndustrial("factory");
     IndustrialBuilding* dam = factory2.BuildIndustrial("dam");
-    IndustrialBuilding* dam2 = factory2.BuildIndustrial("dam");
+    IndustrialBuilding* dam2 = factory2.BuildIndustrial("powerplant");
     LandmarkBuilding* park = factory3.BuildLandmark("Park");
     CommercialBuilding* shop = factory4.BuildCommercial("Shop");
-    CommercialBuilding* shop2 = factory4.BuildCommercial("Shop");
 
     CommercialBuilding* mall = factory4.BuildCommercial("mall");
+
+    BuildingStatistics stats;
+    std::cout << BuildingStatistics::getPlantCounter();
 
     // Do not touch these deletes:
     delete rm;

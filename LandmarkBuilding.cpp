@@ -1,8 +1,13 @@
 #include "LandmarkBuilding.h"
 #include "ResourceManager.h"
+#include "BuildingStatistics.h"
+
 #include <memory>
 #include <iostream>
 #include <string>
+
+int BuildingStatistics::LandmarkCounter = 0;
+
 
 LandmarkBuilding::LandmarkBuilding() : resources{0, 0, 0} {}
 
@@ -19,6 +24,7 @@ void LandmarkBuilding::allocateResources() {
 
 //Remember: first steel, wood, concrete
 Park::Park() {
+    BuildingStatistics::LandmarkCounter++;
     resources = {50, 600, 250};  
     std::cout << "\nResources used to build a park:\n-------------------------------------\n";
     std::cout << resources.wood << " Wood\n";
@@ -30,6 +36,7 @@ Park::Park() {
 }
 
 Monument::Monument() {
+    BuildingStatistics::LandmarkCounter++;
     resources = {400, 550, 200};  
     std::cout << "\nResources used to build a Monument:\n-------------------------------------\n";
     std::cout << resources.wood << " Wood\n";
@@ -40,6 +47,7 @@ Monument::Monument() {
 }
 
 Cultural::Cultural() {
+    BuildingStatistics::LandmarkCounter++;
     resources = {600,160 , 800};  
     std::cout << "\nResources used to build a Cultural structure:\n-------------------------------------\n";
     std::cout << resources.wood << " Wood\n";

@@ -82,6 +82,7 @@ HEADERS = $(SRC_DIR)/BuildingFactory.h \
           $(SRC_DIR)/LandmarkBuilding.h \
           $(SRC_DIR)/CommercialBuilding.h \
           $(SRC_DIR)/ResourceManager.h \
+          $(SRC_DIR)/BuildingStatistics.h \
           $(SRC_DIR)/ResourceObserver.h
 
 # Object files

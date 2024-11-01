@@ -1,4 +1,10 @@
 #include "ResidentialBuilding.h"
+#include "BuildingStatistics.h"
+
+int BuildingStatistics::HouseCounter = 0;
+int BuildingStatistics::FlatCounter = 0;
+int BuildingStatistics::TownhouseCounter = 0;
+int BuildingStatistics::EstateCounter = 0;
 
 ResidentialBuilding::ResidentialBuilding() : resources{0, 0, 0} {}
 
@@ -15,6 +21,7 @@ void ResidentialBuilding::allocateResources() {
 
 //Remember: first steel, wood, concrete
 House::House() {
+    BuildingStatistics::HouseCounter++;
     resources = {50, 200, 150};  
     std::cout << "\nResources used to build a house:\n-------------------------------------\n";
     std::cout << resources.wood << " Wood\n";
@@ -26,6 +33,7 @@ House::House() {
 }
 
 Flat::Flat() {
+    BuildingStatistics::FlatCounter++;
     resources = {400, 600, 300};  
     std::cout << "\nResources used to build a Flat:\n-------------------------------------\n";
     std::cout << resources.wood << " Wood\n";
@@ -36,6 +44,8 @@ Flat::Flat() {
 }
 
 TownHouse::TownHouse() {
+    BuildingStatistics::TownhouseCounter++;
+
     resources = {60, 250, 180};  
     std::cout << "\nResources used to build a TownHouse:\n-------------------------------------\n";
     std::cout << resources.wood << " Wood\n";
@@ -46,6 +56,8 @@ TownHouse::TownHouse() {
 }
 
 Estate::Estate() {
+    BuildingStatistics::EstateCounter++;
+
     resources = {1000, 4000, 4000};  
     std::cout << "\nResources used to build an Estate:\n-------------------------------------\n";
     std::cout << resources.wood << " Wood\n";

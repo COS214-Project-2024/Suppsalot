@@ -32,9 +32,9 @@ ResidentialBuilding* ResidentialFactory::BuildResidential(std::string r) {
 }
 
 // the others are not handled over here
-CommercialBuilding* ResidentialFactory::BuildCommercial(std::string c){return nullptr;}
-IndustrialBuilding* ResidentialFactory::BuildIndustrial(std::string i){return nullptr;}
-LandmarkBuilding* ResidentialFactory::BuildLandmark(std::string l){return nullptr;}
+CommercialBuilding* ResidentialFactory::BuildCommercial(std::string c){(void)c;return nullptr;}
+IndustrialBuilding* ResidentialFactory::BuildIndustrial(std::string i){(void)i;return nullptr;}
+LandmarkBuilding* ResidentialFactory::BuildLandmark(std::string l){(void)l;return nullptr;}
 
 
 // ************************************
@@ -48,14 +48,13 @@ IndustrialBuilding* IndustrialFactory::BuildIndustrial(std::string r) {
         return new Factories();
     } else if (r == "warehouse" || r == "Warehouse") {
         return new WareHouses();
-    } else if (r == "powerplant" || r == "PowerPlant" || "powerPlant") {
+    } else if (r == "powerplant" || r == "PowerPlant" || r == "powerPlant") {
         return new Plants();
-    } else if (r == "dam" || r == "Dam"){
+    } else if (r == "dam" || r == "Dam") {
         return new Dams();
-    }
-    else {
+    } else {
         std::cout << "Please enter a valid industrial building to build\n";
-        return nullptr; 
+        return nullptr;
     }
 }
 
