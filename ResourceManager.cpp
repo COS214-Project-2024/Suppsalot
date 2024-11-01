@@ -324,10 +324,16 @@ void ResourceManager::notifyObservers(const std::string& resourceType, double cu
 /*************************************
 WoodManager
 **************************************/
+
+double WoodManager::woodCap = 10000;
+double WoodManager::initialWoodCap = 10000;
+bool WoodManager::isInitialized = false;
+
 WoodManager::WoodManager(){
-    woodCap = 10000;
-    initialWoodCap = 10000;
-    std::cout<< "Setting initial Wood Capacity to: " << initialWoodCap << std::endl;
+    if (!isInitialized) {
+        std::cout << "Setting initial Wood Capacity to: " << initialWoodCap << std::endl;
+        isInitialized = true;
+    }
 }
 
 WoodManager::~WoodManager()=default;
@@ -339,7 +345,7 @@ double WoodManager::getResource() const{
 void WoodManager::useResource(double amount){
     if(woodCap - amount >= 0){
         woodCap -= amount;
-        std::cout << "Remaining resources: " << woodCap << std::endl;
+        std::cout << "Remaining Wood: " << woodCap << std::endl;
     }else{
         std::cout << "Not enough wood to build this item!\n";
         woodCap = 0;
@@ -364,9 +370,17 @@ void WoodManager::incCapacityPerc(double perc){
 /*************************************
 SteelManager
 **************************************/
-SteelManager::SteelManager() : initialSteelCap(8000), steelCap(8000) {
-    std::cout << "Setting initial Steel Capacity to: " << initialSteelCap << std::endl;
+double SteelManager::steelCap = 8000;
+double SteelManager::initialSteelCap = 8000;
+bool SteelManager::isInitialized = false;
+
+SteelManager::SteelManager() {
+    if (!isInitialized) {
+        std::cout << "Setting initial Steel Capacity to: " << initialSteelCap << std::endl;
+        isInitialized = true;
+    }
 }
+
 
 SteelManager::~SteelManager() = default;
 
@@ -398,9 +412,17 @@ void SteelManager::incCapacityPerc(double perc) {
 /*************************************
 ConcreteManager
 **************************************/
-ConcreteManager::ConcreteManager() : initialConcreteCap(12000), concreteCap(12000) {
-    std::cout << "Setting initial Concrete Capacity to: " << initialConcreteCap << std::endl;
+double ConcreteManager::concreteCap = 12000;
+double ConcreteManager::initialConcreteCap = 12000;
+bool ConcreteManager::isInitialized = false;
+
+ConcreteManager::ConcreteManager() {
+    if (!isInitialized) {
+        std::cout << "Setting initial Concrete Capacity to: " << initialConcreteCap << std::endl;
+        isInitialized = true;
+    }
 }
+
 
 ConcreteManager::~ConcreteManager() = default;
 
@@ -432,15 +454,26 @@ void ConcreteManager::incCapacityPerc(double perc) {
 /*************************************
 WaterManager
 **************************************/
-WaterManager::WaterManager() : initialWaterCap(20000), waterCap(20000) {
-    std::cout << "Setting initial Water Capacity to: " << initialWaterCap << std::endl;
-    // invoker = new CommandInvoker();
+double WaterManager::waterCap = 20000;
+double WaterManager::initialWaterCap = 20000;
+bool WaterManager::isInitialized = false;
 
-    // adding the command that could be used
-    // invoker->addCommand("emergencyRefill", new EmergencyRefillCommand());
-    // invoker->addCommand("enterDrought", new EnterDroughtCommand(this));
-
+WaterManager::WaterManager() {
+    if (!isInitialized) {
+        std::cout << "Setting initial Water Capacity to: " << initialWaterCap << std::endl;
+        isInitialized = true;
+    }
 }
+
+// WaterManager::WaterManager() : initialWaterCap(20000), waterCap(20000) {
+//     std::cout << "Setting initial Water Capacity to: " << initialWaterCap << std::endl;
+//     // invoker = new CommandInvoker();
+
+//     // adding the command that could be used
+//     // invoker->addCommand("emergencyRefill", new EmergencyRefillCommand());
+//     // invoker->addCommand("enterDrought", new EnterDroughtCommand(this));
+
+// }
 
 WaterManager::~WaterManager(){
     // delete invoker;
@@ -510,10 +543,17 @@ void WaterManager::enterDraught(){
 /*************************************
 PowerManager
 **************************************/
-PowerManager::PowerManager() : initialPowerCap(25000), powerCap(25000) {
-    std::cout << "Setting initial Power Capacity to: " << initialPowerCap << std::endl;
-    // invoker = new CommandInvoker();
+double PowerManager::powerCap = 25000;
+double PowerManager::initialPowerCap = 25000;
+bool PowerManager::isInitialized = false;
+
+PowerManager::PowerManager() {
+    if (!isInitialized) {
+        std::cout << "Setting initial Power Capacity to: " << initialPowerCap << std::endl;
+        isInitialized = true;
+    }
 }
+
 
 PowerManager::~PowerManager(){
     // delete invoker;

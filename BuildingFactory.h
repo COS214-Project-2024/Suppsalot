@@ -1,10 +1,13 @@
 #ifndef BUILDINGFACTORY_H
 #define BUILDINGFACTORY_H
 
-#include "IndustrialBuilding.h";
-#include "ResidentialBuilding.h";
-#include "CommercialBuilding.h";
-#include "LandmarkBuilding.h";
+#include "IndustrialBuilding.h"
+#include "ResidentialBuilding.h"
+#include "CommercialBuilding.h"
+#include "LandmarkBuilding.h"
+
+
+#include <string>
 
 
 
@@ -12,50 +15,50 @@ class BuildingFactory{
     public:
         BuildingFactory();
         virtual ~BuildingFactory();
-        virtual ResidentialBuilding* BuildResidential() = 0;
-        virtual CommercialBuilding* BuildCommercial() = 0;
-        virtual IndustrialBuilding* BuildIndustrial() = 0;
-        virtual LandmarkBuilding* BuildLandmark() = 0;
+        virtual ResidentialBuilding* BuildResidential(std::string r) = 0;
+        virtual CommercialBuilding* BuildCommercial(std::string b) = 0;
+        virtual IndustrialBuilding* BuildIndustrial(std::string i) = 0;
+        virtual LandmarkBuilding* BuildLandmark(std::string l) = 0;
 };
 
 class LandmarkFactory:public BuildingFactory{
     public:
         LandmarkFactory();
-        ~LandmarkFactory();
-        ResidentialBuilding* BuildResidential();
-        CommercialBuilding* BuildCommercial();
-        IndustrialBuilding* BuildIndustrial();
-        LandmarkBuilding* BuildLandmark();
+        ~LandmarkFactory() override = default;
+        ResidentialBuilding* BuildResidential(std::string r);
+        CommercialBuilding* BuildCommercial(std::string c);
+        IndustrialBuilding* BuildIndustrial(std::string i);
+        LandmarkBuilding* BuildLandmark(std::string l);
 };
 
 class ResidentialFactory:public BuildingFactory{
     public:
         ResidentialFactory();
-        ~ResidentialFactory();
-        ResidentialBuilding* BuildResidential();
-        CommercialBuilding* BuildCommercial();
-        IndustrialBuilding* BuildIndustrial();
-        LandmarkBuilding* BuildLandmark();
+        ~ResidentialFactory() override = default;
+        ResidentialBuilding* BuildResidential(std::string r);
+        CommercialBuilding* BuildCommercial(std::string b);
+        IndustrialBuilding* BuildIndustrial(std::string i);
+        LandmarkBuilding* BuildLandmark(std::string l);
 };
 
 class CommercialFactory:public BuildingFactory{
     public:
         CommercialFactory();
-        ~CommercialFactory();
-        ResidentialBuilding* BuildResidential();
-        CommercialBuilding* BuildCommercial();
-        IndustrialBuilding* BuildIndustrial();
-        LandmarkBuilding* BuildLandmark();
+        ~CommercialFactory() override = default;
+        ResidentialBuilding* BuildResidential(std::string r);
+        CommercialBuilding* BuildCommercial(std::string b);
+        IndustrialBuilding* BuildIndustrial(std::string i);
+        LandmarkBuilding* BuildLandmark(std::string l);
 };
 
 class IndustrialFactory:public BuildingFactory{
     public:
         IndustrialFactory();
-        ~IndustrialFactory();
-        ResidentialBuilding* BuildResidential();
-        CommercialBuilding* BuildCommercial();
-        IndustrialBuilding* BuildIndustrial();
-        LandmarkBuilding* BuildLandmark();
+        ~IndustrialFactory() override = default;
+        ResidentialBuilding* BuildResidential(std::string r);
+        CommercialBuilding* BuildCommercial(std::string c);
+        IndustrialBuilding* BuildIndustrial(std::string r);
+        LandmarkBuilding* BuildLandmark(std::string l);
 };
 
 #endif

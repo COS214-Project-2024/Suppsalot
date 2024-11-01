@@ -2,13 +2,17 @@
 #define INDUSTRIALBUILDING_H
 
 #include "ResourceManager.h"
-
+// changed the following to a struct 
 class IndustrialBuilding{
     protected:
-        double steel;
-        double wood;
-        double concrete;
-        ResourceManager* rm;
+        struct Resources {
+                double steel;
+                double wood;
+                double concrete;
+            };
+            
+        Resources resources;
+        void allocateResources();
     public:
         IndustrialBuilding();
         virtual ~IndustrialBuilding() = default;
@@ -21,7 +25,7 @@ class Factories:public IndustrialBuilding{
         double metalPerc;
     public:
         Factories();
-        ~Factories();
+        ~Factories() override = default;
 };
 
 // Same concept will be applied over here.
@@ -31,7 +35,7 @@ class WareHouses:public IndustrialBuilding{
         double concretePerc;
     public:
         WareHouses();
-        ~WareHouses();
+        ~WareHouses() override = default;
 };
 
 // in resources (or stats) have number of plants and dams as a static int which increase 
@@ -41,7 +45,7 @@ class Plants: public IndustrialBuilding{
         double elecCap;
     public:
         Plants();
-        ~Plants();
+        ~Plants() override = default;
 
 };
 
@@ -50,7 +54,7 @@ class Dams:public IndustrialBuilding{
         double waterCap;
     public:
         Dams();
-        ~Dams();
+        ~Dams() override = default;
 };
 
 #endif

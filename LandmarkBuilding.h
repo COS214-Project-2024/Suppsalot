@@ -1,30 +1,37 @@
 #ifndef LANDMARKBUILDING_H
 #define LANDMARKBUILDING_H
+
 class LandmarkBuilding{
     protected:
-        double steel;
-        double wood;
-        double concrete;
-        // ResourceManager* rm;
-        // BuildingStatistics* satisfaction; // will use this object to call a function that is stored in building stats.
+        struct Resources {
+                double steel;
+                double wood;
+                double concrete;
+            };
+            
+        Resources resources;
+        void allocateResources();
     public:
         LandmarkBuilding();
-        virtual ~LandmarkBuilding();
+        virtual ~LandmarkBuilding() = default;
 };
 
 class Park:public LandmarkBuilding{
-    Park();
-    ~Park();
+    public:
+        Park();
+        ~Park() override = default;
 };
 
 class Monument:public LandmarkBuilding{
-    Monument();
-    ~Monument();
+    public:
+        Monument();
+        ~Monument() override = default;
 };
 
 class Cultural:public LandmarkBuilding{
-    Cultural();
-    ~Cultural();
+    public:     
+        Cultural();
+        ~Cultural() override = default;
 };
 
 

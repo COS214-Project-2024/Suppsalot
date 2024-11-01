@@ -56,133 +56,177 @@
 // }
 
 
+// #include "ResourceManager.h"
+// #include <cassert>
+// #include <memory>
+
+// // Helper function to test resource usage
+// void testResourceUsage(const std::string& resourceName, ResourceManager* manager, double initialAmount) {
+//     std::cout << "\n=== Testing " << resourceName << " Manager ===\n";
+    
+//     // Create and attach observer
+//     auto* observer = new LowResourceAlert();
+//     manager->attach(observer);
+    
+//     // Test initial capacity
+//     assert(manager->getResource() == initialAmount);
+//     std::cout << "Initial " << resourceName << " capacity test passed\n";
+    
+//     // Test normal resource usage
+//     double smallAmount = initialAmount * 0.1;  // 10% of initial
+//     manager->useResource(smallAmount);
+//     assert(manager->getResource() == (initialAmount - smallAmount));
+//     std::cout << "Normal resource usage test passed\n";
+    
+//     // Test capacity increase
+//     double increasePercentage = 20.0;
+//     manager->incCapacityPerc(increasePercentage);
+//     std::cout << "Capacity increase test completed\n";
+    
+//     // Test resource warning threshold
+//     double warningThresholdTest = manager->getResource() * 0.7;
+//     manager->useResource(warningThresholdTest);
+//     std::cout << "Warning threshold test completed\n";
+    
+//     // Clean up
+//     manager->detach(observer);
+//     delete observer;
+// }
+
+// // Helper function to test resource depletion
+// void testResourceDepletion(const std::string& resourceName, ResourceManager* manager) {
+//     std::cout << "\n=== Testing " << resourceName << " Depletion ===\n";
+    
+//     auto* observer = new LowResourceAlert();
+//     manager->attach(observer);
+    
+//     // Use all remaining resources
+//     double currentAmount = manager->getResource();
+//     manager->useResource(currentAmount + 1000);  // Try to use more than available
+    
+//     assert(manager->getResource() == 0);
+//     std::cout << "Resource depletion test completed\n";
+    
+//     manager->detach(observer);
+//     delete observer;
+// }
+
+// int main() {
+//     std::cout << "Starting Resource Management System Tests\n";
+//     std::cout << "========================================\n\n";
+
+//     // Initialize all resource managers
+//     WoodManager woodManager;
+//     SteelManager steelManager;
+//     ConcreteManager concreteManager;
+//     WaterManager waterManager;
+//     PowerManager powerManager;
+
+//     // Test Wood Manager
+//     testResourceUsage("Wood", &woodManager, 10000);
+    
+//     // Test Steel Manager
+//     testResourceUsage("Steel", &steelManager, 8000);
+    
+//     // Test Concrete Manager
+//     testResourceUsage("Concrete", &concreteManager, 12000);
+    
+//     // Special test for Water Manager (with emergency refill)
+//     std::cout << "\n=== Special Testing Water Manager ===\n";
+//     testResourceUsage("Water", &waterManager, 20000);
+//     // Test emergency refill
+//     double currentWater = waterManager.getResource();
+//     waterManager.useResource(currentWater);  // Deplete water to trigger emergency refill
+    
+//     // Special test for Power Manager (with nuclear switch)
+//     std::cout << "\n=== Special Testing Power Manager ===\n";
+//     testResourceUsage("Power", &powerManager, 25000);
+//     // Test nuclear switch
+//     double currentPower = powerManager.getResource();
+//     powerManager.useResource(currentPower);  // Deplete power to trigger nuclear switch
+
+//     // Test multiple observers
+//     std::cout << "\n=== Testing Multiple Observers ===\n";
+//     auto* observer1 = new LowResourceAlert();
+//     auto* observer2 = new LowResourceAlert();
+//     auto* observer3 = new LowResourceAlert();
+    
+//     concreteManager.attach(observer1);
+//     concreteManager.attach(observer2);
+//     concreteManager.attach(observer3);
+    
+//     // Trigger notifications
+//     concreteManager.useResource(9000);  // Should trigger low resource warning
+    
+//     // Clean up observers
+//     concreteManager.detach(observer1);
+//     concreteManager.detach(observer2);
+//     concreteManager.detach(observer3);
+//     delete observer1;
+//     delete observer2;
+//     delete observer3;
+
+//     // Test catastrophic scenarios (commented out to prevent program termination)
+//     std::cout << "\n=== Testing Catastrophic Scenarios ===\n";
+//     std::cout << "Note: Catastrophic tests are commented out as they would terminate the program\n";
+    
+//     // Uncomment these to test end-game scenarios (will terminate program)
+    
+//     // Test water drought
+//     // WaterManager catastrophicWater;
+//     // catastrophicWater.useResource(20000);  // Will trigger drought and end program
+    
+    
+    
+//    powerManager.useResource(200000);
+    
+
+//     std::cout << "\n========================================\n";
+//     std::cout << "All tests completed successfully!\n";
+    
+//     return 0;
+// }
+
+
+
+#include "BuildingFactory.h"
 #include "ResourceManager.h"
-#include <cassert>
-#include <memory>
+#include "IndustrialBuilding.h"
 
-// Helper function to test resource usage
-void testResourceUsage(const std::string& resourceName, ResourceManager* manager, double initialAmount) {
-    std::cout << "\n=== Testing " << resourceName << " Manager ===\n";
-    
-    // Create and attach observer
-    auto* observer = new LowResourceAlert();
-    manager->attach(observer);
-    
-    // Test initial capacity
-    assert(manager->getResource() == initialAmount);
-    std::cout << "Initial " << resourceName << " capacity test passed\n";
-    
-    // Test normal resource usage
-    double smallAmount = initialAmount * 0.1;  // 10% of initial
-    manager->useResource(smallAmount);
-    assert(manager->getResource() == (initialAmount - smallAmount));
-    std::cout << "Normal resource usage test passed\n";
-    
-    // Test capacity increase
-    double increasePercentage = 20.0;
-    manager->incCapacityPerc(increasePercentage);
-    std::cout << "Capacity increase test completed\n";
-    
-    // Test resource warning threshold
-    double warningThresholdTest = manager->getResource() * 0.7;
-    manager->useResource(warningThresholdTest);
-    std::cout << "Warning threshold test completed\n";
-    
-    // Clean up
-    manager->detach(observer);
-    delete observer;
-}
+int main(){
+    // Do not ever use these in the main implementation OFFLIMIT
+    std::cout << "********************************************\n";
+    ResourceManager* rm = new WoodManager();
+    ResourceManager* rm1 = new SteelManager();
+    ResourceManager* rm2 = new ConcreteManager();
+    ResourceManager* rm3 = new PowerManager();
+    ResourceManager* rm4 = new WaterManager();
+        std::cout << "********************************************\n\n";
 
-// Helper function to test resource depletion
-void testResourceDepletion(const std::string& resourceName, ResourceManager* manager) {
-    std::cout << "\n=== Testing " << resourceName << " Depletion ===\n";
+    //===============================================================
     
-    auto* observer = new LowResourceAlert();
-    manager->attach(observer);
-    
-    // Use all remaining resources
-    double currentAmount = manager->getResource();
-    manager->useResource(currentAmount + 1000);  // Try to use more than available
-    
-    assert(manager->getResource() == 0);
-    std::cout << "Resource depletion test completed\n";
-    
-    manager->detach(observer);
-    delete observer;
-}
+    ResidentialFactory factory;
+    IndustrialFactory factory2;
+    LandmarkFactory factory3;
+    // Create a House
+    ResidentialBuilding* house = factory.BuildResidential("house");
+    ResidentialBuilding* flat = factory.BuildResidential("flat");
+    IndustrialBuilding* powerPlant = factory2.BuildIndustrial("factory");
+    IndustrialBuilding* dam = factory2.BuildIndustrial("dam");
+    IndustrialBuilding* dam2 = factory2.BuildIndustrial("dam");
+    LandmarkBuilding* park = factory3.BuildLandmark("Park");
 
-int main() {
-    std::cout << "Starting Resource Management System Tests\n";
-    std::cout << "========================================\n\n";
-
-    // Initialize all resource managers
-    WoodManager woodManager;
-    SteelManager steelManager;
-    ConcreteManager concreteManager;
-    WaterManager waterManager;
-    PowerManager powerManager;
-
-    // Test Wood Manager
-    testResourceUsage("Wood", &woodManager, 10000);
-    
-    // Test Steel Manager
-    testResourceUsage("Steel", &steelManager, 8000);
-    
-    // Test Concrete Manager
-    testResourceUsage("Concrete", &concreteManager, 12000);
-    
-    // Special test for Water Manager (with emergency refill)
-    std::cout << "\n=== Special Testing Water Manager ===\n";
-    testResourceUsage("Water", &waterManager, 20000);
-    // Test emergency refill
-    double currentWater = waterManager.getResource();
-    waterManager.useResource(currentWater);  // Deplete water to trigger emergency refill
-    
-    // Special test for Power Manager (with nuclear switch)
-    std::cout << "\n=== Special Testing Power Manager ===\n";
-    testResourceUsage("Power", &powerManager, 25000);
-    // Test nuclear switch
-    double currentPower = powerManager.getResource();
-    powerManager.useResource(currentPower);  // Deplete power to trigger nuclear switch
-
-    // Test multiple observers
-    std::cout << "\n=== Testing Multiple Observers ===\n";
-    auto* observer1 = new LowResourceAlert();
-    auto* observer2 = new LowResourceAlert();
-    auto* observer3 = new LowResourceAlert();
-    
-    concreteManager.attach(observer1);
-    concreteManager.attach(observer2);
-    concreteManager.attach(observer3);
-    
-    // Trigger notifications
-    concreteManager.useResource(9000);  // Should trigger low resource warning
-    
-    // Clean up observers
-    concreteManager.detach(observer1);
-    concreteManager.detach(observer2);
-    concreteManager.detach(observer3);
-    delete observer1;
-    delete observer2;
-    delete observer3;
-
-    // Test catastrophic scenarios (commented out to prevent program termination)
-    std::cout << "\n=== Testing Catastrophic Scenarios ===\n";
-    std::cout << "Note: Catastrophic tests are commented out as they would terminate the program\n";
-    
-    // Uncomment these to test end-game scenarios (will terminate program)
-    
-    // Test water drought
-    // WaterManager catastrophicWater;
-    // catastrophicWater.useResource(20000);  // Will trigger drought and end program
-    
-    
-    
-   powerManager.useResource(200000);
-    
-
-    std::cout << "\n========================================\n";
-    std::cout << "All tests completed successfully!\n";
-    
+    // Do not touch these deletes:
+    delete rm;
+    delete rm1;
+    delete rm2;
+    delete rm3;
+    delete rm4;
+    //*************************/
+    delete house; 
+    delete flat;
+    delete powerPlant;
+    delete dam;
+    delete dam2;
     return 0;
 }

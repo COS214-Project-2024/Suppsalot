@@ -16,20 +16,41 @@ void ResidentialBuilding::allocateResources() {
 //Remember: first steel, wood, concrete
 House::House() {
     resources = {50, 200, 150};  
+    std::cout << "\nResources used to build a house:\n-------------------------------------\n";
+    std::cout << resources.wood << " Wood\n";
+    std::cout << resources.steel << " Steel.\n";
+    std::cout << resources.concrete << " Concrete.\n";
+    std::cout << "-------------------------------------\n\n";
+
     allocateResources();
 }
 
 Flat::Flat() {
     resources = {400, 600, 300};  
+    std::cout << "\nResources used to build a Flat:\n-------------------------------------\n";
+    std::cout << resources.wood << " Wood\n";
+    std::cout << resources.steel << " Steel.\n";
+    std::cout << resources.concrete << " Concrete.\n";
+    std::cout << "-------------------------------------\n\n";
     allocateResources();
 }
 
 TownHouse::TownHouse() {
     resources = {60, 250, 180};  
+    std::cout << "\nResources used to build a TownHouse:\n-------------------------------------\n";
+    std::cout << resources.wood << " Wood\n";
+    std::cout << resources.steel << " Steel.\n";
+    std::cout << resources.concrete << " Concrete.\n";
+    std::cout << "-------------------------------------\n\n";
     allocateResources();
 }
 
 Estate::Estate() {
     resources = {1000, 4000, 4000};  
+    std::cout << "\nResources used to build an Estate:\n-------------------------------------\n";
+    std::cout << resources.wood << " Wood\n";
+    std::cout << resources.steel << " Steel.\n";
+    std::cout << resources.concrete << " Concrete.\n";
+    std::cout << "-------------------------------------\n\n";
     allocateResources();
 }

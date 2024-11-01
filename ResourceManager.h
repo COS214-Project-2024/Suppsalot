@@ -137,8 +137,10 @@ class ResourceManager{
 
 class WoodManager:public ResourceManager{
     private:
-        double woodCap;
-        double initialWoodCap; // will this actually be needed
+        static double woodCap;
+        static double initialWoodCap; 
+        static bool isInitialized;
+
     public:
         WoodManager();
         ~WoodManager();         
@@ -156,8 +158,10 @@ class WoodManager:public ResourceManager{
 
 class SteelManager:public ResourceManager{
     private:
-        double initialSteelCap; // again is this necessary
-        double steelCap;
+        static double initialSteelCap; // again is this necessary
+        static double steelCap;
+        static bool isInitialized;
+
     public:
         SteelManager();
         ~SteelManager();   
@@ -169,8 +173,9 @@ class SteelManager:public ResourceManager{
 
 class ConcreteManager:public ResourceManager{
     private:
-        double initialConcreteCap; // again is this necessary
-        double concreteCap;
+        static double initialConcreteCap; // again is this necessary
+        static double concreteCap;
+        static bool isInitialized;
     public:
         ConcreteManager();
         ~ConcreteManager();   
@@ -181,9 +186,9 @@ class ConcreteManager:public ResourceManager{
 
 class WaterManager:public ResourceManager{
     private:
-        double initialWaterCap;
-        double waterCap;
-        
+        static double initialWaterCap;
+        static double waterCap;
+        static bool isInitialized;
         // CommandInvoker* invoker; // check if this actuallyt works
         bool reserve = true; // means we still have reserve
     public:
@@ -200,9 +205,9 @@ class WaterManager:public ResourceManager{
 
 class PowerManager:public ResourceManager{
     private:
-        double initialPowerCap; 
-        double powerCap;
-        
+        static double initialPowerCap; 
+        static double powerCap;
+        static bool isInitialized;
         // CommandInvoker* invoker; // check if this actuallyt works
         bool reserve = true; // means we still have reserve
     public:
