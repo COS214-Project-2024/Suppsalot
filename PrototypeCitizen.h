@@ -15,8 +15,14 @@ protected:
     int currentPopulation;
     double birthRate;
     double deathRate;
+    static int citizenCount;
 public:
-    virtual ~PrototypeCitizen() = default;
+    PrototypeCitizen() {
+        ++citizenCount;
+    }
+    virtual ~PrototypeCitizen() {
+        --citizenCount;
+    }
 
 	virtual PrototypeCitizen* clone() const = 0;
 
@@ -39,7 +45,10 @@ public:
     double getDeathRate();
 
     float getSatisfaction() const;
+
     virtual void toggleEmployment();
+
+    static int getCitizenCount();
 
 protected:
 	virtual void baseSatisfaction() = 0;

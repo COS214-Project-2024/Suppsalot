@@ -3,6 +3,8 @@
 //check up
 #include "PrototypeCitizen.h"
 
+int PrototypeCitizen::citizenCount = 0;
+
 void PrototypeCitizen::displayInfo() {
 	std::cout << "Name: " << name << "\nAge: " << age << "\nSatisfaction: " << satisfaction 
               << "\nEmployment Status: " << (isEmployed ? "Employed" : "Unemployed") << "\n";
@@ -60,4 +62,8 @@ float PrototypeCitizen::getSatisfaction() const{
 
 void PrototypeCitizen::toggleEmployment() {
     isEmployed = !isEmployed;
+}
+
+int PrototypeCitizen::getCitizenCount() {
+        return citizenCount;
 }

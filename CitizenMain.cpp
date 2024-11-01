@@ -19,8 +19,9 @@ int main() {
         std::cout << "2. Create Mid Class Citizens\n";
         std::cout << "3. Create Low Class Citizens\n";
         std::cout << "4. Toggle Employment Status\n";
-        std::cout << "5. Display Citizen Info & Average Satisfaction\n";
-        std::cout << "6. Exit\n";
+        std::cout << "5. Display Citizen Info, Count, & Average Satisfaction\n";
+        std::cout << "6. Kill Citizens\n";
+        std::cout << "7. Exit\n";
         std::cout << "Enter your choice: ";
         std::cin >> choice;
 
@@ -86,13 +87,33 @@ int main() {
                 for (PrototypeCitizen* citizen : citizens) {
                     citizen->displayInfo();
                 }
-                std::cout << "\nTotal Citizens: " << citizens.size();
+                std::cout << "\nTotal Citizens: " << PrototypeCitizen::getCitizenCount();
                 std::cout << "\nAverage Satisfaction: " << avgSatisfaction << "\n";
                 break;
             }
             case 6: {
+                int numToKill;
+                std::cout << "Enter the number of citizens to kill: ";
+                std::cin >> numToKill;
+
+                if (numToKill > static_cast<int>(citizens.size())) {
+                    std::cout << "Not enough citizens to kill. Currently, there are only " << citizens.size() << " citizens.\n";
+                    break;
+                }
+
+                for (int i = 0; i < numToKill; ++i) {
+                    int index = std::rand() % citizens.size();
+                    totalSatisfaction -= citizens[index]->getSatisfaction();
+                    delete citizens[index];
+                    citizens.erase(citizens.begin() + index);
+                }
+
+                std::cout << numToKill << " citizens have been killed.\n";
+                break;
+            }
+            case 7: {
                 running = false;
-                std::cout << "Citizen Test Ended.\n";
+                std::cout << "Exiting program.\n";
                 break;
             }
             default:
