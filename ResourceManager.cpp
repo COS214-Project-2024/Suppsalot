@@ -358,6 +358,10 @@ void WoodManager::useResource(double amount){
     }
 }
 
+void WoodManager::returnResource(double amount){
+    woodCap += amount;
+}
+
 void WoodManager::incCapacityPerc(double perc){
     // take the percentage variable and divide by 100
     // and multiply by initial capacity. Add to current capacity
@@ -404,6 +408,10 @@ void SteelManager::useResource(double amount) {
     }
 }
 
+void SteelManager::returnResource(double amount){
+    steelCap += amount;
+}
+
 void SteelManager::incCapacityPerc(double perc) {
     steelCap += std::ceil(initialSteelCap * (perc / 100));
     std::cout << "Steel capacity has increased by " << perc << "% to " << steelCap << std::endl;
@@ -444,6 +452,10 @@ void ConcreteManager::useResource(double amount) {
         std::cout << "WARNING! Running low on Concrete!\n";
         notifyObservers("Concrete", concreteCap);
     }
+}
+
+void ConcreteManager::returnResource(double amount){
+    concreteCap += amount;
 }
 
 void ConcreteManager::incCapacityPerc(double perc) {
@@ -511,6 +523,10 @@ void WaterManager::useResource(double amount) {
             // invoker->update("enterDrought");
         }
     }
+}
+
+void WaterManager::returnResource(double amount){
+    waterCap += amount;
 }
 
 void WaterManager::incCapacityPerc(double perc) {
@@ -594,6 +610,10 @@ void PowerManager::useResource(double amount) {
         }
     }
 
+}
+
+void PowerManager::returnResource(double amount){
+    powerCap += amount;
 }
 
 void PowerManager::incCapacityPerc(double perc) {

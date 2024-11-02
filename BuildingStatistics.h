@@ -62,6 +62,7 @@ class BuildingStatistics{
         }
 
         static void YearResourceIncrease(){
+            std::cout << "\n\n***************************************\nTallying up resources accumulated over the year!\n***************************************\n";
             std::unique_ptr<ResourceManager> woodManager(new WoodManager());
             woodManager->incCapacityPerc(WarehouseCounter * 2 + log(WarehouseCounter + 1) * 5); 
             std::unique_ptr<ResourceManager> steelManager(new SteelManager());

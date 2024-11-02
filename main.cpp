@@ -197,22 +197,24 @@
 
 
 int main(){
-    // Do not ever use these in the main implementation OFFLIMIT
+    // Do not ever use these in the main implementation OFFLIMIT just make sure you put these here before you start doing anythign
     std::cout << "********************************************\n";
     ResourceManager* rm = new WoodManager();
     ResourceManager* rm1 = new SteelManager();
     ResourceManager* rm2 = new ConcreteManager();
     ResourceManager* rm3 = new PowerManager();
     ResourceManager* rm4 = new WaterManager();
-        std::cout << "********************************************\n\n";
+    std::cout << "********************************************\n\n";
 
     //===============================================================
     
+    //different types of factories
     ResidentialFactory factory;
     IndustrialFactory factory2;
     LandmarkFactory factory3;
     CommercialFactory factory4;
-    // Create a House
+
+    //creating buildings
     ResidentialBuilding* house = factory.BuildResidential("house");
     ResidentialBuilding* flat = factory.BuildResidential("house");
     IndustrialBuilding* powerPlant = factory2.BuildIndustrial("factory");
@@ -220,9 +222,16 @@ int main(){
     IndustrialBuilding* dam2 = factory2.BuildIndustrial("powerplant");
     LandmarkBuilding* park = factory3.BuildLandmark("Park");
     CommercialBuilding* shop = factory4.BuildCommercial("Shop");
-
     CommercialBuilding* mall = factory4.BuildCommercial("mall");
 
+
+    // When removing building
+    shop->removeBuilding();
+    park->removeBuilding();
+    flat->removeBuilding();
+    house->removeBuilding();
+
+    // moving to the next year
     BuildingStatistics stats;
     BuildingStatistics::YearResourceIncrease();
 
@@ -233,6 +242,8 @@ int main(){
     delete rm3;
     delete rm4;
     //*************************/
+
+    // these deletes are for all the buildings that were created
     delete house; 
     delete flat;
     delete powerPlant;
@@ -240,5 +251,6 @@ int main(){
     delete dam2;
     delete park;
     delete shop;
+    delete mall;
     return 0;
 }

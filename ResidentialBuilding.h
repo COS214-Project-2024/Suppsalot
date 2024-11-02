@@ -54,34 +54,40 @@ protected:
     
     Resources resources;
     void allocateResources();
+    void returnResources();
 
 public:
     ResidentialBuilding();
     virtual ~ResidentialBuilding() = default;
+    virtual void removeBuilding() = 0;
 };
 
 class House : public ResidentialBuilding {
 public:
     House();
     ~House() override = default;
+    void removeBuilding() override;
 };
 
 class Flat : public ResidentialBuilding {
 public:
     Flat();
     ~Flat() override = default;
+    void removeBuilding() override;
 };
 
 class TownHouse : public ResidentialBuilding {
 public:
     TownHouse();
     ~TownHouse() override = default;
+    void removeBuilding() override;
 };
 
 class Estate : public ResidentialBuilding {
 public:
     Estate();
     ~Estate() override = default;
+    void removeBuilding() override;
 };
 
 #endif

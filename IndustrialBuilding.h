@@ -13,9 +13,12 @@ class IndustrialBuilding{
             
         Resources resources;
         void allocateResources();
+        void returnResources();
     public:
         IndustrialBuilding();
         virtual ~IndustrialBuilding() = default;
+        virtual void removeBuilding() = 0;
+
 };
 
 // for every factory built, it will increase the metalperc capacity in resources by 0.15%  
@@ -26,6 +29,7 @@ class Factories:public IndustrialBuilding{
     public:
         Factories();
         ~Factories() override = default;
+        void removeBuilding() override;
 };
 
 // Same concept will be applied over here.
@@ -36,6 +40,7 @@ class WareHouses:public IndustrialBuilding{
     public:
         WareHouses();
         ~WareHouses() override = default;
+        void removeBuilding() override;
 };
 
 // in resources (or stats) have number of plants and dams as a static int which increase 
@@ -46,6 +51,7 @@ class Plants: public IndustrialBuilding{
     public:
         Plants();
         ~Plants() override = default;
+        void removeBuilding() override;
 
 };
 
@@ -55,6 +61,7 @@ class Dams:public IndustrialBuilding{
     public:
         Dams();
         ~Dams() override = default;
+        void removeBuilding() override;
 };
 
 #endif

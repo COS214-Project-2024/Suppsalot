@@ -22,6 +22,17 @@ void IndustrialBuilding::allocateResources(){
     concreteManager->useResource(resources.concrete);
 }
 
+void IndustrialBuilding::returnResources() {
+    std::unique_ptr<ResourceManager> woodManager(new WoodManager());
+    woodManager->returnResource(resources.wood);
+    
+    std::unique_ptr<ResourceManager> steelManager(new SteelManager());
+    steelManager->returnResource(resources.steel);
+    
+    std::unique_ptr<ResourceManager> concreteManager(new ConcreteManager());
+    concreteManager->returnResource(resources.concrete);
+}
+
 // now for all the derived class constructors:
 Factories::Factories(){
     BuildingStatistics::FactoryCounter++;
@@ -36,6 +47,18 @@ Factories::Factories(){
     std::unique_ptr<ResourceManager> steelAdd(new SteelManager());
     steelAdd->incCapacityPerc(0.15);
 }
+
+void Factories::removeBuilding() {
+    //decrease number of shop counters:
+    BuildingStatistics::FactoryCounter--;
+    returnResources();
+    std::cout << "\nFactory building removed:\n-------------------------------------\n";
+    std::cout << "Returned Wood: " << resources.wood << std::endl;
+    std::cout << "Returned Steel: " << resources.steel << std::endl;
+    std::cout << "Returned Concrete: " << resources.concrete << std::endl;
+    std::cout << "-------------------------------------\n\n";
+}
+
 
 WareHouses::WareHouses(){
     BuildingStatistics::WarehouseCounter++;
@@ -53,6 +76,17 @@ WareHouses::WareHouses(){
     concreteAdd->incCapacityPerc(0.15);
 }
 
+void WareHouses::removeBuilding() {
+    //decrease number of shop counters:
+    BuildingStatistics::WarehouseCounter--;
+    returnResources();
+    std::cout << "\nWarehouse building removed:\n-------------------------------------\n";
+    std::cout << "Returned Wood: " << resources.wood << std::endl;
+    std::cout << "Returned Steel: " << resources.steel << std::endl;
+    std::cout << "Returned Concrete: " << resources.concrete << std::endl;
+    std::cout << "-------------------------------------\n\n";
+}
+
 Plants::Plants(){
     BuildingStatistics::PlantCounter++;
 
@@ -66,6 +100,17 @@ Plants::Plants(){
     allocateResources();
     std::unique_ptr<ResourceManager> PowerAdd(new PowerManager());
     PowerAdd->incCapacityPerc(0.15);
+}
+
+void Plants::removeBuilding() {
+    //decrease number of shop counters:
+    BuildingStatistics::PlantCounter--;
+    returnResources();
+    std::cout << "\nPowerPlant removed:\n-------------------------------------\n";
+    std::cout << "Returned Wood: " << resources.wood << std::endl;
+    std::cout << "Returned Steel: " << resources.steel << std::endl;
+    std::cout << "Returned Concrete: " << resources.concrete << std::endl;
+    std::cout << "-------------------------------------\n\n";
 }
 
 Dams::Dams(){
@@ -82,4 +127,15 @@ Dams::Dams(){
     allocateResources();
     std::unique_ptr<ResourceManager> WaterAdd(new WaterManager());
     WaterAdd->incCapacityPerc(0.15);
+}
+
+void Dams::removeBuilding() {
+    //decrease number of shop counters:
+    BuildingStatistics::DamCounter--;
+    returnResources();
+    std::cout << "\nDam removed:\n-------------------------------------\n";
+    std::cout << "Returned Wood: " << resources.wood << std::endl;
+    std::cout << "Returned Steel: " << resources.steel << std::endl;
+    std::cout << "Returned Concrete: " << resources.concrete << std::endl;
+    std::cout << "-------------------------------------\n\n";
 }

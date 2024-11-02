@@ -22,6 +22,17 @@ void CommercialBuilding::allocateResources() {
     concreteManager->useResource(resources.concrete);
 }
 
+void CommercialBuilding::returnResources() {
+    std::unique_ptr<ResourceManager> woodManager(new WoodManager());
+    woodManager->returnResource(resources.wood);
+    
+    std::unique_ptr<ResourceManager> steelManager(new SteelManager());
+    steelManager->returnResource(resources.steel);
+    
+    std::unique_ptr<ResourceManager> concreteManager(new ConcreteManager());
+    concreteManager->returnResource(resources.concrete);
+}
+
 Shop::Shop(){
     BuildingStatistics::ShopCounter++;
 
@@ -34,6 +45,17 @@ Shop::Shop(){
 
     allocateResources();
 
+}
+
+void Shop::removeBuilding() {
+    //decrease number of shop counters:
+    BuildingStatistics::ShopCounter--;
+    returnResources();
+    std::cout << "\nShop building removed:\n-------------------------------------\n";
+    std::cout << "Returned Wood: " << resources.wood << std::endl;
+    std::cout << "Returned Steel: " << resources.steel << std::endl;
+    std::cout << "Returned Concrete: " << resources.concrete << std::endl;
+    std::cout << "-------------------------------------\n\n";
 }
 
 
@@ -50,6 +72,17 @@ Mall::Mall(){
     allocateResources();
 }
 
+void Mall::removeBuilding(){
+    BuildingStatistics::MallCounter--;
+    returnResources();
+    std::cout << "\nMall building removed:\n-------------------------------------\n";
+    std::cout << "\nShop building removed:\n-------------------------------------\n";
+    std::cout << "Returned Wood: " << resources.wood << std::endl;
+    std::cout << "Returned Steel: " << resources.steel << std::endl;
+    std::cout << "Returned Concrete: " << resources.concrete << std::endl;
+    std::cout << "-------------------------------------\n\n";
+}
+
 Office::Office(){
     BuildingStatistics::OfficeCounter++;
 
@@ -61,6 +94,17 @@ Office::Office(){
     std::cout << "-------------------------------------\n\n";
 
     allocateResources();
+}
+
+void Office::removeBuilding(){
+    BuildingStatistics::OfficeCounter--;
+    returnResources();
+    std::cout << "\nOffice building removed:\n-------------------------------------\n";
+    std::cout << "\nShop building removed:\n-------------------------------------\n";
+    std::cout << "Returned Wood: " << resources.wood << std::endl;
+    std::cout << "Returned Steel: " << resources.steel << std::endl;
+    std::cout << "Returned Concrete: " << resources.concrete << std::endl;
+    std::cout << "-------------------------------------\n\n";
 }
 
 

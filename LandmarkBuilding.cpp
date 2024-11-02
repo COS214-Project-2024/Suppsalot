@@ -22,6 +22,18 @@ void LandmarkBuilding::allocateResources() {
     concreteManager->useResource(resources.concrete);
 }
 
+void LandmarkBuilding::returnResources() {
+    std::unique_ptr<ResourceManager> woodManager(new WoodManager());
+    woodManager->returnResource(resources.wood);
+    
+    std::unique_ptr<ResourceManager> steelManager(new SteelManager());
+    steelManager->returnResource(resources.steel);
+    
+    std::unique_ptr<ResourceManager> concreteManager(new ConcreteManager());
+    concreteManager->returnResource(resources.concrete);
+}
+
+
 //Remember: first steel, wood, concrete
 Park::Park() {
     BuildingStatistics::LandmarkCounter++;
@@ -35,6 +47,16 @@ Park::Park() {
     allocateResources();
 }
 
+void Park::removeBuilding() {
+    BuildingStatistics::LandmarkCounter--;
+    returnResources();
+    std::cout << "\nPark removed:\n-------------------------------------\n";
+    std::cout << "Returned Wood: " << resources.wood << std::endl;
+    std::cout << "Returned Steel: " << resources.steel << std::endl;
+    std::cout << "Returned Concrete: " << resources.concrete << std::endl;
+    std::cout << "-------------------------------------\n\n";
+}
+
 Monument::Monument() {
     BuildingStatistics::LandmarkCounter++;
     resources = {400, 550, 200};  
@@ -46,6 +68,16 @@ Monument::Monument() {
     allocateResources();
 }
 
+void Monument::removeBuilding() {
+    BuildingStatistics::LandmarkCounter--;
+    returnResources();
+    std::cout << "\nMonument removed:\n-------------------------------------\n";
+    std::cout << "Returned Wood: " << resources.wood << std::endl;
+    std::cout << "Returned Steel: " << resources.steel << std::endl;
+    std::cout << "Returned Concrete: " << resources.concrete << std::endl;
+    std::cout << "-------------------------------------\n\n";
+}
+
 Cultural::Cultural() {
     BuildingStatistics::LandmarkCounter++;
     resources = {600,160 , 800};  
@@ -55,5 +87,15 @@ Cultural::Cultural() {
     std::cout << resources.concrete << " Concrete.\n";
     std::cout << "-------------------------------------\n\n";
     allocateResources();
+}
+
+void Cultural::removeBuilding() {
+    BuildingStatistics::LandmarkCounter--;
+    returnResources();
+    std::cout << "\nCultural building removed:\n-------------------------------------\n";
+    std::cout << "Returned Wood: " << resources.wood << std::endl;
+    std::cout << "Returned Steel: " << resources.steel << std::endl;
+    std::cout << "Returned Concrete: " << resources.concrete << std::endl;
+    std::cout << "-------------------------------------\n\n";
 }
 

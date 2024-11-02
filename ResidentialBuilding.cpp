@@ -19,6 +19,18 @@ void ResidentialBuilding::allocateResources() {
     concreteManager->useResource(resources.concrete);
 }
 
+void ResidentialBuilding::returnResources() {
+    std::unique_ptr<ResourceManager> woodManager(new WoodManager());
+    woodManager->returnResource(resources.wood);
+    
+    std::unique_ptr<ResourceManager> steelManager(new SteelManager());
+    steelManager->returnResource(resources.steel);
+    
+    std::unique_ptr<ResourceManager> concreteManager(new ConcreteManager());
+    concreteManager->returnResource(resources.concrete);
+}
+
+
 //Remember: first steel, wood, concrete
 House::House() {
     BuildingStatistics::HouseCounter++;
@@ -32,6 +44,16 @@ House::House() {
     allocateResources();
 }
 
+void House::removeBuilding() {
+    BuildingStatistics::HouseCounter--;
+    returnResources();
+    std::cout << "\nHouse removed:\n-------------------------------------\n";
+    std::cout << "Returned Wood: " << resources.wood << std::endl;
+    std::cout << "Returned Steel: " << resources.steel << std::endl;
+    std::cout << "Returned Concrete: " << resources.concrete << std::endl;
+    std::cout << "-------------------------------------\n\n";
+}
+
 Flat::Flat() {
     BuildingStatistics::FlatCounter++;
     resources = {400, 600, 300};  
@@ -41,6 +63,16 @@ Flat::Flat() {
     std::cout << resources.concrete << " Concrete.\n";
     std::cout << "-------------------------------------\n\n";
     allocateResources();
+}
+
+void Flat::removeBuilding() {
+    BuildingStatistics::FlatCounter--;
+    returnResources();
+    std::cout << "\nFlat removed:\n-------------------------------------\n";
+    std::cout << "Returned Wood: " << resources.wood << std::endl;
+    std::cout << "Returned Steel: " << resources.steel << std::endl;
+    std::cout << "Returned Concrete: " << resources.concrete << std::endl;
+    std::cout << "-------------------------------------\n\n";
 }
 
 TownHouse::TownHouse() {
@@ -55,6 +87,16 @@ TownHouse::TownHouse() {
     allocateResources();
 }
 
+void TownHouse::removeBuilding() {
+    BuildingStatistics::TownhouseCounter--;
+    returnResources();
+    std::cout << "\nTownHouse removed:\n-------------------------------------\n";
+    std::cout << "Returned Wood: " << resources.wood << std::endl;
+    std::cout << "Returned Steel: " << resources.steel << std::endl;
+    std::cout << "Returned Concrete: " << resources.concrete << std::endl;
+    std::cout << "-------------------------------------\n\n";
+}
+
 Estate::Estate() {
     BuildingStatistics::EstateCounter++;
 
@@ -65,4 +107,14 @@ Estate::Estate() {
     std::cout << resources.concrete << " Concrete.\n";
     std::cout << "-------------------------------------\n\n";
     allocateResources();
+}
+
+void Estate::removeBuilding() {
+    BuildingStatistics::EstateCounter--;
+    returnResources();
+    std::cout << "\nEstate removed:\n-------------------------------------\n";
+    std::cout << "Returned Wood: " << resources.wood << std::endl;
+    std::cout << "Returned Steel: " << resources.steel << std::endl;
+    std::cout << "Returned Concrete: " << resources.concrete << std::endl;
+    std::cout << "-------------------------------------\n\n";
 }

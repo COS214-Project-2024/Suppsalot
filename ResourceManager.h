@@ -132,6 +132,7 @@ class ResourceManager{
         // Concrete resources should implement their own capacity management
         virtual double getResource() const = 0;
         virtual void useResource(double amount) = 0;
+        virtual void returnResource(double amount)= 0;
         virtual void incCapacityPerc(double perc) = 0;
 };
 
@@ -153,6 +154,7 @@ class WoodManager:public ResourceManager{
 
         double getResource() const override;
         void useResource(double amount) override;
+        void returnResource(double amount) override;
         void incCapacityPerc(double perc) override;
 };
 
@@ -167,6 +169,7 @@ class SteelManager:public ResourceManager{
         ~SteelManager();   
         double getResource() const override;
         void useResource(double amount) override;
+        void returnResource(double amount) override;
         void incCapacityPerc(double perc) override;
 };
 
@@ -181,6 +184,7 @@ class ConcreteManager:public ResourceManager{
         ~ConcreteManager();   
         double getResource() const override;
         void useResource(double amount) override;
+        void returnResource(double amount) override;
         void incCapacityPerc(double perc) override;
 };
 
@@ -196,6 +200,7 @@ class WaterManager:public ResourceManager{
         ~WaterManager();   
         double getResource() const override;
         void useResource(double amount) override;
+        void returnResource(double amount) override;
         void incCapacityPerc(double perc) override;
 
         // added another 2 functions
@@ -215,6 +220,7 @@ class PowerManager:public ResourceManager{
         ~PowerManager();   
         double getResource() const override;
         void useResource(double amount) override;
+        void returnResource(double amount) override;
         void incCapacityPerc(double perc) override;
 
         // added another 2 functions
