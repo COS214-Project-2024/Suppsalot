@@ -61,19 +61,60 @@ class BuildingStatistics{
             return sum;
         }
 
-        static void YearResourceIncrease(){
-            std::cout << "\n\n***************************************\nTallying up resources accumulated over the year!\n***************************************\n";
-            std::unique_ptr<ResourceManager> woodManager(new WoodManager());
-            woodManager->incCapacityPerc(WarehouseCounter * 2 + log(WarehouseCounter + 1) * 5); 
-            std::unique_ptr<ResourceManager> steelManager(new SteelManager());
-            steelManager->incCapacityPerc(FactoryCounter * 3 + sqrt(FactoryCounter) * 5);
-            std::unique_ptr<ResourceManager> concreteManager(new ConcreteManager());
-            concreteManager->incCapacityPerc(WarehouseCounter * 3 + log(WarehouseCounter + 1) * 4);
-            std::unique_ptr<ResourceManager> waterManager(new WaterManager());
-            waterManager->incCapacityPerc(DamCounter * 8 + sqrt(DamCounter) * 7);
-            std::unique_ptr<ResourceManager> powerManager(new PowerManager());
-            powerManager->incCapacityPerc(PlantCounter * 10 + log(PlantCounter + 1) * 8);
-        }
+        // static void YearResourceIncrease(){
+        //     std::cout << "\n\n***************************************\nTallying up resources accumulated over the year!\n***************************************\n";
+        //     std::unique_ptr<ResourceManager> woodManager(new WoodManager());
+        //     woodManager->incCapacityPerc(WarehouseCounter * 2 + log(WarehouseCounter + 1) * 5); 
+        //     std::unique_ptr<ResourceManager> steelManager(new SteelManager());
+        //     steelManager->incCapacityPerc(FactoryCounter * 3 + sqrt(FactoryCounter) * 5);
+        //     std::unique_ptr<ResourceManager> concreteManager(new ConcreteManager());
+        //     concreteManager->incCapacityPerc(WarehouseCounter * 3 + log(WarehouseCounter + 1) * 4);
+        //     std::unique_ptr<ResourceManager> waterManager(new WaterManager());
+        //     waterManager->incCapacityPerc(DamCounter * 8 + sqrt(DamCounter) * 7);
+        //     std::unique_ptr<ResourceManager> powerManager(new PowerManager());
+        //     powerManager->incCapacityPerc(PlantCounter * 10 + log(PlantCounter + 1) * 8);
+
+        //     // while some resources increase, buildings will also use up electricity and water
+
+        // }
+    static void YearResourceIncrease() {
+        std::cout << "\n\n***************************************\n";
+        std::cout << "Tallying up resources accumulated over the year!\n";
+        std::cout << "***************************************\n";
+
+        std::unique_ptr<ResourceManager> woodManager(new WoodManager());
+        woodManager->incCapacityPerc(WarehouseCounter * 2 + log(WarehouseCounter + 1) * 5);
+
+        std::unique_ptr<ResourceManager> steelManager(new SteelManager());
+        steelManager->incCapacityPerc(FactoryCounter * 3 + sqrt(FactoryCounter) * 5);
+
+        std::unique_ptr<ResourceManager> concreteManager(new ConcreteManager());
+        concreteManager->incCapacityPerc(WarehouseCounter * 3 + log(WarehouseCounter + 1) * 4);
+
+        std::unique_ptr<ResourceManager> waterManager(new WaterManager());
+        waterManager->incCapacityPerc(DamCounter * 8 + sqrt(DamCounter) * 7);
+
+        std::unique_ptr<ResourceManager> powerManager(new PowerManager());
+        powerManager->incCapacityPerc(PlantCounter * 10 + log(PlantCounter + 1) * 8);
+
+        // while some resources increase, buildings will also use up electricity and water
+        double powerConsumption = static_cast<int>(
+            (HouseCounter * 30.5 + FlatCounter * 32.0 + TownhouseCounter * 4.5 + EstateCounter * 5.5) +
+            (ShopCounter * 7.5 + MallCounter * 12.0 + OfficeCounter * 8.5) +
+            (LandmarkCounter * 6.0)
+        );
+        powerManager->useResource(powerConsumption);
+
+        double waterConsumption = static_cast<int>(
+            ((HouseCounter * 40.0 + FlatCounter * 30.8 + TownhouseCounter * 5.0 + EstateCounter * 16.0) +
+            (FactoryCounter * 18.0 + PlantCounter * 7.5) +
+            (LandmarkCounter * 5.0))*12
+        );
+        waterManager->useResource(waterConsumption);
+
+        std::cout << "Power consumption for the year: " << powerConsumption << " units.\n";
+        std::cout << "Water consumption for the year: " << waterConsumption << " units.\n";
+    }
 
 };
 
