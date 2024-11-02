@@ -195,6 +195,7 @@
 #include "CommercialBuilding.h"
 #include "BuildingStatistics.h"
 
+
 int main(){
     // Do not ever use these in the main implementation OFFLIMIT
     std::cout << "********************************************\n";
@@ -223,7 +224,7 @@ int main(){
     CommercialBuilding* mall = factory4.BuildCommercial("mall");
 
     BuildingStatistics stats;
-    std::cout << BuildingStatistics::getPlantCounter();
+    BuildingStatistics::YearResourceIncrease();
 
     // Do not touch these deletes:
     delete rm;
