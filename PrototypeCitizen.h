@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <random>
 #include <iostream>
+#include "CitizenStatistics.h"
 class PrototypeCitizen {
 
 protected:
@@ -17,22 +18,19 @@ protected:
     double deathRate;
     static int citizenCount;
 public:
-    PrototypeCitizen() {
-        ++citizenCount;
-    }
-    virtual ~PrototypeCitizen() {
-        --citizenCount;
-    }
+    PrototypeCitizen() { CitizenStatistics::incrementCitizenCount(); }
+
+    virtual ~PrototypeCitizen() { CitizenStatistics::decrementCitizenCount(); }
 
 	virtual PrototypeCitizen* clone() const = 0;
 
-	virtual void displayInfo();
+	virtual void displayInfo() const = 0;
 
 	virtual void calculateSatisfactory();
 
-    virtual void asigningJob(bool jobAvailable);
-
     virtual double calculatePopulationGrowth();
+
+    virtual bool isEmployed() const;
 
     int getCurrentPopulation();
 
@@ -46,7 +44,7 @@ public:
 
     float getSatisfaction() const;
 
-    virtual void toggleEmployment();
+    virtual void toggleEmployment(bool employed) = 0;
 
     static int getCitizenCount();
 

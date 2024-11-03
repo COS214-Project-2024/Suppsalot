@@ -3,14 +3,17 @@
 #include "PrototypeCitizen.h"
 
 class MidClassCitizen : public PrototypeCitizen {
-
+	int satisfaction;
+    bool employed;
 
 public:
 	MidClassCitizen();
 
 	PrototypeCitizen* clone() const override;
 
-	void displayInfo() override;
+	void displayInfo() const override;
+
+	bool isEmployed() const { return employed; }
 
 protected:
 	void baseSatisfaction() override;
@@ -21,7 +24,9 @@ protected:
 
 	void adjustForPolicies() override;
 
-	void toggleEmployment() override;
+	void toggleEmployment(bool emp) override;
+
+	int getSatisfaction() const;
 };
 
 #endif

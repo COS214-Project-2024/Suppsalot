@@ -13,12 +13,11 @@ double CitizenStatistics::getSatisfaction(){
     return citizenSatisfaction;
 }
 
-float CitizenStatistics::getPopulationGrowth(){
-    if (citizen) {
-        return static_cast<float>(citizen->calculatePopulationGrowth());
+int CitizenStatistics::calculatePopulationGrowth() {
+        int growth = static_cast<int>(totalPopulation * (birthRate - deathRate));
+        totalPopulation += growth;
+        return totalPopulation;
     }
-    return 0.0f;//no citizen
-}
 
 void CitizenStatistics::calculateBirthRate(int edu, int health){
     double birthRate = 0.02 + (health * 0.001) - (edu * 0.0005);
@@ -31,3 +30,21 @@ void CitizenStatistics::calculateDeathRate(int hygiene, int security, int water)
     deathRate = deathRate > 0 ? deathRate : 0; // no negative
     citizen->setDeathRate(deathRate);
 }
+
+int CitizenStatistics::YearPopulationIncrease(){
+    int increase = static_cast<int>(totalCitizenCount * 0.02 + sqrt(totalCitizenCount) * 5);
+    totalCitizenCount += increase;
+    return increase;
+}
+
+int CitizenStatistics::YearSatisfactionIncrease(){
+    return static_cast<int>((highClassCount * 2 + midClassCount + lowClassCount * 0.5) * 1.5);
+}
+void CitizenStatistics::displayStatistics() {
+    std::cout << "Total Citizens: " << totalCitizenCount << "\n"
+              << "Employed Citizens: " << employedCount << "\n"
+              << "Unemployed Citizens: " << unemployedCount << "\n";
+}
+int CitizenStatistics::totalPopulation = 0;
+double CitizenStatistics::birthRate = 0.02;
+double CitizenStatistics::deathRate = 0.01;

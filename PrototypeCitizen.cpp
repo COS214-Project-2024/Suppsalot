@@ -5,29 +5,12 @@
 
 int PrototypeCitizen::citizenCount = 0;
 
-void PrototypeCitizen::displayInfo() {
-	std::cout << "Name: " << name << "\nAge: " << age << "\nSatisfaction: " << satisfaction 
-              << "\nEmployment Status: " << (isEmployed ? "Employed" : "Unemployed") << "\n";
-}
 
 void PrototypeCitizen::calculateSatisfactory() {
 	baseSatisfaction();
     adjustForEmployment();
     adjustForServices();
     adjustForPolicies();
-}
-
-void PrototypeCitizen::asigningJob(bool jobAvailable){
-    isEmployed = jobAvailable;
-    if (!jobAvailable){
-        satisfaction -= 10;
-        std::cout << "Job not assigned to Citizen :C";
-    }
-    else{
-        std::cout << "HOORAY!!!";
-        satisfaction += 10;
-    }
-    
 }
 
 double PrototypeCitizen::calculatePopulationGrowth(){
@@ -58,10 +41,6 @@ double PrototypeCitizen::getDeathRate(){
 
 float PrototypeCitizen::getSatisfaction() const{
     return satisfaction;
-}
-
-void PrototypeCitizen::toggleEmployment() {
-    isEmployed = !isEmployed;
 }
 
 int PrototypeCitizen::getCitizenCount() {

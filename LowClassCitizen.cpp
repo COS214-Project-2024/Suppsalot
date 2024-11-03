@@ -1,14 +1,11 @@
 #include "LowClassCitizen.h"
 
-LowClassCitizen::LowClassCitizen(){
+LowClassCitizen::LowClassCitizen(): satisfaction(rand() % 21 + 10), employed(false){
 	std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> satisfactionDist(10, 30);
     std::uniform_int_distribution<> ageDist(18, 40);
-
-    satisfaction = satisfactionDist(gen);
     age = ageDist(gen);
-    isEmployed = false;
     name = "Low Class Citizen";
 }
 
@@ -17,7 +14,7 @@ PrototypeCitizen* LowClassCitizen::clone() const {
 
 }
 
-void LowClassCitizen::displayInfo() {
+void LowClassCitizen::displayInfo() const{
 	std::cout << "LowClassCitizen - Age: " << age << ", Satisfaction: " << satisfaction << ", Employed: " << (isEmployed ? "Yes" : "No") << "\n";;
 }
 
@@ -37,6 +34,14 @@ void LowClassCitizen::adjustForPolicies() {
 	satisfaction -= 5;
 }
 
-void LowClassCitizen::toggleEmployment() {
-    isEmployed = !isEmployed;
+void LowClassCitizen::toggleEmployment(bool emp){
+    if (employed != emp) {
+        employed = emp;
+        if (employed) CitizenStatistics::incrementEmploymentCount();
+        else CitizenStatistics::decrementEmploymentCount();
+    }
+}
+
+int LowClassCitizen::getSatisfaction() const{
+    return satisfaction;
 }
