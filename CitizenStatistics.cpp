@@ -31,7 +31,3 @@ void CitizenStatistics::calculateDeathRate(int hygiene, int security, int water)
     deathRate = deathRate > 0 ? deathRate : 0; // no negative
     citizen->setDeathRate(deathRate);
 }
-
-int CitizenStatistics::citizenCapcity(){
-    BuildingStatistics stat;
-}
