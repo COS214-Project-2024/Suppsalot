@@ -192,452 +192,888 @@ void showBuildingOptions(const std::string& buildingType) {
     std::cout << "Enter your choice: ";
 }
 
+// Storage for created buildings
+std::vector<std::unique_ptr<ResidentialBuilding>> residentialBuildings;
+std::vector<std::unique_ptr<IndustrialBuilding>> industrialBuildings;
+std::vector<std::unique_ptr<LandmarkBuilding>> landmarkBuildings;
+std::vector<std::unique_ptr<CommercialBuilding>> commercialBuildings;
+
+bool running = true;
+
 int main() {
     // Initial setup (as specified)
-    std::cout << "********************************************\n";
+    std::cout << "\n=========================================\n";
+    std::cout << "       Main Menu       \n";
+    std::cout << "=========================================\n";
+    int choice = 0;
+    std::cout << "1. Manage Buildings\n";
+    std::cout << "2. Manage Citizens\n";
+    std::cout << "3. Manage Transport\n";
+    std::cout << "4. Manage Tax\n";
+    std::cout << "5. Manage Government\n";
+    std::cout << "6. Manage Utilities\n";
+    std::cout << "7. View Resources\n";
+    std::cout << "8. View Statistics\n";
+    std::cout << "9. Progress Year\n";
+    std::cout << "10. Exit\n";
+
+
+    std::cout << "Enter your choice: ";
+    std::cin >> choice;
+
+    // Move ResourceManager initialization outside the switch statement
     ResourceManager* rm = new WoodManager();
     ResourceManager* rm1 = new SteelManager();
     ResourceManager* rm2 = new ConcreteManager();
     ResourceManager* rm3 = new PowerManager();
     ResourceManager* rm4 = new WaterManager();
-    std::cout << "********************************************\n\n";
 
-    // Factories for creating buildings
-    ResidentialFactory residentialFactory;
-    IndustrialFactory industrialFactory;
-    LandmarkFactory landmarkFactory;
-    CommercialFactory commercialFactory;
+    switch (choice) {
+        case 1:
+            std::cout << "********************************************\n";
+            std::cout << "********************************************\n\n";
 
-    // Storage for created buildings
-    std::vector<std::unique_ptr<ResidentialBuilding>> residentialBuildings;
-    std::vector<std::unique_ptr<IndustrialBuilding>> industrialBuildings;
-    std::vector<std::unique_ptr<LandmarkBuilding>> landmarkBuildings;
-    std::vector<std::unique_ptr<CommercialBuilding>> commercialBuildings;
+            // Factories for creating buildings
+            ResidentialFactory residentialFactory;
+            IndustrialFactory industrialFactory;
+            LandmarkFactory landmarkFactory;
+            CommercialFactory commercialFactory;
 
-    bool running = true;
-    while (running) {
-        showMainMenu();
-        int mainChoice;
-        std::cin >> mainChoice;
+            while (running) {
+                showMainMenu();
+                int mainChoice;
+                std::cin >> mainChoice;
 
-        switch (mainChoice) {
-            case 1: { // Build Industrial Building
-                showBuildingOptions("Industrial");
-                int industrialChoice;
-                std::cin >> industrialChoice;
-                switch (industrialChoice) {
-                    case 1: industrialBuildings.push_back(std::unique_ptr<IndustrialBuilding>(industrialFactory.BuildIndustrial("factory"))); break;
-                    case 2: industrialBuildings.push_back(std::unique_ptr<IndustrialBuilding>(industrialFactory.BuildIndustrial("warehouse"))); break;
-                    case 3: industrialBuildings.push_back(std::unique_ptr<IndustrialBuilding>(industrialFactory.BuildIndustrial("plant"))); break;
-                    case 4: industrialBuildings.push_back(std::unique_ptr<IndustrialBuilding>(industrialFactory.BuildIndustrial("dam"))); break;
-                    default: std::cout << "Invalid choice!\n"; break;
-                }
-                break;
-            }
-            case 2: { // Build Commercial Building
-                showBuildingOptions("Commercial");
-                int commercialChoice;
-                std::cin >> commercialChoice;
-                switch (commercialChoice) {
-                    case 1: commercialBuildings.push_back(std::unique_ptr<CommercialBuilding>(commercialFactory.BuildCommercial("shop"))); break;
-                    case 2: commercialBuildings.push_back(std::unique_ptr<CommercialBuilding>(commercialFactory.BuildCommercial("mall"))); break;
-                    case 3: commercialBuildings.push_back(std::unique_ptr<CommercialBuilding>(commercialFactory.BuildCommercial("office"))); break;
-                    default: std::cout << "Invalid choice!\n"; break;
-                }
-                break;
-            }
-            case 3: { // Build Residential Building
-                showBuildingOptions("Residential");
-                int residentialChoice;
-                std::cin >> residentialChoice;
-                switch (residentialChoice) {
-                    case 1: residentialBuildings.push_back(std::unique_ptr<ResidentialBuilding>(residentialFactory.BuildResidential("house"))); break;
-                    case 2: residentialBuildings.push_back(std::unique_ptr<ResidentialBuilding>(residentialFactory.BuildResidential("flat"))); break;
-                    case 3: residentialBuildings.push_back(std::unique_ptr<ResidentialBuilding>(residentialFactory.BuildResidential("townhouse"))); break;
-                    case 4: residentialBuildings.push_back(std::unique_ptr<ResidentialBuilding>(residentialFactory.BuildResidential("estate"))); break;
-                    default: std::cout << "Invalid choice!\n"; break;
-                }
-                break;
-            }
-            case 4: { // Build Landmark Building
-                showBuildingOptions("Landmark");
-                int landmarkChoice;
-                std::cin >> landmarkChoice;
-                switch (landmarkChoice) {
-                    case 1: landmarkBuildings.push_back(std::unique_ptr<LandmarkBuilding>(landmarkFactory.BuildLandmark("Park"))); break;
-                    case 2: landmarkBuildings.push_back(std::unique_ptr<LandmarkBuilding>(landmarkFactory.BuildLandmark("Monument"))); break;
-                    case 3: landmarkBuildings.push_back(std::unique_ptr<LandmarkBuilding>(landmarkFactory.BuildLandmark("Cultural"))); break;
-                    default: std::cout << "Invalid choice!\n"; break;
-                }
-                break;
-            }
-            case 5: { // Remove Building
-                std::cout << "Choose a type of building to remove:\n";
-                std::cout << "1. Residential\n";
-                std::cout << "2. Industrial\n";
-                std::cout << "3. Landmark\n";
-                std::cout << "4. Commercial\n";
-                int buildingType;
-                std::cin >> buildingType;
-                
-                if (buildingType == 1 && !residentialBuildings.empty()) {
-                    residentialBuildings.back()->removeBuilding();
-                    residentialBuildings.pop_back();
-                } else if (buildingType == 2 && !industrialBuildings.empty()) {
-                    industrialBuildings.back()->removeBuilding();
-                    industrialBuildings.pop_back();
-                } else if (buildingType == 3 && !landmarkBuildings.empty()) {
-                    landmarkBuildings.back()->removeBuilding();
-                    landmarkBuildings.pop_back();
-                } else if (buildingType == 4 && !commercialBuildings.empty()) {
-                    commercialBuildings.back()->removeBuilding();
-                    commercialBuildings.pop_back();
-                } else {
-                    std::cout << "No building of the selected type to remove!\n";
-                }
-                break;
-            }
-            case 6: { // Progress Year
-                BuildingStatistics::YearResourceIncrease();
-                break;
-            }
-            case 7: { // Exit
-                running = false;
-                break;
-            }
-            default: {
-                std::cout << "Invalid choice! Please try again.\n";
-                break;
-            }
-        }
-    }
+                switch (mainChoice) {
+                    case 1: { // Build Industrial Building
+                        showBuildingOptions("Industrial");
+                        int industrialChoice;
+                        std::cin >> industrialChoice;
+                        switch (industrialChoice) {
+                            case 1: industrialBuildings.push_back(std::unique_ptr<IndustrialBuilding>(industrialFactory.BuildIndustrial("factory"))); break;
+                            case 2: industrialBuildings.push_back(std::unique_ptr<IndustrialBuilding>(industrialFactory.BuildIndustrial("warehouse"))); break;
+                            case 3: industrialBuildings.push_back(std::unique_ptr<IndustrialBuilding>(industrialFactory.BuildIndustrial("plant"))); break;
+                            case 4: industrialBuildings.push_back(std::unique_ptr<IndustrialBuilding>(industrialFactory.BuildIndustrial("dam"))); break;
+                            default: std::cout << "Invalid choice!\n"; break;
+                        }
+                        break;
+                    }
+                    case 2: { // Build Commercial Building
+                        showBuildingOptions("Commercial");
+                        int commercialChoice;
+                        std::cin >> commercialChoice;
+                        switch (commercialChoice) {
+                            case 1: commercialBuildings.push_back(std::unique_ptr<CommercialBuilding>(commercialFactory.BuildCommercial("shop"))); break;
+                            case 2: commercialBuildings.push_back(std::unique_ptr<CommercialBuilding>(commercialFactory.BuildCommercial("mall"))); break;
+                            case 3: commercialBuildings.push_back(std::unique_ptr<CommercialBuilding>(commercialFactory.BuildCommercial("office"))); break;
+                            default: std::cout << "Invalid choice!\n"; break;
+                        }
+                        break;
+                    }
+                    case 3: { // Build Residential Building
+                        showBuildingOptions("Residential");
+                        int residentialChoice;
+                        std::cin >> residentialChoice;
+                        switch (residentialChoice) {
+                            case 1: residentialBuildings.push_back(std::unique_ptr<ResidentialBuilding>(residentialFactory.BuildResidential("house"))); break;
+                            case 2: residentialBuildings.push_back(std::unique_ptr<ResidentialBuilding>(residentialFactory.BuildResidential("flat"))); break;
+                            case 3: residentialBuildings.push_back(std::unique_ptr<ResidentialBuilding>(residentialFactory.BuildResidential("townhouse"))); break;
+                            case 4: residentialBuildings.push_back(std::unique_ptr<ResidentialBuilding>(residentialFactory.BuildResidential("estate"))); break;
+                            default: std::cout << "Invalid choice!\n"; break;
+                        }
+                        break;
+                    }
+                    case 4: { // Build Landmark Building
+                        showBuildingOptions("Landmark");
+                        int landmarkChoice;
+                        std::cin >> landmarkChoice;
+                        switch (landmarkChoice) {
+                            case 1: landmarkBuildings.push_back(std::unique_ptr<LandmarkBuilding>(landmarkFactory.BuildLandmark("Park"))); break;
+                            case 2: landmarkBuildings.push_back(std::unique_ptr<LandmarkBuilding>(landmarkFactory.BuildLandmark("Monument"))); break;
+                            case 3: landmarkBuildings.push_back(std::unique_ptr<LandmarkBuilding>(landmarkFactory.BuildLandmark("Cultural"))); break;
+                            default: std::cout << "Invalid choice!\n"; break;
+                        }
+                        break;
+                    }
+                    case 5: { // Remove Building
+                        std::cout << "Choose a type of building to remove:\n";
+                        std::cout << "1. Residential\n";
+                        std::cout << "2. Industrial\n";
+                        std::cout << "3. Landmark\n";
+                        std::cout << "4. Commercial\n";
+                        int buildingType;
+                        std::cin >> buildingType;
 
-    // Cleanup resources
-    delete rm;
-    delete rm1;
-    delete rm2;
-    delete rm3;
-    delete rm4;
-
-
-    std::cout << "Exiting program. All resources and buildings have been cleaned up.\n";
-
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////
-    std::srand(static_cast<unsigned int>(time(nullptr)));
-    std::vector<PrototypeCitizen*> citizens;
-    bool srunning = true;
-    float totalSatisfaction = 0.0;
-
-    while (srunning) {
-        int choice;
-        std::cout << "\nChoose an action:\n";
-        std::cout << "1. Create High Class Citizens\n";
-        std::cout << "2. Create Mid Class Citizens\n";
-        std::cout << "3. Create Low Class Citizens\n";
-        std::cout << "4. Toggle Employment Status\n";
-        std::cout << "5. Display Citizen Info, Count, & Average Satisfaction\n";
-        std::cout << "6. Kill Citizens\n";
-        std::cout << "7. Exit\n";
-        std::cout << "Enter your choice: ";
-        std::cin >> choice;
-
-        switch (choice) {
-            case 1: {
-                int num;
-                std::cout << "Enter the number of High Class Citizens to create: ";
-                std::cin >> num;
-                for (int i = 0; i < num; ++i) {
-                    PrototypeCitizen* highCitizen = new HighClassCitizen();
-                    citizens.push_back(highCitizen);
-                    totalSatisfaction += highCitizen->getSatisfaction();
-                }
-                std::cout << num << " High Class Citizens created.\n";
-                break;
-            }
-            case 2: {
-                int num;
-                std::cout << "Enter the number of Mid Class Citizens to create: ";
-                std::cin >> num;
-                for (int i = 0; i < num; ++i) {
-                    PrototypeCitizen* midCitizen = new MidClassCitizen();
-                    citizens.push_back(midCitizen);
-                    totalSatisfaction += midCitizen->getSatisfaction();
-                }
-                std::cout << num << " Mid Class Citizens created.\n";
-                break;
-            }
-            case 3: {
-                int num;
-                std::cout << "Enter the number of Low Class Citizens to create: ";
-                std::cin >> num;
-                for (int i = 0; i < num; ++i) {
-                    PrototypeCitizen* lowCitizen = new LowClassCitizen();
-                    citizens.push_back(lowCitizen);
-                    totalSatisfaction += lowCitizen->getSatisfaction();
-                }
-                std::cout << num << " Low Class Citizens created.\n";
-                break;
-            }
-            case 4: {
-                int employmentChoice;
-                std::cout << "Choose Citizen Class to Toggle Employment Status:\n";
-                std::cout << "1. High Class\n";
-                std::cout << "2. Mid Class\n";
-                std::cout << "3. Low Class\n";
-                std::cout << "Enter your choice: ";
-                std::cin >> employmentChoice;
-
-                for (PrototypeCitizen* citizen : citizens) {
-                    if ((employmentChoice == 1 && dynamic_cast<HighClassCitizen*>(citizen)) ||
-                        (employmentChoice == 2 && dynamic_cast<MidClassCitizen*>(citizen)) ||
-                        (employmentChoice == 3 && dynamic_cast<LowClassCitizen*>(citizen))) {
-                        citizen->toggleEmployment();
-                        std::cout << "Employment status toggled for a citizen of chosen class.\n";
+                        if (buildingType == 1 && !residentialBuildings.empty()) {
+                            residentialBuildings.back()->removeBuilding();
+                            residentialBuildings.pop_back();
+                        } else if (buildingType == 2 && !industrialBuildings.empty()) {
+                            industrialBuildings.back()->removeBuilding();
+                            industrialBuildings.pop_back();
+                        } else if (buildingType == 3 && !landmarkBuildings.empty()) {
+                            landmarkBuildings.back()->removeBuilding();
+                            landmarkBuildings.pop_back();
+                        } else if (buildingType == 4 && !commercialBuildings.empty()) {
+                            commercialBuildings.back()->removeBuilding();
+                            commercialBuildings.pop_back();
+                        } else {
+                            std::cout << "No building of the selected type to remove!\n";
+                        }
+                        break;
+                    }
+                    case 6: { // Progress Year
+                        BuildingStatistics::YearResourceIncrease();
+                        break;
+                    }
+                    case 7: { // Exit
+                        running = false;
+                        break;
+                    }
+                    default: {
+                        std::cout << "Invalid choice! Please try again.\n";
+                        break;
                     }
                 }
-                break;
             }
-            case 5: {
-                float avgSatisfaction = citizens.empty() ? 0.0 : totalSatisfaction / citizens.size();
-                std::cout << "\n--- Citizen Information ---\n";
-                for (PrototypeCitizen* citizen : citizens) {
-                    citizen->displayInfo();
-                }
-                std::cout << "\nTotal Citizens: " << PrototypeCitizen::getCitizenCount();
-                std::cout << "\nAverage Satisfaction: " << avgSatisfaction << "\n";
-                break;
-            }
-            case 6: {
-                int numToKill;
-                std::cout << "Enter the number of citizens to kill: ";
-                std::cin >> numToKill;
 
-                if (numToKill > static_cast<int>(citizens.size())) {
-                    std::cout << "Not enough citizens to kill. Currently, there are only " << citizens.size() << " citizens.\n";
+            // Cleanup resources
+            delete rm;
+            delete rm1;
+            delete rm2;
+            delete rm3;
+            delete rm4;
+            break;
+            std::cout << "Exiting Buildings. All resources and buildings have been cleaned up.\n";
+            break;
+    case 2:
+        std::srand(static_cast<unsigned int>(time(nullptr)));
+        std::vector<PrototypeCitizen*> citizens;
+        bool srunning = true;
+        float totalSatisfaction = 0.0;
+
+        while (srunning) {
+            int choice;
+            std::cout << "\nChoose an action:\n";
+            std::cout << "1. Create High Class Citizens\n";
+            std::cout << "2. Create Mid Class Citizens\n";
+            std::cout << "3. Create Low Class Citizens\n";
+            std::cout << "4. Toggle Employment Status\n";
+            std::cout << "5. Display Citizen Info, Count, & Average Satisfaction\n";
+            std::cout << "6. Kill Citizens\n";
+            std::cout << "7. Exit\n";
+            std::cout << "Enter your choice: ";
+            std::cin >> choice;
+
+            switch (choice) {
+                case 1: {
+                    int num;
+                    std::cout << "Enter the number of High Class Citizens to create: ";
+                    std::cin >> num;
+                    for (int i = 0; i < num; ++i) {
+                        PrototypeCitizen* highCitizen = new HighClassCitizen();
+                        citizens.push_back(highCitizen);
+                        totalSatisfaction += highCitizen->getSatisfaction();
+                    }
+                    std::cout << num << " High Class Citizens created.\n";
                     break;
                 }
-
-                for (int i = 0; i < numToKill; ++i) {
-                    int index = std::rand() % citizens.size();
-                    totalSatisfaction -= citizens[index]->getSatisfaction();
-                    delete citizens[index];
-                    citizens.erase(citizens.begin() + index);
+                case 2: {
+                    int num;
+                    std::cout << "Enter the number of Mid Class Citizens to create: ";
+                    std::cin >> num;
+                    for (int i = 0; i < num; ++i) {
+                        PrototypeCitizen* midCitizen = new MidClassCitizen();
+                        citizens.push_back(midCitizen);
+                        totalSatisfaction += midCitizen->getSatisfaction();
+                    }
+                    std::cout << num << " Mid Class Citizens created.\n";
+                    break;
                 }
+                case 3: {
+                    int num;
+                    std::cout << "Enter the number of Low Class Citizens to create: ";
+                    std::cin >> num;
+                    for (int i = 0; i < num; ++i) {
+                        PrototypeCitizen* lowCitizen = new LowClassCitizen();
+                        citizens.push_back(lowCitizen);
+                        totalSatisfaction += lowCitizen->getSatisfaction();
+                    }
+                    std::cout << num << " Low Class Citizens created.\n";
+                    break;
+                }
+                case 4: {
+                    int employmentChoice;
+                    std::cout << "Choose Citizen Class to Toggle Employment Status:\n";
+                    std::cout << "1. High Class\n";
+                    std::cout << "2. Mid Class\n";
+                    std::cout << "3. Low Class\n";
+                    std::cout << "Enter your choice: ";
+                    std::cin >> employmentChoice;
 
-                std::cout << numToKill << " citizens have been killed.\n";
+                    for (PrototypeCitizen* citizen : citizens) {
+                        if ((employmentChoice == 1 && dynamic_cast<HighClassCitizen*>(citizen)) ||
+                            (employmentChoice == 2 && dynamic_cast<MidClassCitizen*>(citizen)) ||
+                            (employmentChoice == 3 && dynamic_cast<LowClassCitizen*>(citizen))) {
+                            citizen->toggleEmployment();
+                            std::cout << "Employment status toggled for a citizen of chosen class.\n";
+                        }
+                    }
+                    break;
+                }
+                case 5: {
+                    float avgSatisfaction = citizens.empty() ? 0.0 : totalSatisfaction / citizens.size();
+                    std::cout << "\n--- Citizen Information ---\n";
+                    for (PrototypeCitizen* citizen : citizens) {
+                        citizen->displayInfo();
+                    }
+                    std::cout << "\nTotal Citizens: " << PrototypeCitizen::getCitizenCount();
+                    std::cout << "\nAverage Satisfaction: " << avgSatisfaction << "\n";
+                    break;
+                }
+                case 6: {
+                    int numToKill;
+                    std::cout << "Enter the number of citizens to kill: ";
+                    std::cin >> numToKill;
+
+                    if (numToKill > static_cast<int>(citizens.size())) {
+                        std::cout << "Not enough citizens to kill. Currently, there are only " << citizens.size() << " citizens.\n";
+                        break;
+                    }
+
+                    for (int i = 0; i < numToKill; ++i) {
+                        int index = std::rand() % citizens.size();
+                        totalSatisfaction -= citizens[index]->getSatisfaction();
+                        delete citizens[index];
+                        citizens.erase(citizens.begin() + index);
+                    }
+
+                    std::cout << numToKill << " citizens have been killed.\n";
+                    break;
+                }
+                case 7: {
+                    srunning = false;
+                    std::cout << "Exiting program.\n";
+                    break;
+                }
+                default:
+                    std::cout << "Invalid choice. Please try again.\n";
+            }
+            }
+            for (PrototypeCitizen* citizen : citizens) {
+                delete citizen;
+            }
                 break;
-            }
-            case 7: {
-                srunning = false;
-                std::cout << "Exiting program.\n";
+    case 3:
+        double budget = 2000000.00;
+        Road road(budget);
+        TrainSystem train(budget);
+        TransportObserver observer(road, train);
+        road.attach(&observer);
+        train.attach(&observer);
+
+        bool prunning = true;
+        while(prunning){
+
+            std::cout << "Choose an action:\n";
+            std::cout << "1. Road\n";
+            std::cout << "2. Train\n";
+            std::cout << "3. View Statistics\n";
+            std::cout << "4. Exit\n";
+            std::cout << "Enter your choice: ";
+
+            int choice;
+            std::cin >> choice;
+
+            switch (choice) {
+                case 1:
+                    roadM(road);
                 break;
-            }
-            default:
-                std::cout << "Invalid choice. Please try again.\n";
-        }
-    }
-    for (PrototypeCitizen* citizen : citizens) {
-        delete citizen;
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////
-
-    CityGrowthOg originator;
-    StatsCaretaker caretaker;
-    int year = 1;
-    while(true){
-        std::cout << "Year " << year << " - Enter statistics:\n";
-        CityStats current;
-        std::cout << "Population: ";
-        std::cin >> current.population;
-        std::cout << "Housing Needs: ";
-        std::cin >> current.housingNeeds;
-        std::cout << "Citizen Satisfaction: ";
-        std::cin >> current.citizenSatisfaction;
-        std::cout << "Hygiene: ";
-        std::cin >> current.hygiene;
-        std::cout << "Productivity: ";
-        std::cin >> current.productivity;
-        std::cout << "Employment Rate (%): ";
-        std::cin >> current.employmentRate;
-        originator.setState(current);
-        caretaker.addMemento(originator.saveStateToMemento());
-        if(year > 1){
-            CityStats prev = caretaker.getMemento(year-2)->getState();
-            displayPercentageChange(prev, current);
-        }
-        std::cout << "Options:\n1. Progress to next year\n2. View previous year's statistics\n3. Exit\nChoose an option: ";
-        int option;
-        std::cin >> option;
-        if(option == 1){
-            year++;
-            continue;
-        }
-        else if(option == 2){
-            if(year == 1){
-                std::cout << "No previous year data.\n";
-            }
-            else{
-                CityStats prev = caretaker.getMemento(year-2)->getState();
-                std::cout << "Year " << year-1 << " Statistics:\n";
-                displayStatistics(prev);
+                case 2:
+                    trainM(train);
+                break;
+                case 3:
+                    observer.update();
+                std::cout << "Total Transport Satisfaction: " << observer.getTransportSatisfaction() << "\n";
+                std::cout << "Total Transport Productivity: " << observer.getTransportProductivity() * 100 << "%\n";
+                std::cout << "Total City Budget: " << formatMoney(budget) << "\n";
+                break;
+                case 4:
+                    std::cout << "Exiting simulation.\n";
+                prunning = false;
+                break;
+                default:
+                    std::cout << "Invalid choice. Please try again.\n";
             }
         }
-        else if(option == 3){
-            std::cout << "All Years Statistics:\n";
-            for(int i=0;i<caretaker.getSize();i++){
-                CityStats s = caretaker.getMemento(i)->getState();
-                std::cout << "Year " << i+1 << ":\n";
-                displayStatistics(s);
-            }
             break;
-        }
-        else{
-            std::cout << "Invalid option.\n";
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//    govtesting should go here
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    case 4:
         CitySimulation citySim;
+        int highClass = 100;
+        int middleClass = 500;
+        int lowClass = 1000;
 
-    int highClass = 100;
-    int middleClass = 500;
-    int lowClass = 1000;
+        bool trunning = true;
+        while (trunning) {
+            std::cout << "============================\n";
+            std::cout << "Year " << citySim.getCurrentYear() << "\n";
+            std::cout << "Government's Total Money: " << formatMoney(citySim.getGovernmentMoney()) << "\n";
+            std::cout << "Tax Satisfaction: " << citySim.getTaxSatisfaction() << "\n";
+            std::cout << "============================\n";
 
-    bool trunning = true;
-    while (trunning) {
-        std::cout << "============================\n";
-        std::cout << "Year " << citySim.getCurrentYear() << "\n";
-        std::cout << "Government's Total Money: " << formatMoney(citySim.getGovernmentMoney()) << "\n";
-        std::cout << "Tax Satisfaction: " << citySim.getTaxSatisfaction() << "\n";
-        std::cout << "============================\n";
+            std::cout << "Choose a Tax Strategy:\n";
+            std::cout << "1. Flat Tax\n";
+            std::cout << "2. Progressive Tax\n";
+            std::cout << "3. Regressive Tax\n";
+            std::cout << "4. Exit\n";
+            std::cout << "Enter your choice: ";
 
-        std::cout << "Choose a Tax Strategy:\n";
-        std::cout << "1. Flat Tax\n";
-        std::cout << "2. Progressive Tax\n";
-        std::cout << "3. Regressive Tax\n";
-        std::cout << "4. Exit\n";
-        std::cout << "Enter your choice: ";
+            int choice;
+            std::cin >> choice;
 
-        int choice;
-        std::cin >> choice;
-
-        std::unique_ptr<TaxStrategy> strategy = nullptr;
-        double baseRate = 0.0;
-        switch (choice) {
-            case 1:
-                std::cout << "Enter Flat Tax rate (in %): ";
-                std::cin >> baseRate;
-                if (baseRate < 0.0 || baseRate > 100.0) {
-                    std::cout << "Invalid tax rate. Must be between 0 and 100.\n";
-                    continue;
-                }
-                strategy = std::unique_ptr<FlatTax>(new FlatTax(baseRate));
-                std::cout << "Selected Flat Tax Strategy with rate " << baseRate << "%.\n";
-                break;
-            case 2:
-                std::cout << "Enter Progressive Tax base rate (in %): ";
-                std::cin >> baseRate;
-                if (baseRate < 0.0 || baseRate > 100.0) {
-                    std::cout << "Invalid tax rate. Must be between 0 and 100.\n";
-                    continue;
-                }
-            strategy = std::unique_ptr<RegressiveTax>(new RegressiveTax(baseRate));
-                std::cout << "Selected Progressive Tax Strategy with base rate " << baseRate << "%.\n";
-                break;
-            case 3:
-                std::cout << "Enter Regressive Tax base rate (in %): ";
-                std::cin >> baseRate;
-                if (baseRate < 0.0 || baseRate > 100.0) {
-                    std::cout << "Invalid tax rate. Must be between 0 and 100.\n";
-                    continue;
-                }
+            std::unique_ptr<TaxStrategy> strategy = nullptr;
+            double baseRate = 0.0;
+            switch (choice) {
+                case 1:
+                    std::cout << "Enter Flat Tax rate (in %): ";
+                    std::cin >> baseRate;
+                    if (baseRate < 0.0 || baseRate > 100.0) {
+                        std::cout << "Invalid tax rate. Must be between 0 and 100.\n";
+                        continue;
+                    }
+                    strategy = std::unique_ptr<FlatTax>(new FlatTax(baseRate));
+                    std::cout << "Selected Flat Tax Strategy with rate " << baseRate << "%.\n";
+                    break;
+                case 2:
+                    std::cout << "Enter Progressive Tax base rate (in %): ";
+                    std::cin >> baseRate;
+                    if (baseRate < 0.0 || baseRate > 100.0) {
+                        std::cout << "Invalid tax rate. Must be between 0 and 100.\n";
+                        continue;
+                    }
                 strategy = std::unique_ptr<RegressiveTax>(new RegressiveTax(baseRate));
-                std::cout << "Selected Regressive Tax Strategy with base rate " << baseRate << "%.\n";
-                break;
-            case 4:
-                std::cout << "Exiting simulation.\n";
-                trunning = false;
-                continue;
-            default:
-                std::cout << "Invalid choice. Please try again.\n";
-                continue;
+                    std::cout << "Selected Progressive Tax Strategy with base rate " << baseRate << "%.\n";
+                    break;
+                case 3:
+                    std::cout << "Enter Regressive Tax base rate (in %): ";
+                    std::cin >> baseRate;
+                    if (baseRate < 0.0 || baseRate > 100.0) {
+                        std::cout << "Invalid tax rate. Must be between 0 and 100.\n";
+                        continue;
+                    }
+                    strategy = std::unique_ptr<RegressiveTax>(new RegressiveTax(baseRate));
+                    std::cout << "Selected Regressive Tax Strategy with base rate " << baseRate << "%.\n";
+                    break;
+                case 4:
+                    std::cout << "Exiting simulation.\n";
+                    trunning = false;
+                    continue;
+                default:
+                    std::cout << "Invalid choice. Please try again.\n";
+                    continue;
+            }
+
+            if (trunning) {
+                citySim.setTaxStrategy(std::move(strategy));
+
+                double taxCollected = citySim.advanceYear(highClass, middleClass, lowClass);
+
+                std::cout << "Tax collected this year: " << formatMoney(taxCollected) << "\n\n";
+            }
         }
 
-        if (trunning) {
-            citySim.setTaxStrategy(std::move(strategy));
-
-            double taxCollected = citySim.advanceYear(highClass, middleClass, lowClass);
-
-            std::cout << "Tax collected this year: " << formatMoney(taxCollected) << "\n\n";
+        const std::vector<TaxMemento>& history = citySim.getTaxHistory();
+        if (!history.empty()) {
+            std::cout << "=== Tax History ===\n";
+            for (const auto& memento : history) {
+                std::cout << "Year " << memento.getYear() << "\n";
+                std::cout << "   Tax strategy: " << memento.getStrategyName() << "\n";
+                std::cout << "   Tax rate: " << memento.getBaseRate() << "%\n";
+                std::cout << "   Citizen satisfaction: " << memento.getTaxSatisfaction() << "\n";
+            }
+            std::cout << "====================\n";
         }
-    }
-
-    const std::vector<TaxMemento>& history = citySim.getTaxHistory();
-    if (!history.empty()) {
-        std::cout << "=== Tax History ===\n";
-        for (const auto& memento : history) {
-            std::cout << "Year " << memento.getYear() << "\n";
-            std::cout << "   Tax strategy: " << memento.getStrategyName() << "\n";
-            std::cout << "   Tax rate: " << memento.getBaseRate() << "%\n";
-            std::cout << "   Citizen satisfaction: " << memento.getTaxSatisfaction() << "\n";
+        else {
+            std::cout << "No tax history available.\n";
         }
-        std::cout << "====================\n";
-    }
-    else {
-        std::cout << "No tax history available.\n";
-    }
 
-   /////////////////////////////////////////////////////////////////////////////////////////////
-
-    double budget = 2000000.00;
-    Road road(budget);
-    TrainSystem train(budget);
-    TransportObserver observer(road, train);
-    road.attach(&observer);
-    train.attach(&observer);
-
-    bool prunning = true;
-    while(prunning){
-
-        std::cout << "Choose an action:\n";
-        std::cout << "1. Road\n";
-        std::cout << "2. Train\n";
-        std::cout << "3. View Statistics\n";
-        std::cout << "4. Exit\n";
-        std::cout << "Enter your choice: ";
-
-        int choice;
-        std::cin >> choice;
-
-        switch (choice) {
-            case 1:
-                roadM(road);
+               break;
+    case 5:
+        std::cout<<"Managing Government\n";
             break;
-            case 2:
-                trainM(train);
+    case 6:
+        std::cout<<"Managing Utilities\n";
             break;
-            case 3:
-                observer.update();
-            std::cout << "Total Transport Satisfaction: " << observer.getTransportSatisfaction() << "\n";
-            std::cout << "Total Transport Productivity: " << observer.getTransportProductivity() * 100 << "%\n";
-            std::cout << "Total City Budget: " << formatMoney(budget) << "\n";
-            break;
-            case 4:
-                std::cout << "Exiting simulation.\n";
-            prunning = false;
-            break;
-            default:
-                std::cout << "Invalid choice. Please try again.\n";
-        }
+    case 7:
+        std::cout<<"Viewing Resources\n";
+        std::cout << "Wood: " << rm->getQuantity() << " units\n";
+        std::cout << "Steel: " << rm1->getQuantity() << " units\n";
+        std::cout << "Concrete: " << rm2->getQuantity() << " units\n";
+        std::cout << "Power: " << rm3->getQuantity() << " units\n";
+        std::cout << "Water: " << rm4->getQuantity() << " units\n";
+    break;
+
+    case 8:
+        std::cout<<"Viewing Statistics\n";
+        CityStats currentStats = CityStats::getInstance();
+        CityStats previousStats = StatsCaretaker::getInstance().getMemento().getStats();
+        displayStatistics(currentStats);
+        displayPercentageChange(previousStats, currentStats);
+    break;
+    case 9:
+        std::cout<<"Progressing Year\n";
+        break;
+    default:
+            std::cout<<"Invalid choice. Exiting program.\n";
+            return 0;
     }
 
     return 0;
+
+
+//     std::cout << "********************************************\n";
+//     ResourceManager* rm = new WoodManager();
+//     ResourceManager* rm1 = new SteelManager();
+//     ResourceManager* rm2 = new ConcreteManager();
+//     ResourceManager* rm3 = new PowerManager();
+//     ResourceManager* rm4 = new WaterManager();
+//     std::cout << "********************************************\n\n";
+//
+//     // Factories for creating buildings
+//     ResidentialFactory residentialFactory;
+//     IndustrialFactory industrialFactory;
+//     LandmarkFactory landmarkFactory;
+//     CommercialFactory commercialFactory;
+//
+//     // Storage for created buildings
+//     std::vector<std::unique_ptr<ResidentialBuilding>> residentialBuildings;
+//     std::vector<std::unique_ptr<IndustrialBuilding>> industrialBuildings;
+//     std::vector<std::unique_ptr<LandmarkBuilding>> landmarkBuildings;
+//     std::vector<std::unique_ptr<CommercialBuilding>> commercialBuildings;
+//
+//     bool running = true;
+//     while (running) {
+//         showMainMenu();
+//         int mainChoice;
+//         std::cin >> mainChoice;
+//
+//         switch (mainChoice) {
+//             case 1: { // Build Industrial Building
+//                 showBuildingOptions("Industrial");
+//                 int industrialChoice;
+//                 std::cin >> industrialChoice;
+//                 switch (industrialChoice) {
+//                     case 1: industrialBuildings.push_back(std::unique_ptr<IndustrialBuilding>(industrialFactory.BuildIndustrial("factory"))); break;
+//                     case 2: industrialBuildings.push_back(std::unique_ptr<IndustrialBuilding>(industrialFactory.BuildIndustrial("warehouse"))); break;
+//                     case 3: industrialBuildings.push_back(std::unique_ptr<IndustrialBuilding>(industrialFactory.BuildIndustrial("plant"))); break;
+//                     case 4: industrialBuildings.push_back(std::unique_ptr<IndustrialBuilding>(industrialFactory.BuildIndustrial("dam"))); break;
+//                     default: std::cout << "Invalid choice!\n"; break;
+//                 }
+//                 break;
+//             }
+//             case 2: { // Build Commercial Building
+//                 showBuildingOptions("Commercial");
+//                 int commercialChoice;
+//                 std::cin >> commercialChoice;
+//                 switch (commercialChoice) {
+//                     case 1: commercialBuildings.push_back(std::unique_ptr<CommercialBuilding>(commercialFactory.BuildCommercial("shop"))); break;
+//                     case 2: commercialBuildings.push_back(std::unique_ptr<CommercialBuilding>(commercialFactory.BuildCommercial("mall"))); break;
+//                     case 3: commercialBuildings.push_back(std::unique_ptr<CommercialBuilding>(commercialFactory.BuildCommercial("office"))); break;
+//                     default: std::cout << "Invalid choice!\n"; break;
+//                 }
+//                 break;
+//             }
+//             case 3: { // Build Residential Building
+//                 showBuildingOptions("Residential");
+//                 int residentialChoice;
+//                 std::cin >> residentialChoice;
+//                 switch (residentialChoice) {
+//                     case 1: residentialBuildings.push_back(std::unique_ptr<ResidentialBuilding>(residentialFactory.BuildResidential("house"))); break;
+//                     case 2: residentialBuildings.push_back(std::unique_ptr<ResidentialBuilding>(residentialFactory.BuildResidential("flat"))); break;
+//                     case 3: residentialBuildings.push_back(std::unique_ptr<ResidentialBuilding>(residentialFactory.BuildResidential("townhouse"))); break;
+//                     case 4: residentialBuildings.push_back(std::unique_ptr<ResidentialBuilding>(residentialFactory.BuildResidential("estate"))); break;
+//                     default: std::cout << "Invalid choice!\n"; break;
+//                 }
+//                 break;
+//             }
+//             case 4: { // Build Landmark Building
+//                 showBuildingOptions("Landmark");
+//                 int landmarkChoice;
+//                 std::cin >> landmarkChoice;
+//                 switch (landmarkChoice) {
+//                     case 1: landmarkBuildings.push_back(std::unique_ptr<LandmarkBuilding>(landmarkFactory.BuildLandmark("Park"))); break;
+//                     case 2: landmarkBuildings.push_back(std::unique_ptr<LandmarkBuilding>(landmarkFactory.BuildLandmark("Monument"))); break;
+//                     case 3: landmarkBuildings.push_back(std::unique_ptr<LandmarkBuilding>(landmarkFactory.BuildLandmark("Cultural"))); break;
+//                     default: std::cout << "Invalid choice!\n"; break;
+//                 }
+//                 break;
+//             }
+//             case 5: { // Remove Building
+//                 std::cout << "Choose a type of building to remove:\n";
+//                 std::cout << "1. Residential\n";
+//                 std::cout << "2. Industrial\n";
+//                 std::cout << "3. Landmark\n";
+//                 std::cout << "4. Commercial\n";
+//                 int buildingType;
+//                 std::cin >> buildingType;
+//
+//                 if (buildingType == 1 && !residentialBuildings.empty()) {
+//                     residentialBuildings.back()->removeBuilding();
+//                     residentialBuildings.pop_back();
+//                 } else if (buildingType == 2 && !industrialBuildings.empty()) {
+//                     industrialBuildings.back()->removeBuilding();
+//                     industrialBuildings.pop_back();
+//                 } else if (buildingType == 3 && !landmarkBuildings.empty()) {
+//                     landmarkBuildings.back()->removeBuilding();
+//                     landmarkBuildings.pop_back();
+//                 } else if (buildingType == 4 && !commercialBuildings.empty()) {
+//                     commercialBuildings.back()->removeBuilding();
+//                     commercialBuildings.pop_back();
+//                 } else {
+//                     std::cout << "No building of the selected type to remove!\n";
+//                 }
+//                 break;
+//             }
+//             case 6: { // Progress Year
+//                 BuildingStatistics::YearResourceIncrease();
+//                 break;
+//             }
+//             case 7: { // Exit
+//                 running = false;
+//                 break;
+//             }
+//             default: {
+//                 std::cout << "Invalid choice! Please try again.\n";
+//                 break;
+//             }
+//         }
+//     }
+//
+//     // Cleanup resources
+//     delete rm;
+//     delete rm1;
+//     delete rm2;
+//     delete rm3;
+//     delete rm4;
+//
+//
+//     std::cout << "Exiting program. All resources and buildings have been cleaned up.\n";
+//
+//
+//     //////////////////////////////////////////////////////////////////////////////////////////////////
+//     std::srand(static_cast<unsigned int>(time(nullptr)));
+//     std::vector<PrototypeCitizen*> citizens;
+//     bool srunning = true;
+//     float totalSatisfaction = 0.0;
+//
+//     while (srunning) {
+//         int choice;
+//         std::cout << "\nChoose an action:\n";
+//         std::cout << "1. Create High Class Citizens\n";
+//         std::cout << "2. Create Mid Class Citizens\n";
+//         std::cout << "3. Create Low Class Citizens\n";
+//         std::cout << "4. Toggle Employment Status\n";
+//         std::cout << "5. Display Citizen Info, Count, & Average Satisfaction\n";
+//         std::cout << "6. Kill Citizens\n";
+//         std::cout << "7. Exit\n";
+//         std::cout << "Enter your choice: ";
+//         std::cin >> choice;
+//
+//         switch (choice) {
+//             case 1: {
+//                 int num;
+//                 std::cout << "Enter the number of High Class Citizens to create: ";
+//                 std::cin >> num;
+//                 for (int i = 0; i < num; ++i) {
+//                     PrototypeCitizen* highCitizen = new HighClassCitizen();
+//                     citizens.push_back(highCitizen);
+//                     totalSatisfaction += highCitizen->getSatisfaction();
+//                 }
+//                 std::cout << num << " High Class Citizens created.\n";
+//                 break;
+//             }
+//             case 2: {
+//                 int num;
+//                 std::cout << "Enter the number of Mid Class Citizens to create: ";
+//                 std::cin >> num;
+//                 for (int i = 0; i < num; ++i) {
+//                     PrototypeCitizen* midCitizen = new MidClassCitizen();
+//                     citizens.push_back(midCitizen);
+//                     totalSatisfaction += midCitizen->getSatisfaction();
+//                 }
+//                 std::cout << num << " Mid Class Citizens created.\n";
+//                 break;
+//             }
+//             case 3: {
+//                 int num;
+//                 std::cout << "Enter the number of Low Class Citizens to create: ";
+//                 std::cin >> num;
+//                 for (int i = 0; i < num; ++i) {
+//                     PrototypeCitizen* lowCitizen = new LowClassCitizen();
+//                     citizens.push_back(lowCitizen);
+//                     totalSatisfaction += lowCitizen->getSatisfaction();
+//                 }
+//                 std::cout << num << " Low Class Citizens created.\n";
+//                 break;
+//             }
+//             case 4: {
+//                 int employmentChoice;
+//                 std::cout << "Choose Citizen Class to Toggle Employment Status:\n";
+//                 std::cout << "1. High Class\n";
+//                 std::cout << "2. Mid Class\n";
+//                 std::cout << "3. Low Class\n";
+//                 std::cout << "Enter your choice: ";
+//                 std::cin >> employmentChoice;
+//
+//                 for (PrototypeCitizen* citizen : citizens) {
+//                     if ((employmentChoice == 1 && dynamic_cast<HighClassCitizen*>(citizen)) ||
+//                         (employmentChoice == 2 && dynamic_cast<MidClassCitizen*>(citizen)) ||
+//                         (employmentChoice == 3 && dynamic_cast<LowClassCitizen*>(citizen))) {
+//                         citizen->toggleEmployment();
+//                         std::cout << "Employment status toggled for a citizen of chosen class.\n";
+//                     }
+//                 }
+//                 break;
+//             }
+//             case 5: {
+//                 float avgSatisfaction = citizens.empty() ? 0.0 : totalSatisfaction / citizens.size();
+//                 std::cout << "\n--- Citizen Information ---\n";
+//                 for (PrototypeCitizen* citizen : citizens) {
+//                     citizen->displayInfo();
+//                 }
+//                 std::cout << "\nTotal Citizens: " << PrototypeCitizen::getCitizenCount();
+//                 std::cout << "\nAverage Satisfaction: " << avgSatisfaction << "\n";
+//                 break;
+//             }
+//             case 6: {
+//                 int numToKill;
+//                 std::cout << "Enter the number of citizens to kill: ";
+//                 std::cin >> numToKill;
+//
+//                 if (numToKill > static_cast<int>(citizens.size())) {
+//                     std::cout << "Not enough citizens to kill. Currently, there are only " << citizens.size() << " citizens.\n";
+//                     break;
+//                 }
+//
+//                 for (int i = 0; i < numToKill; ++i) {
+//                     int index = std::rand() % citizens.size();
+//                     totalSatisfaction -= citizens[index]->getSatisfaction();
+//                     delete citizens[index];
+//                     citizens.erase(citizens.begin() + index);
+//                 }
+//
+//                 std::cout << numToKill << " citizens have been killed.\n";
+//                 break;
+//             }
+//             case 7: {
+//                 srunning = false;
+//                 std::cout << "Exiting program.\n";
+//                 break;
+//             }
+//             default:
+//                 std::cout << "Invalid choice. Please try again.\n";
+//         }
+//     }
+//     for (PrototypeCitizen* citizen : citizens) {
+//         delete citizen;
+//     }
+//
+//     //////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//     CityGrowthOg originator;
+//     StatsCaretaker caretaker;
+//     int year = 1;
+//     while(true){
+//         std::cout << "Year " << year << " - Enter statistics:\n";
+//         CityStats current;
+//         std::cout << "Population: ";
+//         std::cin >> current.population;
+//         std::cout << "Housing Needs: ";
+//         std::cin >> current.housingNeeds;
+//         std::cout << "Citizen Satisfaction: ";
+//         std::cin >> current.citizenSatisfaction;
+//         std::cout << "Hygiene: ";
+//         std::cin >> current.hygiene;
+//         std::cout << "Productivity: ";
+//         std::cin >> current.productivity;
+//         std::cout << "Employment Rate (%): ";
+//         std::cin >> current.employmentRate;
+//         originator.setState(current);
+//         caretaker.addMemento(originator.saveStateToMemento());
+//         if(year > 1){
+//             CityStats prev = caretaker.getMemento(year-2)->getState();
+//             displayPercentageChange(prev, current);
+//         }
+//         std::cout << "Options:\n1. Progress to next year\n2. View previous year's statistics\n3. Exit\nChoose an option: ";
+//         int option;
+//         std::cin >> option;
+//         if(option == 1){
+//             year++;
+//             continue;
+//         }
+//         else if(option == 2){
+//             if(year == 1){
+//                 std::cout << "No previous year data.\n";
+//             }
+//             else{
+//                 CityStats prev = caretaker.getMemento(year-2)->getState();
+//                 std::cout << "Year " << year-1 << " Statistics:\n";
+//                 displayStatistics(prev);
+//             }
+//         }
+//         else if(option == 3){
+//             std::cout << "All Years Statistics:\n";
+//             for(int i=0;i<caretaker.getSize();i++){
+//                 CityStats s = caretaker.getMemento(i)->getState();
+//                 std::cout << "Year " << i+1 << ":\n";
+//                 displayStatistics(s);
+//             }
+//             break;
+//         }
+//         else{
+//             std::cout << "Invalid option.\n";
+//         }
+//     }
+//
+//     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// //    govtesting should go here
+//
+//     ////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//         CitySimulation citySim;
+//
+//     int highClass = 100;
+//     int middleClass = 500;
+//     int lowClass = 1000;
+//
+//     bool trunning = true;
+//     while (trunning) {
+//         std::cout << "============================\n";
+//         std::cout << "Year " << citySim.getCurrentYear() << "\n";
+//         std::cout << "Government's Total Money: " << formatMoney(citySim.getGovernmentMoney()) << "\n";
+//         std::cout << "Tax Satisfaction: " << citySim.getTaxSatisfaction() << "\n";
+//         std::cout << "============================\n";
+//
+//         std::cout << "Choose a Tax Strategy:\n";
+//         std::cout << "1. Flat Tax\n";
+//         std::cout << "2. Progressive Tax\n";
+//         std::cout << "3. Regressive Tax\n";
+//         std::cout << "4. Exit\n";
+//         std::cout << "Enter your choice: ";
+//
+//         int choice;
+//         std::cin >> choice;
+//
+//         std::unique_ptr<TaxStrategy> strategy = nullptr;
+//         double baseRate = 0.0;
+//         switch (choice) {
+//             case 1:
+//                 std::cout << "Enter Flat Tax rate (in %): ";
+//                 std::cin >> baseRate;
+//                 if (baseRate < 0.0 || baseRate > 100.0) {
+//                     std::cout << "Invalid tax rate. Must be between 0 and 100.\n";
+//                     continue;
+//                 }
+//                 strategy = std::unique_ptr<FlatTax>(new FlatTax(baseRate));
+//                 std::cout << "Selected Flat Tax Strategy with rate " << baseRate << "%.\n";
+//                 break;
+//             case 2:
+//                 std::cout << "Enter Progressive Tax base rate (in %): ";
+//                 std::cin >> baseRate;
+//                 if (baseRate < 0.0 || baseRate > 100.0) {
+//                     std::cout << "Invalid tax rate. Must be between 0 and 100.\n";
+//                     continue;
+//                 }
+//             strategy = std::unique_ptr<RegressiveTax>(new RegressiveTax(baseRate));
+//                 std::cout << "Selected Progressive Tax Strategy with base rate " << baseRate << "%.\n";
+//                 break;
+//             case 3:
+//                 std::cout << "Enter Regressive Tax base rate (in %): ";
+//                 std::cin >> baseRate;
+//                 if (baseRate < 0.0 || baseRate > 100.0) {
+//                     std::cout << "Invalid tax rate. Must be between 0 and 100.\n";
+//                     continue;
+//                 }
+//                 strategy = std::unique_ptr<RegressiveTax>(new RegressiveTax(baseRate));
+//                 std::cout << "Selected Regressive Tax Strategy with base rate " << baseRate << "%.\n";
+//                 break;
+//             case 4:
+//                 std::cout << "Exiting simulation.\n";
+//                 trunning = false;
+//                 continue;
+//             default:
+//                 std::cout << "Invalid choice. Please try again.\n";
+//                 continue;
+//         }
+//
+//         if (trunning) {
+//             citySim.setTaxStrategy(std::move(strategy));
+//
+//             double taxCollected = citySim.advanceYear(highClass, middleClass, lowClass);
+//
+//             std::cout << "Tax collected this year: " << formatMoney(taxCollected) << "\n\n";
+//         }
+//     }
+//
+//     const std::vector<TaxMemento>& history = citySim.getTaxHistory();
+//     if (!history.empty()) {
+//         std::cout << "=== Tax History ===\n";
+//         for (const auto& memento : history) {
+//             std::cout << "Year " << memento.getYear() << "\n";
+//             std::cout << "   Tax strategy: " << memento.getStrategyName() << "\n";
+//             std::cout << "   Tax rate: " << memento.getBaseRate() << "%\n";
+//             std::cout << "   Citizen satisfaction: " << memento.getTaxSatisfaction() << "\n";
+//         }
+//         std::cout << "====================\n";
+//     }
+//     else {
+//         std::cout << "No tax history available.\n";
+//     }
+//
+//    /////////////////////////////////////////////////////////////////////////////////////////////
+//
+//     double budget = 2000000.00;
+//     Road road(budget);
+//     TrainSystem train(budget);
+//     TransportObserver observer(road, train);
+//     road.attach(&observer);
+//     train.attach(&observer);
+//
+//     bool prunning = true;
+//     while(prunning){
+//
+//         std::cout << "Choose an action:\n";
+//         std::cout << "1. Road\n";
+//         std::cout << "2. Train\n";
+//         std::cout << "3. View Statistics\n";
+//         std::cout << "4. Exit\n";
+//         std::cout << "Enter your choice: ";
+//
+//         int choice;
+//         std::cin >> choice;
+//
+//         switch (choice) {
+//             case 1:
+//                 roadM(road);
+//             break;
+//             case 2:
+//                 trainM(train);
+//             break;
+//             case 3:
+//                 observer.update();
+//             std::cout << "Total Transport Satisfaction: " << observer.getTransportSatisfaction() << "\n";
+//             std::cout << "Total Transport Productivity: " << observer.getTransportProductivity() * 100 << "%\n";
+//             std::cout << "Total City Budget: " << formatMoney(budget) << "\n";
+//             break;
+//             case 4:
+//                 std::cout << "Exiting simulation.\n";
+//             prunning = false;
+//             break;
+//             default:
+//                 std::cout << "Invalid choice. Please try again.\n";
+//         }
+//     }
+
+    // return 0;
 
 }
