@@ -1,271 +1,154 @@
-// #include <iostream>
-// #include "ResourceManager.h"
-// #include "ResourceObserver.h"
-
-// int main() {
-//     // Create resource managers using pointers
-//     WoodManager* woodManager = new WoodManager();
-//     SteelManager* steelManager = new SteelManager();
-//     ConcreteManager* concreteManager = new ConcreteManager();
-//     WaterManager* waterManager = new WaterManager();
-//     PowerManager* powerManager = new PowerManager();
-
-//     // Create an observer
-//     LowResourceAlert* lowResourceAlert = new LowResourceAlert();
-
-//     // Attach observer to each resource manager
-//     woodManager->attach(lowResourceAlert);
-//     steelManager->attach(lowResourceAlert);
-//     concreteManager->attach(lowResourceAlert);
-//     waterManager->attach(lowResourceAlert);
-//     // powerManager->attach(lowResourceAlert);
-
-//     // Test resource consumption to trigger warnings
-//     std::cout << "\nUsing wood resources...\n";
-//     woodManager->useResource(8000);  // Should be above warning level
-//     woodManager->useResource(2500);  // Should trigger warning for low wood
-
-//     std::cout << "\nUsing steel resources...\n";
-//     steelManager->useResource(6000); // Should be above warning level
-//     steelManager->useResource(3000); // Should trigger warning for low steel
-
-//     std::cout << "\nUsing concrete resources...\n";
-//     concreteManager->useResource(9000); // Should be above warning level
-//     concreteManager->useResource(3500); // Should trigger warning for low concrete
-
-//     std::cout << "\nUsing water resources...\n";
-//     waterManager->useResource(18000); // Should be above warning level
-//     waterManager->useResource(10000); // Should trigger emergency refill or drought
-
-//     std::cout << "\nUsing power resources...\n";
-//     powerManager->useResource(20000); // Should be above warning level
-//     powerManager->useResource(10000); // Should trigger nuclear switch or end world
-
-
-
-//     delete woodManager;
-//     delete concreteManager;
-//     delete steelManager;
-//     delete waterManager;
-//     delete powerManager;
-//     delete lowResourceAlert;
-
-
-
-//     return 0;
-// }
-
-
-// #include "ResourceManager.h"
-// #include <cassert>
-// #include <memory>
-
-// // Helper function to test resource usage
-// void testResourceUsage(const std::string& resourceName, ResourceManager* manager, double initialAmount) {
-//     std::cout << "\n=== Testing " << resourceName << " Manager ===\n";
-    
-//     // Create and attach observer
-//     auto* observer = new LowResourceAlert();
-//     manager->attach(observer);
-    
-//     // Test initial capacity
-//     assert(manager->getResource() == initialAmount);
-//     std::cout << "Initial " << resourceName << " capacity test passed\n";
-    
-//     // Test normal resource usage
-//     double smallAmount = initialAmount * 0.1;  // 10% of initial
-//     manager->useResource(smallAmount);
-//     assert(manager->getResource() == (initialAmount - smallAmount));
-//     std::cout << "Normal resource usage test passed\n";
-    
-//     // Test capacity increase
-//     double increasePercentage = 20.0;
-//     manager->incCapacityPerc(increasePercentage);
-//     std::cout << "Capacity increase test completed\n";
-    
-//     // Test resource warning threshold
-//     double warningThresholdTest = manager->getResource() * 0.7;
-//     manager->useResource(warningThresholdTest);
-//     std::cout << "Warning threshold test completed\n";
-    
-//     // Clean up
-//     manager->detach(observer);
-//     delete observer;
-// }
-
-// // Helper function to test resource depletion
-// void testResourceDepletion(const std::string& resourceName, ResourceManager* manager) {
-//     std::cout << "\n=== Testing " << resourceName << " Depletion ===\n";
-    
-//     auto* observer = new LowResourceAlert();
-//     manager->attach(observer);
-    
-//     // Use all remaining resources
-//     double currentAmount = manager->getResource();
-//     manager->useResource(currentAmount + 1000);  // Try to use more than available
-    
-//     assert(manager->getResource() == 0);
-//     std::cout << "Resource depletion test completed\n";
-    
-//     manager->detach(observer);
-//     delete observer;
-// }
-
-// int main() {
-//     std::cout << "Starting Resource Management System Tests\n";
-//     std::cout << "========================================\n\n";
-
-//     // Initialize all resource managers
-//     WoodManager woodManager;
-//     SteelManager steelManager;
-//     ConcreteManager concreteManager;
-//     WaterManager waterManager;
-//     PowerManager powerManager;
-
-//     // Test Wood Manager
-//     testResourceUsage("Wood", &woodManager, 10000);
-    
-//     // Test Steel Manager
-//     testResourceUsage("Steel", &steelManager, 8000);
-    
-//     // Test Concrete Manager
-//     testResourceUsage("Concrete", &concreteManager, 12000);
-    
-//     // Special test for Water Manager (with emergency refill)
-//     std::cout << "\n=== Special Testing Water Manager ===\n";
-//     testResourceUsage("Water", &waterManager, 20000);
-//     // Test emergency refill
-//     double currentWater = waterManager.getResource();
-//     waterManager.useResource(currentWater);  // Deplete water to trigger emergency refill
-    
-//     // Special test for Power Manager (with nuclear switch)
-//     std::cout << "\n=== Special Testing Power Manager ===\n";
-//     testResourceUsage("Power", &powerManager, 25000);
-//     // Test nuclear switch
-//     double currentPower = powerManager.getResource();
-//     powerManager.useResource(currentPower);  // Deplete power to trigger nuclear switch
-
-//     // Test multiple observers
-//     std::cout << "\n=== Testing Multiple Observers ===\n";
-//     auto* observer1 = new LowResourceAlert();
-//     auto* observer2 = new LowResourceAlert();
-//     auto* observer3 = new LowResourceAlert();
-    
-//     concreteManager.attach(observer1);
-//     concreteManager.attach(observer2);
-//     concreteManager.attach(observer3);
-    
-//     // Trigger notifications
-//     concreteManager.useResource(9000);  // Should trigger low resource warning
-    
-//     // Clean up observers
-//     concreteManager.detach(observer1);
-//     concreteManager.detach(observer2);
-//     concreteManager.detach(observer3);
-//     delete observer1;
-//     delete observer2;
-//     delete observer3;
-
-//     // Test catastrophic scenarios (commented out to prevent program termination)
-//     std::cout << "\n=== Testing Catastrophic Scenarios ===\n";
-//     std::cout << "Note: Catastrophic tests are commented out as they would terminate the program\n";
-    
-//     // Uncomment these to test end-game scenarios (will terminate program)
-    
-//     // Test water drought
-//     // WaterManager catastrophicWater;
-//     // catastrophicWater.useResource(20000);  // Will trigger drought and end program
-    
-    
-    
-//    powerManager.useResource(200000);
-    
-
-//     std::cout << "\n========================================\n";
-//     std::cout << "All tests completed successfully!\n";
-    
-//     return 0;
-// }
-
-
-
-// #include "BuildingFactory.h"
-// #include "ResourceManager.h"
-// #include "IndustrialBuilding.h"
-// #include "CommercialBuilding.h"
-// #include "BuildingStatistics.h"
-
-
-// int main(){
-//     // Do not ever use these in the main implementation OFFLIMIT just make sure you put these here before you start doing anythign
-//     std::cout << "********************************************\n";
-//     ResourceManager* rm = new WoodManager();
-//     ResourceManager* rm1 = new SteelManager();
-//     ResourceManager* rm2 = new ConcreteManager();
-//     ResourceManager* rm3 = new PowerManager();
-//     ResourceManager* rm4 = new WaterManager();
-//     std::cout << "********************************************\n\n";
-
-//     //===============================================================
-    
-//     //different types of factories
-//     ResidentialFactory factory;
-//     IndustrialFactory factory2;
-//     LandmarkFactory factory3;
-//     CommercialFactory factory4;
-
-//     //creating buildings
-//     ResidentialBuilding* house = factory.BuildResidential("house");
-//     ResidentialBuilding* flat = factory.BuildResidential("house");
-//     IndustrialBuilding* powerPlant = factory2.BuildIndustrial("factory");
-//     IndustrialBuilding* dam = factory2.BuildIndustrial("dam");
-//     IndustrialBuilding* dam2 = factory2.BuildIndustrial("powerplant");
-//     LandmarkBuilding* park = factory3.BuildLandmark("Park");
-//     CommercialBuilding* shop = factory4.BuildCommercial("Shop");
-//     CommercialBuilding* mall = factory4.BuildCommercial("mall");
-
-
-//     // When removing building
-//     shop->removeBuilding();
-//     park->removeBuilding();
-//     flat->removeBuilding();
-//     house->removeBuilding();
-
-//     // moving to the next year
-//     BuildingStatistics stats;
-//     BuildingStatistics::YearResourceIncrease();
-
-//     // Do not touch these deletes:
-//     delete rm;
-//     delete rm1;
-//     delete rm2;
-//     delete rm3;
-//     delete rm4;
-//     //*************************/
-
-//     // these deletes are for all the buildings that were created
-//     delete house; 
-//     delete flat;
-//     delete powerPlant;
-//     delete dam;
-//     delete dam2;
-//     delete park;
-//     delete shop;
-//     delete mall;
-//     return 0;
-// }
-
-
 #include "BuildingFactory.h"
 #include "ResourceManager.h"
 #include "IndustrialBuilding.h"
 #include "CommercialBuilding.h"
 #include "BuildingStatistics.h"
+#include "HighClassCitizen.h"
+#include "MidClassCitizen.h"
+#include "LowClassCitizen.h"
+#include "CityStats.h"
+#include "StatsMemento.h"
+#include "CityGrowthOg.h"
+#include "StatsCaretaker.h"
+#include "CitySimulation.h"
+#include "ProgressiveTax.h"
+#include "FlatTax.h"
+#include "RegressiveTax.h"
+#include "TaxMemento.h"
+#include "TaxHistoryManager.h"
+#include "Road.h"
+#include "NotOperational.h"
+#include "Bad.h"
+#include "Okay.h"
+#include "Good.h"
+#include "Excellent.h"
+#include "TrainSystem.h"
+#include "Star1.h"
+#include "Star2.h"
+#include "Star3.h"
+#include "Star4.h"
+#include "Star5.h"
+#include "TransportObserver.h"
 
 #include <iostream>
 #include <memory>
 #include <vector>
+#include <ctime>
+#include <string>
+#include <iomanip>
+#include <sstream>
 
+
+std::string formatMoney(double amount) {
+    std::ostringstream oss;
+    if (amount < 1000.0) {
+        oss << "$" << static_cast<long long>(amount);
+    }
+    else if (amount < 1000000.0) {
+        double thousands = amount / 1000.0;
+        oss << "$" << std::fixed << std::setprecision(1) << thousands << "k";
+    }
+    else {
+        double millions = amount / 1000000.0;
+        oss << "$" << std::fixed << std::setprecision(1) << millions << "m";
+    }
+    return oss.str();
+}
+
+void trainM(TrainSystem& train) {
+    // TrainSystem train(budget);
+    bool runningT = true;
+    while (runningT) {
+        std::cout << "============================\n";
+        std::cout << "Current Train System State: " << train.getCurrentStateName() << "\n";
+        std::cout << "City Budget: " << formatMoney(train.getCityBudget()) << "\n";
+        std::cout << "Train Satisfaction: " << train.getSatisfaction() << "\n";
+        std::cout << "============================\n";
+        std::cout << "Choose an action:\n";
+        std::cout << "1. Upgrade Train System\n";
+        std::cout << "2. Progress to Next Year\n";
+        std::cout << "3. Exit\n";
+        std::cout << "Enter your choice: ";
+        int choiceT;
+        std::cin >> choiceT;
+        switch (choiceT) {
+            case 1:
+                train.upgradeTrainSystem();
+                break;
+            case 2:
+                train.progressYear();
+                break;
+            case 3:
+                std::cout << "Exiting Train.\n";
+                runningT = false;
+                break;
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
+        }
+        std::cout << "\n";
+    }
+}
+
+void roadM(Road& road) {
+    // Road road(budget);
+    bool runningR = true;
+    while (runningR) {
+        std::cout << "============================\n";
+        std::cout << "Current Road State: " << road.getCurrentStateName() << "\n";
+        std::cout << "City Budget: " << formatMoney(road.getCityBudget()) << "\n";
+        std::cout << "Road Satisfaction: " << road.getSatisfaction() << "\n";
+        std::cout << "============================\n";
+
+        std::cout << "Choose an action:\n";
+        std::cout << "1. Upgrade Road\n";
+        std::cout << "2. Progress to Next Year\n";
+        std::cout << "3. Exit\n";
+        std::cout << "Enter your choice: ";
+
+        int choiceR;
+        std::cin >> choiceR;
+
+        switch (choiceR) {
+            case 1:
+                road.upgradeRoad();
+                break;
+            case 2:
+                road.progressYear();
+                break;
+            case 3:
+                std::cout << "Exiting Road.\n";
+                runningR = false;
+                break;
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
+        }
+
+        std::cout << "\n";
+    }
+}
+
+void displayStatistics(const CityStats& s) {
+    std::cout << "Population: " << s.population << "\n"
+              << "Housing Needs: " << s.housingNeeds << "\n"
+              << "Citizen Satisfaction: " << s.citizenSatisfaction << "\n"
+              << "Hygiene: " << s.hygiene << "\n"
+              << "Productivity: " << s.productivity << "\n"
+              << "Employment Rate: " << s.employmentRate << "%\n";
+}
+
+void displayPercentageChange(const CityStats& prev, const CityStats& current) {
+    auto percentChange = [&](int prevVal, int currVal) -> double {
+        if(prevVal == 0) return 0.0;
+        return ((double)(currVal - prevVal) / prevVal) * 100.0;
+    };
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << "Population Change: " << percentChange(prev.population, current.population) << "%\n"
+              << "Housing Needs Change: " << percentChange(prev.housingNeeds, current.housingNeeds) << "%\n"
+              << "Citizen Satisfaction Change: " << percentChange(prev.citizenSatisfaction, current.citizenSatisfaction) << "%\n"
+              << "Hygiene Change: " << percentChange(prev.hygiene, current.hygiene) << "%\n"
+              << "Productivity Change: " << percentChange(prev.productivity, current.productivity) << "%\n"
+              << "Employment Rate Change: " << percentChange(prev.employmentRate, current.employmentRate) << "%\n";
+}
 // Function to show the main menu
 void showMainMenu() {
     std::cout << "\n=========================================\n";
@@ -436,6 +319,325 @@ int main() {
     delete rm3;
     delete rm4;
 
+
     std::cout << "Exiting program. All resources and buildings have been cleaned up.\n";
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    std::srand(static_cast<unsigned int>(time(nullptr)));
+    std::vector<PrototypeCitizen*> citizens;
+    bool srunning = true;
+    float totalSatisfaction = 0.0;
+
+    while (srunning) {
+        int choice;
+        std::cout << "\nChoose an action:\n";
+        std::cout << "1. Create High Class Citizens\n";
+        std::cout << "2. Create Mid Class Citizens\n";
+        std::cout << "3. Create Low Class Citizens\n";
+        std::cout << "4. Toggle Employment Status\n";
+        std::cout << "5. Display Citizen Info, Count, & Average Satisfaction\n";
+        std::cout << "6. Kill Citizens\n";
+        std::cout << "7. Exit\n";
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1: {
+                int num;
+                std::cout << "Enter the number of High Class Citizens to create: ";
+                std::cin >> num;
+                for (int i = 0; i < num; ++i) {
+                    PrototypeCitizen* highCitizen = new HighClassCitizen();
+                    citizens.push_back(highCitizen);
+                    totalSatisfaction += highCitizen->getSatisfaction();
+                }
+                std::cout << num << " High Class Citizens created.\n";
+                break;
+            }
+            case 2: {
+                int num;
+                std::cout << "Enter the number of Mid Class Citizens to create: ";
+                std::cin >> num;
+                for (int i = 0; i < num; ++i) {
+                    PrototypeCitizen* midCitizen = new MidClassCitizen();
+                    citizens.push_back(midCitizen);
+                    totalSatisfaction += midCitizen->getSatisfaction();
+                }
+                std::cout << num << " Mid Class Citizens created.\n";
+                break;
+            }
+            case 3: {
+                int num;
+                std::cout << "Enter the number of Low Class Citizens to create: ";
+                std::cin >> num;
+                for (int i = 0; i < num; ++i) {
+                    PrototypeCitizen* lowCitizen = new LowClassCitizen();
+                    citizens.push_back(lowCitizen);
+                    totalSatisfaction += lowCitizen->getSatisfaction();
+                }
+                std::cout << num << " Low Class Citizens created.\n";
+                break;
+            }
+            case 4: {
+                int employmentChoice;
+                std::cout << "Choose Citizen Class to Toggle Employment Status:\n";
+                std::cout << "1. High Class\n";
+                std::cout << "2. Mid Class\n";
+                std::cout << "3. Low Class\n";
+                std::cout << "Enter your choice: ";
+                std::cin >> employmentChoice;
+
+                for (PrototypeCitizen* citizen : citizens) {
+                    if ((employmentChoice == 1 && dynamic_cast<HighClassCitizen*>(citizen)) ||
+                        (employmentChoice == 2 && dynamic_cast<MidClassCitizen*>(citizen)) ||
+                        (employmentChoice == 3 && dynamic_cast<LowClassCitizen*>(citizen))) {
+                        citizen->toggleEmployment();
+                        std::cout << "Employment status toggled for a citizen of chosen class.\n";
+                    }
+                }
+                break;
+            }
+            case 5: {
+                float avgSatisfaction = citizens.empty() ? 0.0 : totalSatisfaction / citizens.size();
+                std::cout << "\n--- Citizen Information ---\n";
+                for (PrototypeCitizen* citizen : citizens) {
+                    citizen->displayInfo();
+                }
+                std::cout << "\nTotal Citizens: " << PrototypeCitizen::getCitizenCount();
+                std::cout << "\nAverage Satisfaction: " << avgSatisfaction << "\n";
+                break;
+            }
+            case 6: {
+                int numToKill;
+                std::cout << "Enter the number of citizens to kill: ";
+                std::cin >> numToKill;
+
+                if (numToKill > static_cast<int>(citizens.size())) {
+                    std::cout << "Not enough citizens to kill. Currently, there are only " << citizens.size() << " citizens.\n";
+                    break;
+                }
+
+                for (int i = 0; i < numToKill; ++i) {
+                    int index = std::rand() % citizens.size();
+                    totalSatisfaction -= citizens[index]->getSatisfaction();
+                    delete citizens[index];
+                    citizens.erase(citizens.begin() + index);
+                }
+
+                std::cout << numToKill << " citizens have been killed.\n";
+                break;
+            }
+            case 7: {
+                srunning = false;
+                std::cout << "Exiting program.\n";
+                break;
+            }
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
+        }
+    }
+    for (PrototypeCitizen* citizen : citizens) {
+        delete citizen;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+
+    CityGrowthOg originator;
+    StatsCaretaker caretaker;
+    int year = 1;
+    while(true){
+        std::cout << "Year " << year << " - Enter statistics:\n";
+        CityStats current;
+        std::cout << "Population: ";
+        std::cin >> current.population;
+        std::cout << "Housing Needs: ";
+        std::cin >> current.housingNeeds;
+        std::cout << "Citizen Satisfaction: ";
+        std::cin >> current.citizenSatisfaction;
+        std::cout << "Hygiene: ";
+        std::cin >> current.hygiene;
+        std::cout << "Productivity: ";
+        std::cin >> current.productivity;
+        std::cout << "Employment Rate (%): ";
+        std::cin >> current.employmentRate;
+        originator.setState(current);
+        caretaker.addMemento(originator.saveStateToMemento());
+        if(year > 1){
+            CityStats prev = caretaker.getMemento(year-2)->getState();
+            displayPercentageChange(prev, current);
+        }
+        std::cout << "Options:\n1. Progress to next year\n2. View previous year's statistics\n3. Exit\nChoose an option: ";
+        int option;
+        std::cin >> option;
+        if(option == 1){
+            year++;
+            continue;
+        }
+        else if(option == 2){
+            if(year == 1){
+                std::cout << "No previous year data.\n";
+            }
+            else{
+                CityStats prev = caretaker.getMemento(year-2)->getState();
+                std::cout << "Year " << year-1 << " Statistics:\n";
+                displayStatistics(prev);
+            }
+        }
+        else if(option == 3){
+            std::cout << "All Years Statistics:\n";
+            for(int i=0;i<caretaker.getSize();i++){
+                CityStats s = caretaker.getMemento(i)->getState();
+                std::cout << "Year " << i+1 << ":\n";
+                displayStatistics(s);
+            }
+            break;
+        }
+        else{
+            std::cout << "Invalid option.\n";
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//    govtesting should go here
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        CitySimulation citySim;
+
+    int highClass = 100;
+    int middleClass = 500;
+    int lowClass = 1000;
+
+    bool trunning = true;
+    while (trunning) {
+        std::cout << "============================\n";
+        std::cout << "Year " << citySim.getCurrentYear() << "\n";
+        std::cout << "Government's Total Money: " << formatMoney(citySim.getGovernmentMoney()) << "\n";
+        std::cout << "Tax Satisfaction: " << citySim.getTaxSatisfaction() << "\n";
+        std::cout << "============================\n";
+
+        std::cout << "Choose a Tax Strategy:\n";
+        std::cout << "1. Flat Tax\n";
+        std::cout << "2. Progressive Tax\n";
+        std::cout << "3. Regressive Tax\n";
+        std::cout << "4. Exit\n";
+        std::cout << "Enter your choice: ";
+
+        int choice;
+        std::cin >> choice;
+
+        std::unique_ptr<TaxStrategy> strategy = nullptr;
+        double baseRate = 0.0;
+        switch (choice) {
+            case 1:
+                std::cout << "Enter Flat Tax rate (in %): ";
+                std::cin >> baseRate;
+                if (baseRate < 0.0 || baseRate > 100.0) {
+                    std::cout << "Invalid tax rate. Must be between 0 and 100.\n";
+                    continue;
+                }
+                strategy = std::unique_ptr<FlatTax>(new FlatTax(baseRate));
+                std::cout << "Selected Flat Tax Strategy with rate " << baseRate << "%.\n";
+                break;
+            case 2:
+                std::cout << "Enter Progressive Tax base rate (in %): ";
+                std::cin >> baseRate;
+                if (baseRate < 0.0 || baseRate > 100.0) {
+                    std::cout << "Invalid tax rate. Must be between 0 and 100.\n";
+                    continue;
+                }
+            strategy = std::unique_ptr<RegressiveTax>(new RegressiveTax(baseRate));
+                std::cout << "Selected Progressive Tax Strategy with base rate " << baseRate << "%.\n";
+                break;
+            case 3:
+                std::cout << "Enter Regressive Tax base rate (in %): ";
+                std::cin >> baseRate;
+                if (baseRate < 0.0 || baseRate > 100.0) {
+                    std::cout << "Invalid tax rate. Must be between 0 and 100.\n";
+                    continue;
+                }
+                strategy = std::unique_ptr<RegressiveTax>(new RegressiveTax(baseRate));
+                std::cout << "Selected Regressive Tax Strategy with base rate " << baseRate << "%.\n";
+                break;
+            case 4:
+                std::cout << "Exiting simulation.\n";
+                trunning = false;
+                continue;
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
+                continue;
+        }
+
+        if (trunning) {
+            citySim.setTaxStrategy(std::move(strategy));
+
+            double taxCollected = citySim.advanceYear(highClass, middleClass, lowClass);
+
+            std::cout << "Tax collected this year: " << formatMoney(taxCollected) << "\n\n";
+        }
+    }
+
+    const std::vector<TaxMemento>& history = citySim.getTaxHistory();
+    if (!history.empty()) {
+        std::cout << "=== Tax History ===\n";
+        for (const auto& memento : history) {
+            std::cout << "Year " << memento.getYear() << "\n";
+            std::cout << "   Tax strategy: " << memento.getStrategyName() << "\n";
+            std::cout << "   Tax rate: " << memento.getBaseRate() << "%\n";
+            std::cout << "   Citizen satisfaction: " << memento.getTaxSatisfaction() << "\n";
+        }
+        std::cout << "====================\n";
+    }
+    else {
+        std::cout << "No tax history available.\n";
+    }
+
+   /////////////////////////////////////////////////////////////////////////////////////////////
+
+    double budget = 2000000.00;
+    Road road(budget);
+    TrainSystem train(budget);
+    TransportObserver observer(road, train);
+    road.attach(&observer);
+    train.attach(&observer);
+
+    bool prunning = true;
+    while(prunning){
+
+        std::cout << "Choose an action:\n";
+        std::cout << "1. Road\n";
+        std::cout << "2. Train\n";
+        std::cout << "3. View Statistics\n";
+        std::cout << "4. Exit\n";
+        std::cout << "Enter your choice: ";
+
+        int choice;
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                roadM(road);
+            break;
+            case 2:
+                trainM(train);
+            break;
+            case 3:
+                observer.update();
+            std::cout << "Total Transport Satisfaction: " << observer.getTransportSatisfaction() << "\n";
+            std::cout << "Total Transport Productivity: " << observer.getTransportProductivity() * 100 << "%\n";
+            std::cout << "Total City Budget: " << formatMoney(budget) << "\n";
+            break;
+            case 4:
+                std::cout << "Exiting simulation.\n";
+            prunning = false;
+            break;
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
+        }
+    }
+
     return 0;
+
 }
