@@ -4,33 +4,36 @@
 #include <cstdlib>
 #include <random>
 #include <iostream>
-#include "CitizenStatistics.h"
+#include "BuildingStatistics.h"
 class PrototypeCitizen {
 
 protected:
-	std::string name;
-	int age;
-	float satisfaction;
-	bool isEmployed;
+std::string name;
+int age;
+float satisfaction;
+bool isEmployed;
     int growth;
     int currentPopulation;
     double birthRate;
     double deathRate;
     static int citizenCount;
 public:
-    PrototypeCitizen() { CitizenStatistics::incrementCitizenCount(); }
+    PrototypeCitizen() {
+        ++citizenCount;
+    }
+    virtual ~PrototypeCitizen() {
+        --citizenCount;
+    }
 
-    virtual ~PrototypeCitizen() { CitizenStatistics::decrementCitizenCount(); }
+virtual PrototypeCitizen* clone() const = 0;
 
-	virtual PrototypeCitizen* clone() const = 0;
+virtual void displayInfo();
 
-	virtual void displayInfo() const = 0;
+virtual void calculateSatisfactory();
 
-	virtual void calculateSatisfactory();
+    virtual void asigningJob(bool jobAvailable);
 
     virtual double calculatePopulationGrowth();
-
-    virtual bool isEmployed() const;
 
     int getCurrentPopulation();
 
@@ -44,18 +47,20 @@ public:
 
     float getSatisfaction() const;
 
-    virtual void toggleEmployment(bool employed) = 0;
+    virtual void toggleEmployment();
 
     static int getCitizenCount();
+    int citizenCapcity();
+    
 
 protected:
-	virtual void baseSatisfaction() = 0;
+virtual void baseSatisfaction() = 0;
 
-	virtual void adjustForEmployment() = 0;
+virtual void adjustForEmployment() = 0;
 
-	virtual void adjustForServices() = 0;
+virtual void adjustForServices() = 0;
 
-	virtual void adjustForPolicies() = 0;
+virtual void adjustForPolicies() = 0;
 };
 
 #endif

@@ -10,15 +10,15 @@ class CitizenCollection;
 class CitizenIterator {
 
 private:
-	const CitizenCollection* collection;
-	int index;
+const CitizenCollection* collection;
+int index;
 
 public:
-	CitizenIterator(const CitizenCollection* collection);
-	
-	bool hasNext();
+CitizenIterator(const CitizenCollection* collection);
 
-	PrototypeCitizen* next();
+bool hasNext();
+
+PrototypeCitizen* next();
 };
 
 #endif

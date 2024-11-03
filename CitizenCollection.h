@@ -8,14 +8,14 @@ class CitizenIterator;
 class CitizenCollection{
 
 private:
-	std::vector<PrototypeCitizen*> citizens;
+std::vector<PrototypeCitizen*> citizens;
 
 public:
-	void addCitizen(PrototypeCitizen* citizen);
+void addCitizen(PrototypeCitizen* citizen);
 
-	CitizenIterator createIterator();
+CitizenIterator createIterator();
 
-	PrototypeCitizen* getCitizenAt(int index) const;
+PrototypeCitizen* getCitizenAt(int index) const;
 
     int getSize() const;
 };

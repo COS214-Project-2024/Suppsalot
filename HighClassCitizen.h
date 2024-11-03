@@ -2,30 +2,25 @@
 #define HIGHCLASSCITIZEN_H
 #include "PrototypeCitizen.h"
 class HighClassCitizen : public PrototypeCitizen {
-	int satisfaction;
-    bool employed;
+
 
 public:
-	HighClassCitizen();
+HighClassCitizen();
 
-	PrototypeCitizen* clone() const override { return new HighClassCitizen(*this); }
+PrototypeCitizen* clone() const override;
 
-	void displayInfo() const override;
-
-	bool isEmployed() const { return employed; }
+void displayInfo() override;
 
 protected:
-	void baseSatisfaction() override;
+void baseSatisfaction() override;
 
-	void adjustForEmployment() override;
+void adjustForEmployment() override;
 
-	void adjustForServices() override;
+void adjustForServices() override;
 
-	void adjustForPolicies() override;
-	
-	void toggleEmployment(bool emp) override;
+void adjustForPolicies() override;
 
-	int getSatisfaction() const;
+void toggleEmployment() override;
 };
 
 #endif

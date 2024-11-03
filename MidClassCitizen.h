@@ -3,30 +3,25 @@
 #include "PrototypeCitizen.h"
 
 class MidClassCitizen : public PrototypeCitizen {
-	int satisfaction;
-    bool employed;
+
 
 public:
-	MidClassCitizen();
+MidClassCitizen();
 
-	PrototypeCitizen* clone() const override;
+PrototypeCitizen* clone() const override;
 
-	void displayInfo() const override;
-
-	bool isEmployed() const { return employed; }
+void displayInfo() override;
 
 protected:
-	void baseSatisfaction() override;
+void baseSatisfaction() override;
 
-	void adjustForEmployment() override;
+void adjustForEmployment() override;
 
-	void adjustForServices() override;
+void adjustForServices() override;
 
-	void adjustForPolicies() override;
+void adjustForPolicies() override;
 
-	void toggleEmployment(bool emp) override;
-
-	int getSatisfaction() const;
+void toggleEmployment() override;
 };
 
 #endif

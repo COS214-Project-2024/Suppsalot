@@ -5,13 +5,11 @@
 #include "HighClassCitizen.h"
 #include "MidClassCitizen.h"
 #include "LowClassCitizen.h"
-
 int main() {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     std::vector<PrototypeCitizen*> citizens;
     bool running = true;
     float totalSatisfaction = 0.0;
-
     while (running) {
         int choice;
         std::cout << "\nChoose an action:\n";
@@ -19,6 +17,8 @@ int main() {
         std::cout << "2. Create Mid Class Citizens\n";
         std::cout << "3. Create Low Class Citizens\n";
         std::cout << "4. Toggle Employment Status\n";
+        std::cout << "5. Display Citizen Info & Average Satisfaction\n";
+        std::cout << "6. Exit\n";
         std::cout << "5. Display Citizen Info, Count, & Average Satisfaction\n";
         std::cout << "6. Kill Citizens\n";
         std::cout << "7. Exit\n";
@@ -70,7 +70,6 @@ int main() {
                 std::cout << "3. Low Class\n";
                 std::cout << "Enter your choice: ";
                 std::cin >> employmentChoice;
-
                 for (PrototypeCitizen* citizen : citizens) {
                     if ((employmentChoice == 1 && dynamic_cast<HighClassCitizen*>(citizen)) ||
                         (employmentChoice == 2 && dynamic_cast<MidClassCitizen*>(citizen)) ||
@@ -87,6 +86,7 @@ int main() {
                 for (PrototypeCitizen* citizen : citizens) {
                     citizen->displayInfo();
                 }
+                std::cout << "\nTotal Citizens: " << citizens.size();
                 std::cout << "\nTotal Citizens: " << PrototypeCitizen::getCitizenCount();
                 std::cout << "\nAverage Satisfaction: " << avgSatisfaction << "\n";
                 break;
@@ -113,6 +113,7 @@ int main() {
             }
             case 7: {
                 running = false;
+                std::cout << "Citizen Test Ended.\n";
                 std::cout << "Exiting program.\n";
                 break;
             }

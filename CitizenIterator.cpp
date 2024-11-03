@@ -15,3 +15,5 @@ PrototypeCitizen* CitizenIterator::next() {
     }
     return nullptr;
 }
+
+

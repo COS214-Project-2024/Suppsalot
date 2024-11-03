@@ -4,7 +4,7 @@ void CitizenCollection::addCitizen(PrototypeCitizen* citizen) {
 	citizens.push_back(citizen);
 }
 
-CitizenIterator CitizenCollection::createIterator() {
+CitizenIterator CitizenCollection::createIterator(){
 	return CitizenIterator(this);
 }
 
