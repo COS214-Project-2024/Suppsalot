@@ -116,6 +116,21 @@ class BuildingStatistics{
         std::cout << "Water consumption for the year: " << waterConsumption << " units.\n";
     }
 
+    static void YearCitizenConsumer(int n){
+        std::cout << "*****************************************\nAfter a year, consumers have used up the following:\n*****************************************\n";
+        std::unique_ptr<ResourceManager> waterManager(new WaterManager());
+        std::unique_ptr<ResourceManager> powerManager(new PowerManager());
+        
+        double waterConsumption = static_cast<int>(n * (5.0 + log(n + 1) * 1.5));
+        double powerConsumption = static_cast<int>(n * (4.0 + sqrt(n) * 1.2));
+
+        waterManager->useResource(waterConsumption);
+        powerManager->useResource(powerConsumption);
+
+        std::cout << "Water consumption for the citizens: " << waterConsumption << " units.\n";
+        std::cout << "Power consumption for the citizens: " << powerConsumption << " units.\n";
+    }
+
 };
 
 #endif
