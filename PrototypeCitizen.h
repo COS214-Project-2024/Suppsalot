@@ -16,9 +16,10 @@ bool isEmployed;
     int currentPopulation;
     double birthRate;
     double deathRate;
-    static int citizenCount;
+    
     static int numberEmployed;
 public:
+static int citizenCount;
     PrototypeCitizen() {
         ++citizenCount;
     }
@@ -47,6 +48,8 @@ virtual void calculateSatisfactory();
     double getDeathRate();
 
     float getSatisfaction() const;
+
+    bool getEmployment();
 
     virtual void toggleEmployment();
 

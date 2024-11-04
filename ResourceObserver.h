@@ -1,6 +1,6 @@
 #ifndef RESOURCEOBSERVER_H
 #define RESOURCEOBSERVER_H
-#include <iostream>
+
 class ResourceObserver {
 public:
     virtual ~ResourceObserver() = default;

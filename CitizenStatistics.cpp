@@ -1,5 +1,7 @@
 #include "CitizenStatistics.h"
 
+int CitizenStatistics::EmployedCitizens = 0;
+
 CitizenStatistics::CitizenStatistics(PrototypeCitizen* citizen){
     this->citizen = citizen;
     this->citizenSatisfaction = 0.0;
@@ -30,4 +32,13 @@ void CitizenStatistics::calculateDeathRate(int hygiene, int security, int water)
     double deathRate = 0.01 + (0.02 - (hygiene * 0.001)) + (0.02 - (security * 0.001)) + (0.02 - (water * 0.001));
     deathRate = deathRate > 0 ? deathRate : 0; // no negative
     citizen->setDeathRate(deathRate);
+}
+
+int CitizenStatistics::totalEmployed(std::vector<PrototypeCitizen*> citizens){
+    for (PrototypeCitizen* citizen : citizens) {
+        if (citizen->getEmployment()) {
+            ++EmployedCitizens;
+        }
+    }
+    return EmployedCitizens;
 }

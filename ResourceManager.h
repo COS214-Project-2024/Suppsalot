@@ -5,7 +5,6 @@
 #include <string>
 #include <iostream>
 #include <cmath>
-#include "PrototypeCitizen.h"
 
 #include "ResourceObserver.h"
 // the following class refers to the subject along with 

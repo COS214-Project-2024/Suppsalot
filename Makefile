@@ -2,7 +2,7 @@
 CXX = g++
 
 # Compiler flags
-CXXFLAGS = -std=c++14 -Wall
+CXXFLAGS = -std=c++17 -Wall
 
 # Executable name
 TARGET = CitizenProgram
@@ -16,6 +16,7 @@ SRCS = CitizenMain.cpp \
        MidClassCitizen.cpp \
        LowClassCitizen.cpp \
        CitizenStatistics.cpp \
+       ResourceManager.cpp \
 
 # Header files (for dependency tracking)
 HEADERS = BuildingStatistics.h \
@@ -26,7 +27,8 @@ HEADERS = BuildingStatistics.h \
           HighClassCitizen.h \
           MidClassCitizen.h \
           LowClassCitizen.h \
-          CitizenStatistics.h
+          CitizenStatistics.h \
+          ResourceManager.h \
 
 # Object files (derived from source files)
 OBJS = $(SRCS:.cpp=.o)

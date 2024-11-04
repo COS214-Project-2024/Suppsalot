@@ -5,6 +5,7 @@
 #include "HighClassCitizen.h"
 #include "MidClassCitizen.h"
 #include "LowClassCitizen.h"
+#include "CitizenStatistics.h"
 int main() {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     std::vector<PrototypeCitizen*> citizens;
@@ -92,6 +93,7 @@ int main() {
     std::cout << "\nHigh Class Citizens: " << HighClassCitizen::getHighClassCount();
     std::cout << "\nMid Class Citizens: " << MidClassCitizen::getMidClassCount();
     std::cout << "\nLow Class Citizens: " << LowClassCitizen::getLowClassCount();
+    std::cout << "\nTotal Employed Citizens " << CitizenStatistics::totalEmployed(citizens);
     std::cout << "\nAverage Satisfaction: " << avgSatisfaction << "\n";
     break;
 }
