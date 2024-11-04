@@ -61,8 +61,7 @@ int PrototypeCitizen::getCitizenCount() {
 bool PrototypeCitizen::getEmployment(){
     return isEmployed;
 }
-// void PrototypeCitizen::citizenCapcity(){
-//      BuildingStatistics stat;
-//     stat.YearCitizenConsumer(citizenCount);
-// }
+void PrototypeCitizen::citizenCapcity(){
+    BuildingStatistics::YearCitizenConsumer(getCitizenCount());
+}
 
