@@ -34,6 +34,10 @@ int CitizensManager::getValidatedChoice(int min, int max)
     }
 }
 
+float CitizensManager::getAverageSatisfaction() const {
+    return citizens.empty() ? 0.0f : totalSatisfaction / citizens.size();
+}
+
 // Manage Citizens
 void CitizensManager::manageCitizens()
 {

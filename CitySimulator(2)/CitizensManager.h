@@ -22,6 +22,8 @@ public:
     void manageCitizens();
     void progressYear();
 
+    float getAverageSatisfaction() const;
+
 private:
     std::vector<std::unique_ptr<PrototypeCitizen>> citizens;
     float totalSatisfaction;
