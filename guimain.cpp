@@ -327,6 +327,10 @@ double citizensatisfaction(double i, double s) {
     return satisfaction;
 }
 
+void citizengrowth(int* i) {
+    *i+=1.5*utilities.size()+1.2*services.size()+2*buildings.size();
+}
+
 int main() {
     // Initialize GLFW
     if (!glfwInit()) return -1;
@@ -404,6 +408,7 @@ int main() {
             }
             if (ImGui::Button("Close Window")) {
                 showProgressWindow = false;
+                citizengrowth(&citizens);
 
             }
 
