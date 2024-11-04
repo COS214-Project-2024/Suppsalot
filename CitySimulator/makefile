@@ -1,58 +1,87 @@
-# Makefile
-
 # Compiler
 CXX = g++
+CXXFLAGS = -std=c++17 -Wall -Wextra
 
-# Compiler Flags
-CXXFLAGS = -std=c++17 -Wall -Wextra -I.
+# Directories
+SRC_DIR = .
+BUILD_DIR = build
+BIN_DIR = bin
 
-# Source Files
-SRCS = main.cpp \
-       Road.cpp \
-       NotOperational.cpp \
-       Bad.cpp \
-       Okay.cpp \
-       Good.cpp \
-       Excellent.cpp \
-       TrainSystem.cpp \
-       Star1.cpp \
-       Star2.cpp \
-       Star3.cpp \
-       Star4.cpp \
-       Star5.cpp \
-       TransportObserver.cpp \
-       PublicTransit.cpp \
-       NoUberAndBolt.cpp \
-       Uber.cpp \
-       Bolt.cpp \
-       UberAndBolt.cpp \
-       CitySimulation.cpp \
-       TaxContext.cpp \
-       ProgressiveTax.cpp \
-       FlatTax.cpp \
-       RegressiveTax.cpp \
-       TaxHistoryManager.cpp
+# Target executable
+TARGET = $(BIN_DIR)/building_simulator
 
-# Object Files
-OBJS = $(SRCS:.cpp=.o)
+# Source files
+SOURCES = $(SRC_DIR)/main.cpp \
+          $(SRC_DIR)/BuildingFactory.cpp \
+          $(SRC_DIR)/ResidentialBuilding.cpp \
+          $(SRC_DIR)/IndustrialBuilding.cpp \
+          $(SRC_DIR)/CommercialBuilding.cpp \
+          $(SRC_DIR)/LandmarkBuilding.cpp \
+          $(SRC_DIR)/ResourceManager.cpp \
+          $(SRC_DIR)/Road.cpp \
+          $(SRC_DIR)/NotOperational.cpp \
+          $(SRC_DIR)/Bad.cpp \
+          $(SRC_DIR)/Okay.cpp \
+          $(SRC_DIR)/Good.cpp \
+          $(SRC_DIR)/Excellent.cpp \
+          $(SRC_DIR)/TrainSystem.cpp \
+          $(SRC_DIR)/Star1.cpp \
+          $(SRC_DIR)/Star2.cpp \
+          $(SRC_DIR)/Star3.cpp \
+          $(SRC_DIR)/Star4.cpp \
+          $(SRC_DIR)/Star5.cpp \
+          $(SRC_DIR)/TransportObserver.cpp \
+          $(SRC_DIR)/PublicTransit.cpp \
+          $(SRC_DIR)/NoUberAndBolt.cpp \
+          $(SRC_DIR)/Uber.cpp \
+          $(SRC_DIR)/Bolt.cpp \
+          $(SRC_DIR)/UberAndBolt.cpp \
+          $(SRC_DIR)/CitySimulation.cpp \
+          $(SRC_DIR)/TaxContext.cpp \
+          $(SRC_DIR)/ProgressiveTax.cpp \
+          $(SRC_DIR)/FlatTax.cpp \
+          $(SRC_DIR)/RegressiveTax.cpp \
+          $(SRC_DIR)/TaxHistoryManager.cpp
 
-# Executable Name
-EXEC = city_simulation
+# Header files
+HEADERS = $(SRC_DIR)/BuildingFactory.h \
+          $(SRC_DIR)/ResidentialBuilding.h \
+          $(SRC_DIR)/IndustrialBuilding.h \
+          $(SRC_DIR)/LandmarkBuilding.h \
+          $(SRC_DIR)/CommercialBuilding.h \
+          $(SRC_DIR)/ResourceManager.h \
+          $(SRC_DIR)/BuildingStatistics.h \
+          $(SRC_DIR)/ResourceObserver.h
 
-# Default Target
-all: $(EXEC)
+# Object files
+OBJECTS = $(SOURCES:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o)
 
-# Build Executable
-$(EXEC): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(EXEC) $(OBJS)
+# Create required directories (shell commands)
+$(shell mkdir -p $(BUILD_DIR))
+$(shell mkdir -p $(BIN_DIR))
 
-# Compile .cpp to .o
-%.o: %.cpp
+# Main target
+all: $(TARGET)
+
+# Linking
+$(TARGET): $(OBJECTS)
+	$(CXX) $(OBJECTS) -o $(TARGET)
+
+# Compilation
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Clean up build files
+# Clean build files
 clean:
-	rm -f $(OBJS) $(EXEC)
+	rm -rf $(BUILD_DIR) $(BIN_DIR)
 
-# Phony Targets
+# Phony targets
 .PHONY: all clean
+
+# Run the program
+run: $(TARGET)
+	./$(TARGET)
+
+# Run with Valgrind
+valgrind: $(TARGET)
+	valgrind --leak-check=full --track-origins=yes ./$(TARGET)

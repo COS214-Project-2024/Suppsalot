@@ -2,7 +2,10 @@
 #define BUILDINGSTATISTICS_H
 
 #include  <cmath>
+#include <iostream>
 #include <memory>
+
+#include "ResourceManager.h"
 
 class BuildingStatistics{
     public:
@@ -128,7 +131,27 @@ class BuildingStatistics{
         powerManager->useResource(powerConsumption);
 
         std::cout << "Water consumption for the citizens: " << waterConsumption << " units.\n";
-        std::cout << "Power consumption for the citizens: " << powerConsumption << " units.\n";
+        std::cout <<
+        
+         "Power consumption for the citizens: " << powerConsumption << " units.\n";
+    }
+
+    static void useRoadResource(std::string type){
+        if (type == "Road"){
+            std::unique_ptr<ResourceManager> concreteManager(new ConcreteManager());
+            std::cout << "Concrete used for the road: 400\n";
+            concreteManager->useResource(400);
+            
+        }else if (type=="Train"){
+            std::unique_ptr<ResourceManager> steelManager(new SteelManager());
+            std::unique_ptr<ResourceManager> woodManager(new WoodManager());
+            std::cout << "Steel used for the trainTrack: 300\n";
+            std::cout << "Wood used for the trainTrack: 300\n";
+            steelManager->useResource(300);
+            woodManager->useResource(300);
+        }else{
+            std::cout << "Invalid\n";
+        }
     }
 
 };

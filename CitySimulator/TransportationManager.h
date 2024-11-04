@@ -15,6 +15,8 @@
 #include "Star5.h"
 #include "PublicTransit.h" 
 #include "TransportObserver.h"
+#include "BuildingStatistics.h"
+#include "ResourceManager.h"
 #include <iostream>
 #include <memory>
 #include <string>
@@ -129,6 +131,7 @@ private:
     }
 
     void trainM() {
+        BuildingStatistics stats;
         bool runningT = true;
         while (runningT) {
             std::cout << "============================\n";
@@ -144,6 +147,7 @@ private:
             std::cin >> choiceT;
             switch (choiceT) {
                 case 1:
+                    stats.useRoadResource("Train");
                     train.upgradeTrainSystem();
                     break;
                 case 2:
@@ -159,6 +163,7 @@ private:
 
     void roadM() {
         bool runningR = true;
+        BuildingStatistics stat;
         while (runningR) {
             std::cout << "============================\n";
             std::cout << "Current Road State: " << road.getCurrentStateName() << "\n";
@@ -177,6 +182,7 @@ private:
             switch (choiceR) {
                 case 1:
                     road.upgradeRoad();
+                    stat.useRoadResource("Road");
                     break;
                 case 2:
                     std::cout << "Exiting Road Management.\n";
