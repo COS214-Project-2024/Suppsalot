@@ -26,11 +26,11 @@ This project simulates a city environment where resources are managed. Players c
 - `Valgrind` (for memory leak detection)
 
 ## Compilation and Running
-- make
-- make run
+- `make`
+- `make run`
 
-#Our description:
-NOTE: This was definately all typed out by us. Yes GPT might have generated it but we typed it. So therefore it's our own work. Thanks.
+# Our description:
+**NOTE**: This was definately all typed out by us. Yes GPT might have generated it but we typed it. So therefore it's our own work. Thanks.
 # The Sovereign's Dominion: A Saga of Control and Consequence
 In the sprawling landscape of a city simulator, the power bestowed upon its creator is nothing short of divine. Here, in this digital realm, an individual sits at the helm, with the power to shape destinies, foster prosperity, or herald the apocalypse. This simulation is more than just a game—it's a microcosm, a delicate balance between creation and destruction, autonomy and authority.
 
