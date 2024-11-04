@@ -643,6 +643,7 @@ void PowerManager::endWorld(){
     std::cout << "\n\n\n\n\n\n\n\n...\n";
     std::cout << "                BOOOOOMMMMMM!!!\n";
     std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n";
+    std::cout << "Now I am become Death, the destroyer of worlds.\n";
     std::cout << "THE END OF EVERYTHING AS WE KNOW IT.\n";
     std::cout << "************************************************\n";
     exit(0); // program must lend here.
