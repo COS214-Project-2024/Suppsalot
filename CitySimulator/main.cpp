@@ -161,17 +161,15 @@ int main() {
     double taxSatisfaction = 0.0;          // Initial tax satisfaction percentage
     double transportSatisfaction = 0.0;    // Initial transportation satisfaction percentage
     double productivity = 0.0;             // Productivity influenced by transportation
-    double overallSatisfaction = 0.0;       // Will be calculated
+    double overallSatisfaction = 0.0;      // Will be calculated
 
     // Initialize Managers
     TransportationManager transportationManager(cityBudget, transportSatisfaction, productivity);
     TaxManager taxManager(cityBudget, taxSatisfaction);
     BuildingsManager buildingsManager(cityBudget); // Initialize BuildingsManager with cityBudget
 
-    // Placeholder for other managers (e.g., BuildingManager buildingManager(cityBudget, ...);)
-
     bool running = true;
-    while (running){
+    while (running) {
         std::cout << "============================\n";
         std::cout << "City Simulation Main Menu\n";
         std::cout << "============================\n";
@@ -179,7 +177,6 @@ int main() {
         std::cout << "1. Manage Transport\n";
         std::cout << "2. Manage Tax\n";
         std::cout << "3. Manage Buildings\n"; // Changed from "Manage Buildings" to include BuildingsManager
-        // Removed "4. Manage Utilities" as it's now handled within BuildingsManager
         std::cout << "4. Manage Citizens\n";
         std::cout << "5. Manage Government\n";
         std::cout << "6. View Resources\n";
@@ -190,6 +187,14 @@ int main() {
 
         int choice;
         std::cin >> choice;
+
+        // Check if input is invalid
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+            std::cout << "Invalid input. Please enter a number between 1 and 9.\n";
+            continue; // Restart the loop
+        }
 
         switch (choice) {
             case 1:
@@ -202,47 +207,35 @@ int main() {
                 buildingsManager.manageBuildings(); // Handle Buildings Management
                 break;
             case 4:
-                // citizensManager.manageCitizens();
                 std::cout << "Citizens Management is under construction.\n";
                 break;
             case 5:
-                // governmentManager.manageGovernment();
                 std::cout << "Government Management is under construction.\n";
                 break;
             case 6:
-                // viewResources();
                 std::cout << "View Resources is under construction.\n";
                 break;
             case 7:
-                // View Statistics
                 std::cout << "============================\n";
                 std::cout << "City Statistics:\n";
                 std::cout << "============================\n";
-                std::cout << "Satisfaction: " << std::fixed << std::setprecision(1) 
+                std::cout << "Satisfaction: " << std::fixed << std::setprecision(1)
                           << (0.5 * taxSatisfaction + 0.5 * transportSatisfaction) << "%\n";
-                std::cout << "\tTax Satisfaction: " << std::fixed << std::setprecision(1) 
+                std::cout << "\tTax Satisfaction: " << std::fixed << std::setprecision(1)
                           << taxSatisfaction << "%\n";
-                std::cout << "\tTransport Satisfaction: " << std::fixed << std::setprecision(1) 
+                std::cout << "\tTransport Satisfaction: " << std::fixed << std::setprecision(1)
                           << transportSatisfaction << "%\n";
-                std::cout << "Productivity: " << std::fixed << std::setprecision(1) 
-                          << productivity << "%\n"; 
+                std::cout << "Productivity: " << std::fixed << std::setprecision(1)
+                          << productivity << "%\n";
                 std::cout << "City Budget: " << formatMoney(cityBudget) << "\n";
                 std::cout << "============================\n\n";
                 break;
             case 8:
                 std::cout << "Progressing to the next year...\n\n";
-                // Progress Year for all managers
                 transportationManager.progressYear();
                 taxManager.progressYear();
                 buildingsManager.progressYear(); // Progress Year for BuildingsManager
-                // buildingManager.progressYear();
-                // utilitiesManager.progressYear();
-                // citizensManager.progressYear();
-                // governmentManager.progressYear();
-
-                // Calculate Overall Satisfaction
                 overallSatisfaction = 0.5 * taxSatisfaction + 0.5 * transportSatisfaction;
-
                 std::cout << "Overall Satisfaction for the city: " << std::fixed << std::setprecision(1)
                           << overallSatisfaction << "%\n\n";
                 break;
@@ -252,6 +245,7 @@ int main() {
                 break;
             default:
                 std::cout << "Invalid choice. Please try again.\n";
+                break;
         }
     }
     return 0;
