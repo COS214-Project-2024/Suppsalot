@@ -474,9 +474,7 @@ int main() {
 
         ImGui::Text(concat(str,s,citizens));
         ImGui::Text(concat(trate,"tax rate: ",*taxrate));
-        ImGui::Text("tax Strat: ",taxstrat);
         ImGui::Text(concat(trate,"tax rate: ",*transprate));
-        ImGui::Text("tax Strat: ",transpstrat);
         ImGui::Text(concat(trate,"Number of buildings",buildings.size()));
         ImGui::Text(concat(trate,"Number of utilities",utilities.size()));
         ImGui::Text(concat(trate,"Number of services",services.size()));
