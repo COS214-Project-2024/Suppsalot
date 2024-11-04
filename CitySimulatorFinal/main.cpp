@@ -1,7 +1,3 @@
-// #include "TransportationManager.h"
-// #include "TaxManager.h"
-// //include other section headers here (e.g., BuildingManager.h, UtilitiesManager.h, etc.)
-// #include <iostream>
 /**
  * @file main.cpp
  * @brief City simulation program that manages city resources, transportation, taxes, buildings, and citizen satisfaction.
