@@ -2,10 +2,10 @@
 # Introduction to the team
 - Ibrahim Said (22567072)
 - Kyle Liebenberg (22608789)
-- Talhah (22509748)
+- Talhah Karodia (22509748)
 - Abdullah Pochee (23726980)
-- Ronan (23528568)
-- Marcelo (22491717)
+- Ronan Smart (23528568)
+- Marcelo Parsotam (22491717)
 
 # ReadME
 ## Overview
