@@ -137,8 +137,6 @@
 #include "CityGrowthOg.h"
 #include "StatsCaretaker.h"
 
-// Include other section headers here if needed
-
 #include <iostream>
 #include <iomanip>
 #include <string>
