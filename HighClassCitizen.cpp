@@ -1,4 +1,5 @@
 #include "HighClassCitizen.h"
+int HighClassCitizen::HCC = 0;
 
 HighClassCitizen::HighClassCitizen(){
 	std::random_device rd;
@@ -36,4 +37,8 @@ void HighClassCitizen::adjustForPolicies() {
 
 void HighClassCitizen::toggleEmployment() {
     isEmployed = !isEmployed;
+}
+
+int HighClassCitizen::getHighClassCount(){
+    return HCC;
 }

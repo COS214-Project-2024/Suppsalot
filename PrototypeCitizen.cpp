@@ -1,5 +1,7 @@
 #include "PrototypeCitizen.h"
 #include "ResourceManager.h"
+#include "BuildingStatistics.h"
+
 int PrototypeCitizen::citizenCount = 0;
 
 void PrototypeCitizen::displayInfo() {
@@ -55,10 +57,10 @@ void PrototypeCitizen::toggleEmployment() {
 int PrototypeCitizen::getCitizenCount() {
         return citizenCount;
 }
-//void PrototypeCitizen::citizenCapcity(){
-//    BuildingStatistics stat;
-//    stat.YearCitizenConsumer(1);
-//}
+void PrototypeCitizen::citizenCapcity(){
+    BuildingStatistics stat;
+    stat.YearCitizenConsumer(2);
+}
 //int PrototypeCitizen::getNumberOfEmployedCitizen(){
   //  return 0;
 //}

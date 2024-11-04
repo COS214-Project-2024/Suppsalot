@@ -5,6 +5,7 @@ class HighClassCitizen : public PrototypeCitizen {
 
 
 public:
+static int HCC;
 HighClassCitizen();
 
 PrototypeCitizen* clone() const override;
@@ -21,6 +22,7 @@ void adjustForServices() override;
 void adjustForPolicies() override;
 
 void toggleEmployment() override;
+int getHighClassCount();
 };
 
 #endif

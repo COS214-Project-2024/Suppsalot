@@ -1,5 +1,7 @@
 #include "MidClassCitizen.h"
 
+int MidClassCitizen::MCC = 0;
+
 MidClassCitizen::MidClassCitizen(){
 	std::random_device rd;
     std::mt19937 gen(rd());
@@ -36,4 +38,8 @@ void MidClassCitizen::adjustForPolicies() {
 
 void MidClassCitizen::toggleEmployment() {
     isEmployed = !isEmployed;
+}
+
+int MidClassCitizen::getMidClassCount(){
+    return MCC;
 }

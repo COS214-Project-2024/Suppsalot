@@ -1,5 +1,7 @@
 #include "LowClassCitizen.h"
 
+int LowClassCitizen::LCC = 0;
+
 LowClassCitizen::LowClassCitizen(){
 std::random_device rd;
     std::mt19937 gen(rd());
@@ -39,4 +41,8 @@ satisfaction -= 5;
 
 void LowClassCitizen::toggleEmployment() {
     isEmployed = !isEmployed;
+}
+
+int LowClassCitizen::getLowClassCount(){
+    return LCC;
 }

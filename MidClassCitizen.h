@@ -6,6 +6,8 @@ class MidClassCitizen : public PrototypeCitizen {
 
 
 public:
+static int MCC;
+
 MidClassCitizen();
 
 PrototypeCitizen* clone() const override;
@@ -22,6 +24,9 @@ void adjustForServices() override;
 void adjustForPolicies() override;
 
 void toggleEmployment() override;
+
+static int getMidClassCount();
+
 };
 
 #endif

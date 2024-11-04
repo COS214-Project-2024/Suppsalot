@@ -15,7 +15,8 @@ SRCS = CitizenMain.cpp \
        HighClassCitizen.cpp \
        MidClassCitizen.cpp \
        LowClassCitizen.cpp \
-       CitizenStatistics.cpp
+       CitizenStatistics.cpp \
+	   ResourceManager.cpp
 
 # Header files (for dependency tracking)
 HEADERS = BuildingStatistics.h \
