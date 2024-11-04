@@ -41,7 +41,15 @@ SOURCES = $(SRC_DIR)/main.cpp \
           $(SRC_DIR)/ProgressiveTax.cpp \
           $(SRC_DIR)/FlatTax.cpp \
           $(SRC_DIR)/RegressiveTax.cpp \
-          $(SRC_DIR)/TaxHistoryManager.cpp
+          $(SRC_DIR)/TaxHistoryManager.cpp \
+          $(SRC_DIR)/PrototypeCitizen.cpp \
+          $(SRC_DIR)/CitizenCollection.cpp \
+          $(SRC_DIR)/CitizenIterator.cpp \
+          $(SRC_DIR)/HighClassCitizen.cpp \
+          $(SRC_DIR)/MidClassCitizen.cpp \
+          $(SRC_DIR)/LowClassCitizen.cpp \
+          $(SRC_DIR)/CitizenStatistics.cpp \
+          $(SRC_DIR)/CitizensManager.cpp
 
 # Header files
 HEADERS = $(SRC_DIR)/BuildingFactory.h \
@@ -51,7 +59,10 @@ HEADERS = $(SRC_DIR)/BuildingFactory.h \
           $(SRC_DIR)/CommercialBuilding.h \
           $(SRC_DIR)/ResourceManager.h \
           $(SRC_DIR)/BuildingStatistics.h \
-          $(SRC_DIR)/ResourceObserver.h
+          $(SRC_DIR)/ResourceObserver.h \
+          $(SRC_DIR)/CitizensManager.h 
+
+
 
 # Object files
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o)

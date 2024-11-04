@@ -7,6 +7,9 @@
 #include "RegressiveTax.h"
 #include "TaxMemento.h"
 #include "TaxHistoryManager.h"
+#include "HighClassCitizen.h"
+#include "MidClassCitizen.h"
+#include "LowClassCitizen.h"
 #include <iostream>
 #include <memory>
 #include <string>
@@ -18,7 +21,7 @@ class TaxManager {
 public:
     TaxManager(double& cityBudgetRef, double& taxSatisfactionRef)
         : budget(cityBudgetRef), taxSatisfaction(taxSatisfactionRef), 
-          citySim(cityBudgetRef), highClassCitizens(100), middleClassCitizens(500), lowClassCitizens(1000) 
+          citySim(cityBudgetRef) 
     {}
 
     void manageTax() {
@@ -66,10 +69,13 @@ public:
     void progressYear() {
         std::cout << "Progressing to the next year in Tax Sector...\n\n";
 
+        int highClassCitizens = HighClassCitizen::getHighClassCount();
+        int middleClassCitizens = MidClassCitizen::getMidClassCount();
+        int lowClassCitizens = LowClassCitizen::getLowClassCount();
+
         double taxCollected = citySim.advanceYear(highClassCitizens, middleClassCitizens, lowClassCitizens);
         
         budget += taxCollected;
-
         taxSatisfaction = citySim.getTaxSatisfaction();
 
         std::cout << "Year progressed successfully.\n";
@@ -85,9 +91,9 @@ private:
     double& budget;
     double& taxSatisfaction;
     CitySimulation citySim;
-    int highClassCitizens;
-    int middleClassCitizens;
-    int lowClassCitizens;
+    // int highClassCitizens;
+    // int middleClassCitizens;
+    // int lowClassCitizens;
 
     std::string formatMoney(double amount) const {
         std::ostringstream oss;

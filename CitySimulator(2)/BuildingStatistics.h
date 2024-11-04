@@ -131,9 +131,7 @@ class BuildingStatistics{
         powerManager->useResource(powerConsumption);
 
         std::cout << "Water consumption for the citizens: " << waterConsumption << " units.\n";
-        std::cout <<
-        
-         "Power consumption for the citizens: " << powerConsumption << " units.\n";
+        std::cout << "Power consumption for the citizens: " << powerConsumption << " units.\n";
     }
 
     static void useRoadResource(std::string type){

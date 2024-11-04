@@ -130,7 +130,8 @@
 // main.cpp
 #include "TransportationManager.h"
 #include "TaxManager.h"
-#include "BuildingsManager.h" // Include the new BuildingsManager
+#include "BuildingsManager.h" 
+#include "CitizensManager.h"
 
 // Include other section headers here if needed
 
@@ -169,6 +170,7 @@ int main() {
     TransportationManager transportationManager(cityBudget, transportSatisfaction, productivity);
     TaxManager taxManager(cityBudget, taxSatisfaction);
     BuildingsManager buildingsManager(cityBudget); // Initialize BuildingsManager with cityBudget
+    CitizensManager citizensManager;
 
     bool running = true;
     while (running) {
@@ -206,10 +208,10 @@ int main() {
                 taxManager.manageTax();
                 break;
             case 3:
-                buildingsManager.manageBuildings(); // Handle Buildings Management
+                buildingsManager.manageBuildings();
                 break;
             case 4:
-                std::cout << "Citizens Management is under construction.\n";
+                citizensManager.manageCitizens(); 
                 break;
             case 5:
                 std::cout << "Government Management is under construction.\n";
@@ -245,7 +247,8 @@ int main() {
                 std::cout << "Progressing to the next year...\n\n";
                 transportationManager.progressYear();
                 taxManager.progressYear();
-                buildingsManager.progressYear(); // Progress Year for BuildingsManager
+                buildingsManager.progressYear(); 
+                citizensManager.progressYear();
                 overallSatisfaction = 0.5 * taxSatisfaction + 0.5 * transportSatisfaction;
                 std::cout << "Overall Satisfaction for the city: " << std::fixed << std::setprecision(1)
                           << overallSatisfaction << "%\n\n";
