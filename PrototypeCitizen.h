@@ -17,6 +17,7 @@ bool isEmployed;
     double birthRate;
     double deathRate;
     static int citizenCount;
+    static int numberEmployed;
 public:
     PrototypeCitizen() {
         ++citizenCount;
@@ -50,7 +51,9 @@ virtual void calculateSatisfactory();
     virtual void toggleEmployment();
 
     static int getCitizenCount();
-    int citizenCapcity();
+
+    static int getNumberOfEmployedCitizen();
+    void citizenCapcity();
     
 
 protected:
