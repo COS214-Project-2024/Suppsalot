@@ -13,6 +13,12 @@
 #include "CityGrowthOg.h"
 #include "StatsCaretaker.h"
 
+#include "Mayor.h"
+#include "PublicServicesDepartment.h"
+#include "InfrastructureDepartment.h"
+#include "EconomyDepartment.h"
+#include "SecurityDepartment.h"
+
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -20,6 +26,37 @@
 #include <limits>
 #include <vector>
 
+
+
+void govTester(){
+    Mayor* mayor = new Mayor();
+
+    publicServicesDepartment* publicServices = new publicServicesDepartment(mayor, 50000.0); 
+    InfrastructureDepartment* infrastructure = new InfrastructureDepartment(mayor, 100000.0);
+    EconomyDepartment* economy = new EconomyDepartment(mayor, 75000.0);
+    securityDepartment* security = new securityDepartment(mayor, 60000.0);
+
+
+    std::cout << "\n--- Testing Department Fund Setup ---" << std::endl;
+    publicServices->get(); 
+    infrastructure->get();  
+
+    std::cout << "\n--- Modifying Department Funds Through Mayor ---" << std::endl;
+    mayor->setFunds(publicServices, 55000.0);
+    publicServices->get(); // Check updated funds
+
+    mayor->setFunds(infrastructure, 120000.0);
+    infrastructure->get(); 
+
+    std::cout << "\n--- Testing Notify Functionality ---" << std::endl;
+
+    publicServices->changed();
+    infrastructure->changed();  
+    economy->changed();         
+    security->changed();        
+
+    delete mayor;
+};
 
 /**
  * @brief Formats a monetary value for display.
