@@ -3,27 +3,35 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
+#include <cmath>
+#include "PrototypeCitizen.h"
+
+#include "ResourceObserver.h"
 // the following class refers to the subject along with 
 // its concrete subjects for the observer pattern
 class ResourceManager{
     private:
-        // std::vector<CommandInvoker*> observe;
+        std::vector<ResourceObserver*> observers;
     public:
-        // void attach(CommandInvoker* observe);
-        // void detach (CommandInvoker* observe);
-        void notify(std::string& recourceType);
+        void attach(ResourceObserver* observers);
+        void detach (ResourceObserver* observers);
         virtual ~ResourceManager();
-
+        virtual void notifyObservers(const std::string& resourceType, double currentLevel);
+        
         // Concrete resources should implement their own capacity management
         virtual double getResource() const = 0;
         virtual void useResource(double amount) = 0;
+        virtual void returnResource(double amount)= 0;
         virtual void incCapacityPerc(double perc) = 0;
 };
 
 class WoodManager:public ResourceManager{
     private:
-        double woodCap;
-        double initialWoodCap; // will this actually be needed
+        static double woodCap;
+        static double initialWoodCap; 
+        static bool isInitialized;
+
     public:
         WoodManager();
         ~WoodManager();         
@@ -36,56 +44,78 @@ class WoodManager:public ResourceManager{
 
         double getResource() const override;
         void useResource(double amount) override;
+        void returnResource(double amount) override;
         void incCapacityPerc(double perc) override;
 };
 
 class SteelManager:public ResourceManager{
     private:
-        double steelCap;
-        double initialSteelCap; // again is this necessary
+        static double initialSteelCap; // again is this necessary
+        static double steelCap;
+        static bool isInitialized;
+
     public:
         SteelManager();
         ~SteelManager();   
         double getResource() const override;
         void useResource(double amount) override;
+        void returnResource(double amount) override;
         void incCapacityPerc(double perc) override;
 };
 
 
 class ConcreteManager:public ResourceManager{
     private:
-        double concreteCap;
-        double initialConcreteCap; // again is this necessary
+        static double initialConcreteCap; // again is this necessary
+        static double concreteCap;
+        static bool isInitialized;
     public:
         ConcreteManager();
         ~ConcreteManager();   
         double getResource() const override;
         void useResource(double amount) override;
+        void returnResource(double amount) override;
         void incCapacityPerc(double perc) override;
 };
 
 class WaterManager:public ResourceManager{
     private:
-        double waterCap;
-        double initialWaterCap; // again is this necessary
+        static double initialWaterCap;
+        static double waterCap;
+        static bool isInitialized;
+        // CommandInvoker* invoker; // check if this actuallyt works
+        static bool reserve;
     public:
         WaterManager();
         ~WaterManager();   
         double getResource() const override;
         void useResource(double amount) override;
+        void returnResource(double amount) override;
         void incCapacityPerc(double perc) override;
+
+        // added another 2 functions
+        void EmergencyRefill();
+        void enterDraught();
 };
 
 class PowerManager:public ResourceManager{
     private:
-        double powerCap;
-        double initialPowerCap; // again is this necessary
+        static double initialPowerCap; 
+        static double powerCap;
+        static bool isInitialized;
+        // CommandInvoker* invoker; // check if this actuallyt works
+        static bool reserve; // means we still have reserve
     public:
         PowerManager();
         ~PowerManager();   
         double getResource() const override;
         void useResource(double amount) override;
+        void returnResource(double amount) override;
         void incCapacityPerc(double perc) override;
+
+        // added another 2 functions
+        void switchToNuclear();
+        void endWorld();
 };
 
 #endif
