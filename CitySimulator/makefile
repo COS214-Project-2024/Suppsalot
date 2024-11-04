@@ -31,7 +31,13 @@ SRCS = main.cpp \
        ProgressiveTax.cpp \
        FlatTax.cpp \
        RegressiveTax.cpp \
-       TaxHistoryManager.cpp
+       TaxHistoryManager.cpp \
+       BuildingFactory.cpp \
+       ResidentialBuilding.cpp \
+       IndustrialBuilding.cpp \
+       CommercialBuilding.cpp \
+       LandmarkBuilding.cpp \
+       ResourceManager.cpp
 
 # Object Files
 OBJS = $(SRCS:.cpp=.o)
