@@ -2,6 +2,10 @@
 // #include "TaxManager.h"
 // //include other section headers here (e.g., BuildingManager.h, UtilitiesManager.h, etc.)
 // #include <iostream>
+/**
+ * @file main.cpp
+ * @brief City simulation program that manages city resources, transportation, taxes, buildings, and citizen satisfaction.
+ */
 
 #include "TransportationManager.h"
 #include "TaxManager.h"
@@ -19,6 +23,17 @@
 #include <sstream>
 #include <limits>
 #include <vector>
+
+
+/**
+ * @brief Formats a monetary value for display.
+ * 
+ * This function converts a given amount into a readable string format,
+ * with "k" for thousands and "m" for millions.
+ * 
+ * @param amount The amount of money to format.
+ * @return A formatted string representing the monetary value.
+ */
 
 std::string formatMoney(double amount)
 {
@@ -40,22 +55,34 @@ std::string formatMoney(double amount)
     return oss.str();
 }
 
+/**
+ * @brief Structure to store city growth statistics.
+ */
+
 struct GrowthStats
 {
-    int population;
-    double employmentRate;
-    double governmentBudget;
-    double totalSatisfaction;
+    int population; /**< Population of the city */
+    double employmentRate;  /**< Employment rate percentage */
+    double governmentBudget;  /**< Current government budget */
+    double totalSatisfaction;  /**< Overall citizen satisfaction percentage */
 };
-
+/**
+ * @brief Main function to run the city simulation program.
+ * 
+ * This function provides a menu interface for managing transportation, tax,
+ * buildings, and citizen satisfaction within the simulation. It tracks
+ * growth statistics over multiple years.
+ * 
+ * @return int Program exit status.
+ */
 int main()
 {
-    double cityBudget = 2000000.00;
-    double taxSatisfaction = 0.0;     
-    double transportSatisfaction = 0.0; 
-    double citizenSatisfaction = 0.0;
-    double productivity = 0.0;   
-    double overallSatisfaction = 0.0; 
+    double cityBudget = 2000000.00;  /**< Initial city budget */
+    double taxSatisfaction = 0.0;     /**< Tax satisfaction percentage */
+    double transportSatisfaction = 0.0; /**< Transport satisfaction percentage */
+    double citizenSatisfaction = 0.0;  /**< Citizen satisfaction percentage */
+    double productivity = 0.0;   /**< Productivity percentage */
+    double overallSatisfaction = 0.0; /**< Overall satisfaction percentage */
 
     TransportationManager transportationManager(cityBudget, transportSatisfaction, productivity);
     TaxManager taxManager(cityBudget, taxSatisfaction);
