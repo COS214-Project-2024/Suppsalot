@@ -103,8 +103,8 @@ class BuildingStatistics{
         // while some resources increase, buildings will also use up electricity and water
         double powerConsumption = static_cast<int>(
             ((HouseCounter * 30.5 + FlatCounter * 32.0 + TownhouseCounter * 4.5 + EstateCounter * 5.5) +
-            (ShopCounter * 70.5 + MallCounter * 120.0 + OfficeCounter * 80.5) +
-            (LandmarkCounter * 6.0))*12
+            (ShopCounter * 70.5 + MallCounter * 120.0 + OfficeCounter * 8.5) +
+            (LandmarkCounter * 60.0))*12
         );
         powerManager->useResource(powerConsumption);
 
