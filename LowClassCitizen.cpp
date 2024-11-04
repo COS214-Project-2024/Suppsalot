@@ -3,6 +3,7 @@
 int LowClassCitizen::LCC = 0;
 
 LowClassCitizen::LowClassCitizen(){
+    ++LCC;
 std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> satisfactionDist(10, 30);

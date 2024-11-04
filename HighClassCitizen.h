@@ -11,7 +11,7 @@ HighClassCitizen();
 PrototypeCitizen* clone() const override;
 
 void displayInfo() override;
-
+static int getHighClassCount();
 protected:
 void baseSatisfaction() override;
 
@@ -22,7 +22,7 @@ void adjustForServices() override;
 void adjustForPolicies() override;
 
 void toggleEmployment() override;
-int getHighClassCount();
+
 };
 
 #endif

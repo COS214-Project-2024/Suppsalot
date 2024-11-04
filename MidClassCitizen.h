@@ -14,6 +14,7 @@ PrototypeCitizen* clone() const override;
 
 void displayInfo() override;
 
+static int getMidClassCount();
 protected:
 void baseSatisfaction() override;
 
@@ -25,7 +26,7 @@ void adjustForPolicies() override;
 
 void toggleEmployment() override;
 
-static int getMidClassCount();
+
 
 };
 

@@ -7,6 +7,7 @@ public:
     LowClassCitizen();
 	PrototypeCitizen* clone() const override;
 	void displayInfo() override;
+	static int getLowClassCount();
 protected:
 	void baseSatisfaction() override;
 	void adjustForEmployment() override;
@@ -15,7 +16,7 @@ protected:
 	void adjustForPolicies() override;
 
 	void toggleEmployment() override;
-	static int getLowClassCount();
+	
 };
 
 #endif

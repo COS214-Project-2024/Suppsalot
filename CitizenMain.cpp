@@ -81,16 +81,20 @@ int main() {
                 break;
             }
             case 5: {
-                float avgSatisfaction = citizens.empty() ? 0.0 : totalSatisfaction / citizens.size();
-                std::cout << "\n--- Citizen Information ---\n";
-                for (PrototypeCitizen* citizen : citizens) {
-                    citizen->displayInfo();
-                }
-                std::cout << "\nTotal Citizens: " << citizens.size();
-                std::cout << "\nTotal Citizens: " << PrototypeCitizen::getCitizenCount();
-                std::cout << "\nAverage Satisfaction: " << avgSatisfaction << "\n";
-                break;
-            }
+    float avgSatisfaction = citizens.empty() ? 0.0 : totalSatisfaction / citizens.size();
+    std::cout << "\n--- Citizen Information ---\n";
+    for (PrototypeCitizen* citizen : citizens) {
+        citizen->displayInfo();
+    }
+
+    // Display total count and counts per class
+    std::cout << "\nTotal Citizens: " << citizens.size();
+    std::cout << "\nHigh Class Citizens: " << HighClassCitizen::getHighClassCount();
+    std::cout << "\nMid Class Citizens: " << MidClassCitizen::getMidClassCount();
+    std::cout << "\nLow Class Citizens: " << LowClassCitizen::getLowClassCount();
+    std::cout << "\nAverage Satisfaction: " << avgSatisfaction << "\n";
+    break;
+}
             case 6: {
                 int numToKill;
                 std::cout << "Enter the number of citizens to kill: ";
