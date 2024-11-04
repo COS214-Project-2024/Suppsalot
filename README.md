@@ -26,6 +26,7 @@ This project simulates a city environment where resources are managed. Players c
 - `Valgrind` (for memory leak detection)
 
 ## Compilation and Running
+- `make clean`
 - `make`
 - `make run`
 
