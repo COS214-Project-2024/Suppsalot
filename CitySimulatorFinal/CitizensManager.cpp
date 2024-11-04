@@ -1,19 +1,14 @@
-// CitizensManager.cpp
 #include "CitizensManager.h"
 
-// Constructor
 CitizensManager::CitizensManager() : totalSatisfaction(0.0f)
 {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 }
 
-// Destructor
 CitizensManager::~CitizensManager()
 {
-    // No manual deletion needed due to smart pointers
 }
 
-// Helper function to get validated user choice
 int CitizensManager::getValidatedChoice(int min, int max)
 {
     int choice;
@@ -22,13 +17,13 @@ int CitizensManager::getValidatedChoice(int min, int max)
         std::cin >> choice;
         if (std::cin.fail() || choice < min || choice > max)
         {
-            std::cin.clear();                                                   // Clear the error flag
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
             std::cout << "Invalid input. Please enter a number between " << min << " and " << max << ": ";
         }
         else
         {
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard remaining input
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
             return choice;
         }
     }
@@ -74,7 +69,7 @@ void CitizensManager::manageCitizens()
         switch (choice)
         {
         case 1:
-        { // Create High Class Citizens
+        { 
             int num;
             std::cout << "Enter the number of High Class Citizens to create: ";
             std::cin >> num;
@@ -96,7 +91,7 @@ void CitizensManager::manageCitizens()
             break;
         }
         case 2:
-        { // Create Mid Class Citizens
+        { 
             int num;
             std::cout << "Enter the number of Mid Class Citizens to create: ";
             std::cin >> num;
@@ -118,7 +113,7 @@ void CitizensManager::manageCitizens()
             break;
         }
         case 3:
-        { // Create Low Class Citizens
+        { 
             int num;
             std::cout << "Enter the number of Low Class Citizens to create: ";
             std::cin >> num;
@@ -140,7 +135,7 @@ void CitizensManager::manageCitizens()
             break;
         }
         case 4:
-        { // Toggle Employment Status
+        { 
             int employmentChoice;
             std::cout << "Choose Citizen Class to Toggle Employment Status:\n";
             std::cout << "1. High Class\n";
@@ -167,20 +162,18 @@ void CitizensManager::manageCitizens()
             break;
         }
         case 5:
-        { // Display Citizen Info & Average Satisfaction
+        { 
             std::cout << "\n--- Citizen Information ---\n";
                 for (const auto& citizen : citizens) {
                     citizen->displayInfo();
                 }
 
-                // Display total count and counts per class
                 std::cout << "\nTotal Citizens: " << citizens.size();
                 std::cout << "\nHigh Class Citizens: " << HighClassCitizen::getHighClassCount();
                 std::cout << "\nMid Class Citizens: " << MidClassCitizen::getMidClassCount();
                 std::cout << "\nLow Class Citizens: " << LowClassCitizen::getLowClassCount();
                 std::cout << "\nTotal Employed Citizens: ";
 
-                // Convert unique_ptr vector to raw pointer vector
                 std::vector<PrototypeCitizen*> rawCitizens;
                 rawCitizens.reserve(citizens.size());
                 for (const auto& citizen : citizens) {
@@ -194,7 +187,7 @@ void CitizensManager::manageCitizens()
                 break;
         }
         case 6:
-        { // Kill Citizens
+        { 
             int numToKill;
             std::cout << "Enter the number of citizens to kill: ";
             std::cin >> numToKill;
@@ -216,13 +209,13 @@ void CitizensManager::manageCitizens()
             {
                 int index = std::rand() % citizens.size();
                 totalSatisfaction -= citizens[index]->getSatisfaction();
-                citizens.erase(citizens.begin() + index); // unique_ptr handles deletion
+                citizens.erase(citizens.begin() + index); 
             }
             std::cout << numToKill << " citizens have been killed.\n";
             break;
         }
         case 7:
-        { // Exit to Main Menu
+        { 
             running = false;
             std::cout << "Exiting Citizens Management.\n";
             break;
@@ -233,7 +226,6 @@ void CitizensManager::manageCitizens()
     }
 }
 
-// Progress Year
 void CitizensManager::progressYear()
 {
     BuildingStatistics::YearCitizenConsumer(citizens.size());

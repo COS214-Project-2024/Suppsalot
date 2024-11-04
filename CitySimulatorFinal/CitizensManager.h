@@ -1,4 +1,3 @@
-// CitizensManager.h
 #ifndef CITIZENSMANAGER_H
 #define CITIZENSMANAGER_H
 
@@ -12,7 +11,7 @@
 #include "MidClassCitizen.h"
 #include "LowClassCitizen.h"
 #include "CitizenStatistics.h"
-#include "BuildingStatistics.h" // Assuming this contains YearCitizenConsumer
+#include "BuildingStatistics.h" 
 
 class CitizensManager {
 public:
@@ -31,8 +30,7 @@ private:
     std::vector<std::unique_ptr<PrototypeCitizen>> citizens;
     float totalSatisfaction;
 
-    // Helper function to validate user input
     int getValidatedChoice(int min, int max);
 };
 
-#endif // CITIZENSMANAGER_H
+#endif 
