@@ -1,5 +1,37 @@
 # Team-23 - Suppsalot
-Our description:
+# Introduction to the team
+- Ibrahim Said (22567072)
+- Kyle Liebenberg (22608789)
+- Talhah (22509748)
+- Abdullah Pochee (23726980)
+- Ronan (23528568)
+- Marcelo (22491717)
+
+# ReadME
+## Overview
+This project simulates a city environment where resources are managed. Players can construct various types of buildings, manage citizen classes, and optimize resources for the city's development.
+
+## Features
+- **Buildings**: Includes Residential, Industrial, Commercial, and Landmark buildings, each using up city budget as well as resources
+- **Resource Management**: Track and manage resources required for city growth. 
+- **Tax System**: Where different tax strategies each affect the income of the citizens.
+- **Citizens**: Different classes of citizens are managed which contribute to the city and use up resources.
+- **Government**: This is where mayor control over policies and resources will occur, this will be the point of authority for the city.
+- **City Growth**: Enables consistent and efficient expansion of the city infrustructure.
+- **Transport** : Tansportation monitors the condition of various transport types, impacting citizen satisfaction and overall quality of service.
+
+## Dependencies
+- `g++` (for compiling the code)
+- `lcov` and `genhtml` (for generating code coverage reports)
+- `Valgrind` (for memory leak detection)
+
+## Compilation and Running
+- `make clean`
+- `make`
+- `make run`
+
+# Our description:
+**NOTE**: This was definately all typed out by us. Yes GPT might have generated it but we typed it. So therefore it's our own work. Thanks.
 # The Sovereign's Dominion: A Saga of Control and Consequence
 In the sprawling landscape of a city simulator, the power bestowed upon its creator is nothing short of divine. Here, in this digital realm, an individual sits at the helm, with the power to shape destinies, foster prosperity, or herald the apocalypse. This simulation is more than just a game—it's a microcosm, a delicate balance between creation and destruction, autonomy and authority.
 
